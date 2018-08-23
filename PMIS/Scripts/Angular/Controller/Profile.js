@@ -1,4 +1,5 @@
-﻿module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
+﻿
+module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
     s.Message = "";
     s.FileInvalidMessage = "";
     s.SelectedFileForUpload = null;
@@ -16,6 +17,7 @@
     $(document).ready(function () {
         $("#file").attr("src", name[0].profpath);
     })
+
     $("#modaltitle").text("Edit Profile Picture");
         
     
