@@ -10,7 +10,7 @@ namespace PMIS.Controllers
 {
     public class ProjectController : Controller
     {
-        DbModel db = new DbModel();
+        PMISEntities db = new PMISEntities();
         // GET: Project
         public ActionResult List()
         {

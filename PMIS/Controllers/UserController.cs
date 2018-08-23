@@ -9,7 +9,7 @@ namespace PMIS.Controllers
 {
     public class UserController : Controller
     {
-        DbModel db = new DbModel();
+        PMISEntities db = new PMISEntities();
         // GET: User
         public ActionResult Index()
         {

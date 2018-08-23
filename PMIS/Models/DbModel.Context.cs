@@ -15,10 +15,10 @@ namespace PMIS.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class DbModel : DbContext
+    public partial class PMISEntities : DbContext
     {
-        public DbModel()
-            : base("name=DbModel")
+        public PMISEntities()
+            : base("name=PMISEntities")
         {
         }
     
@@ -29,14 +29,14 @@ namespace PMIS.Models
     
         public virtual DbSet<participant> participants { get; set; }
         public virtual DbSet<project> projects { get; set; }
-        public virtual DbSet<projecmessage> projecmessages { get; set; }
         public virtual DbSet<task> tasks { get; set; }
-        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<tasklog> tasklogs { get; set; }
+        public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<projecmessage> projecmessages { get; set; }
     
-        public virtual ObjectResult<spGetProjList_Result> spGetProjList()
+        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjList_Result>("spGetProjList");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
         }
     
         public virtual ObjectResult<spGetParticipantsByProj_Result> spGetParticipantsByProj(Nullable<int> projId)
@@ -48,9 +48,9 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipantsByProj_Result>("spGetParticipantsByProj", projIdParameter);
         }
     
-        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
+        public virtual ObjectResult<spGetProjList_Result> spGetProjList()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjList_Result>("spGetProjList");
         }
     
         public virtual ObjectResult<spGetProjTask_Result> spGetProjTask(Nullable<int> projId)
@@ -62,15 +62,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjTask_Result>("spGetProjTask", projIdParameter);
         }
     
-        public virtual ObjectResult<spProjectDetails_Result> spProjectDetails(Nullable<int> projId)
-        {
-            var projIdParameter = projId.HasValue ?
-                new ObjectParameter("projId", projId) :
-                new ObjectParameter("projId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectDetails_Result>("spProjectDetails", projIdParameter);
-        }
-    
         public virtual ObjectResult<spgetTaskLog_Result> spgetTaskLog(Nullable<int> taskId)
         {
             var taskIdParameter = taskId.HasValue ?
@@ -80,15 +71,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetTaskLog_Result>("spgetTaskLog", taskIdParameter);
         }
     
-        public virtual ObjectResult<spUserProjectList_Result> spUserProjectList(Nullable<int> userId)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
-        }
-    
         public virtual ObjectResult<spGetUserTask_Result> spGetUserTask(Nullable<int> userId)
         {
             var userIdParameter = userId.HasValue ?
@@ -96,6 +78,24 @@ namespace PMIS.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserTask_Result>("spGetUserTask", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spProjectDetails_Result> spProjectDetails(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectDetails_Result>("spProjectDetails", projIdParameter);
+        }
+    
+        public virtual ObjectResult<spUserProjectList_Result> spUserProjectList(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
         }
     }
 }

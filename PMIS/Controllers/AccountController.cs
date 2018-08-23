@@ -13,7 +13,7 @@ namespace PMIS.Controllers
 {
     public class AccountController : Controller
     {
-        DbModel db = new DbModel();
+        PMISEntities db = new PMISEntities();
         // GET: Account
         [HttpGet]
         public ActionResult Login()
@@ -50,7 +50,7 @@ namespace PMIS.Controllers
             if (usercount.Count() > 0)
             {
                 ViewBag.UserExist = true;
-                if (p.password != p.confPass)
+                if (p.password != p.password)
                 {
                     ViewBag.UserExist = false;
                     ViewBag.UserAndPass = true;
@@ -58,7 +58,7 @@ namespace PMIS.Controllers
                 return View("Register");
 
             }
-            else if (p.password != p.confPass)
+            else if (p.password != p.password)
             {
                 ViewBag.NotMatch = true;
                 return View("Register");
@@ -248,6 +248,11 @@ namespace PMIS.Controllers
             }
 
             return new JsonResult { Data = new { Message = Message, Status = flag } };
+        }
+        public ActionResult getUser(int id)
+        {
+            List<user> ur = db.users.Where(e => e.userId == id).ToList();
+            return Json(ur[0], JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -24,6 +24,7 @@
     .when("/user/profile/userId=:userId", {
         templateUrl: "../PartialViews/UserProfile",
         controller: "profileCtrl"
+        
     })
     $locationProvider.html5Mode(true);
 })

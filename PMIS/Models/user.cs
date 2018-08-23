@@ -23,6 +23,5 @@ namespace PMIS.Models
         public string profpath { get; set; }
         public string coverpath { get; set; }
         public string status { get; set; }
-        public string confPass { get; set; }
     }
 }

@@ -6,19 +6,23 @@
     s.IsFormSubmitted = false;
     s.IsFileValid = false;
     s.IsFormValid = false;
-    var name = JSON.parse(localStorage.userinfo);
+    var name = JSON.parse(localStorage.userInfo);
     s.USERID = "";
     s.USERNAME = "";
     s.PROFPATH = "";
 
-
+    
+    
     $(document).ready(function () {
-        $("#file").attr("src", name.profpath);
+        $("#file").attr("src", name[0].profpath);
     })
+    $("#modaltitle").text("Edit Profile Picture");
+        
+    
     $(document).ready(function () {
-        $('#coverid').css("background-image", "url('" + name.coverpath + "')");
+        $('#coverid').css("background-image", "url('" + name[0].coverpath + "')");
     })
-    $("#fullname").text(name.firstname + " " + name.lastname);
+    $("#fullname").text(name[0].firstname + " " + name[0].lastname);
     s.click = function (id) {
         r.post("../Account/getUser?id=" + id).then(function (d) {
 
@@ -29,6 +33,24 @@
             console.log(d.data);
         });
     }
+    s.click_editprofile=function()
+    {
+
+        
+        
+            $("#modaltitle").text("Edit Profile Picture");
+        
+    }
+    s.click_editcover=function()
+    {
+
+
+        
+            $("#modaltitle").text("Edit Cover Image");
+
+    }
+
+
 
     s.updateprofile = function (d) {
         r.post("../Account/updateprofile", d).then(function (d) {

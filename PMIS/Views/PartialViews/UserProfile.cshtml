@@ -31,7 +31,7 @@
 
 <section class="content-header" ng-controller="profileCtrl">
     <div class="profile-cover">
-        <div class="profile-cover-img" id="coverid" style="background-image: url('../../uploads/kanon.jpg');"></div>
+        <div class="profile-cover-img" id="coverid" style="background-image: url(''); "></div>
         <div class="media">
 
 
@@ -49,8 +49,8 @@
             </div>
             <div class="media-right media-middle row">
                 <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
-                    <li ng-click="click(@ur.userId)" onclick="ProfilePictureModalTitle()"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
-                    <li ng-click="change()" ) onclick="CoverImageModalTitle()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+                    <li ng-click="click_editprofile();click(@ur.userId)"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
+                    <li ng-click="click_editcover();change()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
                 </ul>
             </div>
         </div>
@@ -276,7 +276,7 @@
             <div class="modal-content">
 
                 <div class="modal-header box-header box-primary">
-                    <h5 class="modal-title" id="modaltitle" onload="">edit</h5>
+                    <h5 class="modal-title" id="modaltitle"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
