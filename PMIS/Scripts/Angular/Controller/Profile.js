@@ -11,12 +11,11 @@
     s.USERNAME = "";
     s.PROFPATH = "";
 
-    
+    $("#ProfilePictureModal").css("display", "none");
     
     $(document).ready(function () {
         $("#file").attr("src", name[0].profpath);
     })
-    $("#modaltitle").text("Edit Profile Picture");
         
     
     $(document).ready(function () {
@@ -35,18 +34,14 @@
     }
     s.click_editprofile=function()
     {
-
-        
-        
-            $("#modaltitle").text("Edit Profile Picture");
+        s.modaltitle = "Edit Profile Picture";
+            //$("#modaltitle").text("Edit Profile Picture");
         
     }
     s.click_editcover=function()
     {
-
-
-        
-            $("#modaltitle").text("Edit Cover Image");
+        s.modaltitle = "Edit Cover Picture";
+            //$("#modaltitle").text("Edit Cover Image");
 
     }
 
