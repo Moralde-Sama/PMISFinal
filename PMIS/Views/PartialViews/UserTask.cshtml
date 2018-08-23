@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-12" ng-repeat="(fIndex, project) in projlist">
             <div class="animated fadeIn">
-                <div class="mycollapsible border-top-active">
+                <div class="mycollapsible border-top-active" ng-click="showhideTask(fIndex)">
                     <table style="width:100%;">
                         <tr>
                             <td style="width:30px;">
@@ -45,7 +45,7 @@
                             </td>
                             <td style="width:80px;">
                                 <a href="/Project/Details/projectId={{project.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
-                                <button class="btn btn-info" ng-click="showhideTask(fIndex)"><i id="tasklist{{fIndex}}" class="fa fa-tasks"> Show Tasks</i></button>
+                                <button class="btn btn-info"><i id="tasklist{{fIndex}}" class="fa fa-tasks"> Show Tasks</i></button>
                             </td>
                         </tr>
                     </table>
