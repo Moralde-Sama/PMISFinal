@@ -1,0 +1,111 @@
+﻿
+<div class="animated fadeIn">
+    <div class="card" style="border-top: 2px solid blue">
+        <div class="card-content" style="padding:0 20px 0 20px;">
+            <div class=" row">
+                <div class="col-sm-7">
+                    <h2 style="font-weight:bold;">My Projects and Tasks</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            Projects
+                        </li>
+                        <li class="active">
+                            <strong>My Projects and Tasks</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12" ng-repeat="(fIndex, project) in projlist">
+            <div class="animated fadeIn">
+                <div class="mycollapsible border-top-active">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:30px;">
+                                <div>
+                                    <span class="{{setStatusColor(project.status)}}">{{project.status}}</span>
+                                </div>
+                            </td>
+                            <td style="width:130px;">
+                                <label style="display: inline-block;position: relative; cursor:pointer; margin-top:8px;" class="ng-binding"> {{project.title}}</label>
+                                <p style="margin-top:-5px; font-size:10px; font-weight:700;">Creator: {{project.creator}}</p>
+                            </td>
+                            <td style="width:100px;">
+                                <div style="padding: 0 10px 0 10px;">
+                                    <div class="progress progress-xs progress-striped active" style="margin-top:16px;">
+                                        <div class="progress-bar progress-bar-success" style="width: {{project.percentage}}%"></div>
+                                    </div>
+                                    <p style="margin-top:-15px; font-size:10px; font-weight:700;">Completion with: {{project.percentage}}%</p>
+                                </div>
+                            </td>
+                            <td style="width:80px;">
+                                <a href="/Project/Details/projectId={{project.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
+                                <button class="btn btn-info" ng-click="showhideTask(fIndex)"><i id="tasklist{{fIndex}}" class="fa fa-tasks"> Show Tasks</i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mycollapsiblecontent">
+                    <div class="animated fadeIn">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="card" style="border-top: 2px solid blue">
+                                    <div class="card-title" style="padding:20px 20px 0 20px;">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="searchTask" style="color:black;">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="card-content" style="padding:20px 15px 5px 15px;">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr class="animated fadeIn" ng-repeat="(sIndex, task) in tasks | filter: {projId: project.projId} | filter: searchTask">
+                                                    <td style=" text-align:center;padding-top:13px;" width="40px;">
+                                                        <span class="{{setStatusColor(task.status)}}">{{task.status}}</span>
+                                                    </td>
+                                                    <td style="text-align:center; font-weight:bold;">
+                                                        <input type="text" style="cursor:pointer;" class="form-control" value="{{task.title}}" ng-click="showData(fIndex, task.taskId)">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card" style="border-top: 2px solid blue; padding: 10px 20px 0 20px;">
+                                    <div class="card-content">
+                                        <div class=" row" style="padding: 0 15px 15px 15px;">
+                                            <div class="col-md-12" style="text-align: center; border-bottom: 2px solid gray; border-top: 2px solid gray; padding-bottom:10px;">
+                                                <h3 id="title{{fIndex}}" style="font-weight: bold;" class="animated fadeIn">Select a Task</h3>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="form-group">
+                                                    <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
+                                                    <p style="border: 2px solid gray; padding:15px;" id="comment{{fIndex}}"></p>
+                                                </div>
+                                            </div>
+                                            <div id="tasklog{{fIndex}}" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
+                                                <div ng-repeat="(lIndex, log) in tasklogs">
+                                                    <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log' + lIndex}}">{{showCreatedBy(log.userId, log.fullname, log.fullname2, log.logcontent, fIndex, lIndex)}}</a> {{log.logcontent}}  <a id="assign{{fIndex}}{{lIndex}}"> {{showAssignTo(log.userId2, log.logcontent, log.fullname2, fIndex, lIndex)}} </a></p>
+                                                </div>
+                                            </div>
+                                            <div id="btn{{fIndex}}" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
+                                                <button class="btn btn-info" id="btnSubmit{{fIndex}}" ng-click="submitCancelTask(fIndex, task.taskId)"><i class="fa fa-send"> Submit</i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

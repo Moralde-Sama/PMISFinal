@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PMISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="participant">
+          <Key>
+            <PropertyRef Name="partId" />
+          </Key>
+          <Property Name="partId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="projecmessage">
+          <Key>
+            <PropertyRef Name="messId" />
+            <PropertyRef Name="projId" />
+            <PropertyRef Name="message" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="messId" Type="int" Nullable="false" />
+          <Property Name="projId" Type="int" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="projId" />
+          </Key>
+          <Property Name="projId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="lastupdated" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="version" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="createddate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="enddate" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="taskId" />
+          </Key>
+          <Property Name="taskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projId" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="createdby" Type="int" Nullable="false" />
+          <Property Name="assignto" Type="int" Nullable="false" />
+          <Property Name="startdate" Type="datetime" Nullable="false" />
+          <Property Name="enddate" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tasklog">
+          <Key>
+            <PropertyRef Name="tasklogId" />
+          </Key>
+          <Property Name="tasklogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskId" Type="int" Nullable="false" />
+          <Property Name="logcontent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="assignto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="middlename" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="profpath" Type="varchar(max)" Nullable="false" />
+          <Property Name="coverpath" Type="varchar(max)" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetProjList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetProjTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spgetTaskLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUserProjectList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PMISModelStoreContainer">
+          <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="projecmessage" EntityType="Self.projecmessage" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [projecmessage].[messId] AS [messId], 
+    [projecmessage].[projId] AS [projId], 
+    [projecmessage].[message] AS [message], 
+    [projecmessage].[date] AS [date]
+    FROM [dbo].[projecmessage] AS [projecmessage]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PMISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbModel" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
+          <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
+          <Parameter Name="projId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
+          <EntitySet Name="participants" EntityType="PMISModel.participant" />
+          <EntitySet Name="projects" EntityType="PMISModel.project" />
+          <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
+          <EntitySet Name="tasks" EntityType="PMISModel.task" />
+          <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
+          <Parameter Name="projId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
+          <Parameter Name="projId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="users" EntityType="PMISModel.user" />
+          <EntitySet Name="tasklogs" EntityType="PMISModel.tasklog" />
+          <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
+          <Parameter Name="taskId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spGetProjList_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+          <Property Type="Int32" Name="Completed" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetParticipantsByProj_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="creator" Nullable="true" />
+          <Property Type="String" Name="position" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetParticipants_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="profpath" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="participant">
+          <Key>
+            <PropertyRef Name="partId" />
+          </Key>
+          <Property Name="partId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="projId" />
+          </Key>
+          <Property Name="projId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="lastupdated" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="version" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="enddate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="projecmessage">
+          <Key>
+            <PropertyRef Name="messId" />
+            <PropertyRef Name="projId" />
+            <PropertyRef Name="message" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="messId" Type="Int32" Nullable="false" />
+          <Property Name="projId" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="taskId" />
+          </Key>
+          <Property Name="taskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projId" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="Int32" Nullable="false" />
+          <Property Name="assignto" Type="Int32" Nullable="false" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="enddate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="spGetProjTask_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="spProjectDetails_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+          <Property Type="String" Name="version" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="lastupdated" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="createddate" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Percentage" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="middlename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="coverpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tasklog">
+          <Key>
+            <PropertyRef Name="tasklogId" />
+          </Key>
+          <Property Name="tasklogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taskId" Type="Int32" Nullable="false" />
+          <Property Name="logcontent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="assignto" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="spgetTaskLog_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="String" Name="logcontent" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="Int32" Name="userId2" Nullable="false" />
+          <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
+        </ComplexType>
+        <ComplexType Name="spUserProjectList_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+          <Property Type="Int32" Name="Completed" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetUserTask_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PMISModelStoreContainer" CdmEntityContainer="DbModel">
+          <FunctionImportMapping FunctionImportName="spGetProjList" FunctionName="PMISModel.Store.spGetProjList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetProjList_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="position" ColumnName="position" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="participants">
+            <EntityTypeMapping TypeName="PMISModel.participant">
+              <MappingFragment StoreEntitySet="participant">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="partId" ColumnName="partId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projects">
+            <EntityTypeMapping TypeName="PMISModel.project">
+              <MappingFragment StoreEntitySet="project">
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projecmessages">
+            <EntityTypeMapping TypeName="PMISModel.projecmessage">
+              <MappingFragment StoreEntitySet="projecmessage">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="messId" ColumnName="messId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="PMISModel.task">
+              <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="assignto" ColumnName="assignto" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="PMISModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="coverpath" ColumnName="coverpath" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasklogs">
+            <EntityTypeMapping TypeName="PMISModel.tasklog">
+              <MappingFragment StoreEntitySet="tasklog">
+                <ScalarProperty Name="assignto" ColumnName="assignto" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="logcontent" ColumnName="logcontent" />
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="tasklogId" ColumnName="tasklogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spgetTaskLog" FunctionName="PMISModel.Store.spgetTaskLog">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spgetTaskLog_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="logcontent" ColumnName="logcontent" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="userId2" ColumnName="userId2" />
+                <ScalarProperty Name="fullname2" ColumnName="fullname2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spUserProjectList" FunctionName="PMISModel.Store.spUserProjectList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spUserProjectList_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

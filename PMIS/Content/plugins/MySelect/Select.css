@@ -1,0 +1,55 @@
+﻿.labelPrimary{
+    font-weight:bold;
+    font-size:10px;
+    color:white;
+    border-radius:3px;
+    padding:3px;
+    background-color:#02A65C;
+}
+
+.MySelectContainer{
+    cursor:pointer;
+    margin-top: -8px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+}
+.MySelect{
+    height: 45px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight:500;
+    border-radius: 20px;
+    border: 2px solid #3C8DBC;
+}
+.MySelectContainer ul{
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    /*background-color:#3C8DBC;*/
+    /*border:1px solid #3C8DBC;*/
+    display: block;
+}
+.MySelectContainer ul li img{
+    margin-left:-15px;
+    margin-top:1px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+.MySelectContainer li{
+    list-style: none;
+    margin-left:-25px;
+}
+.MySelect img{
+    float:left;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+.MySelect p{
+    padding-left: 5px;
+    float:left;
+    margin-top:5px;
+    display:inline-block;
+}

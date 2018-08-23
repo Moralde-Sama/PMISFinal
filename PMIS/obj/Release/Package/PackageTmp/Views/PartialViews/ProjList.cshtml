@@ -1,0 +1,78 @@
+﻿<div class="animated fadeIn">
+    <div class="card" style="border-top: 2px solid blue">
+        <div class="card-content" style="padding:0 20px 0 20px;">
+            <div class=" row">
+                <div class="col-sm-4">
+                    <h2 style="font-weight:bold;">Project List</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            Projects
+                        </li>
+                        <li class="active">
+                            <strong>List</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-sm-8" style="text-align:end; padding: 30px 20px 20px 30px;">
+                    @*<button href="/Project/Add" id="projectList" class="btn btn-app active" style="background-color:transparent; margin-left:-5px;">
+                        <i class="glyphicon glyphicon-list" style="margin-top:-3px;"></i> List
+                    </button>*@
+                    <a href="/Project/Add" class="btn btn-app" style="background-color:transparent; margin-left:-5px;">
+                        <i class="glyphicon glyphicon glyphicon-plus" style="margin-top:-3px;"></i> New Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="border-top: 2px solid blue">
+                <div class="card-title" style="padding:20px 20px 0 20px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div style="overflow-x:auto;">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
+                                    <td style=" text-align:center;padding-top:23px; min-width:70px;">
+                                    <span class="label label-info">{{data.status}}</span></td>
+                                    <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
+                                        <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
+                                    </td>
+                                    <td style="min-width: 150px; text-align:center; padding-top:15px;">
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
+
+                                        </div>
+                                        <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
+
+                                    </td>
+
+                                    <td style="text-align:end; padding-top:15px; max-width: 250px;">
+                                        <div class="animated fadeIn" ng-repeat="pp in participants | filter: data.projId" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+
+                                            <a href="" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align:center; padding-top:17px; min-width:180px;">
+                                        <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder"> View</i></a>
+                                        <button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

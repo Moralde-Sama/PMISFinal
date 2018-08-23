@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\www\pmis.com</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>07/24/2018 11:17:52</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>07/24/2018 11:17:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>07/23/2018 19:06:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>07/23/2018 19:06:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>07/23/2018 19:06:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>07/23/2018 19:06:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>07/23/2018 19:06:20</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>07/23/2018 19:06:20</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>07/23/2018 19:06:20</publishTime>
+    </File>
+    <File Include="bin/PMIS.dll">
+      <publishTime>08/09/2018 13:45:24</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>07/23/2018 15:41:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>07/23/2018 15:41:45</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>07/23/2018 15:41:43</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>07/23/2018 15:41:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>07/23/2018 15:41:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>07/23/2018 15:41:44</publishTime>
+    </File>
+    <File Include="Content/animate.min.css">
+      <publishTime>07/24/2018 19:30:10</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap.css">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap.css.map">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap.min.css">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/font-awesome.min.css">
+      <publishTime>08/09/2018 10:12:52</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/ionicons.min.css">
+      <publishTime>08/09/2018 10:12:52</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/js/bootstrap.js">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/js/bootstrap.min.js">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/js/npm.js">
+      <publishTime>07/23/2018 19:11:27</publishTime>
+    </File>
+    <File Include="Content/ContactBox.css">
+      <publishTime>07/27/2018 11:19:38</publishTime>
+    </File>
+    <File Include="Content/dist/css/AdminLTE.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/AdminLTE.min.css">
+      <publishTime>08/09/2018 10:09:34</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-black-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-black-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-black.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-black.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-blue-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-blue-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-blue.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-blue.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-green-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-green-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-green.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-green.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-purple-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-purple-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-purple.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-purple.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-red-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-red-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-red.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-red.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-yellow-light.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-yellow-light.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-yellow.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/skin-yellow.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/_all-skins.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/css/skins/_all-skins.min.css">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/avatar.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/avatar04.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/avatar2.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/avatar3.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/avatar5.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/boxed-bg.jpg">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/boxed-bg.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/american-express.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/cirrus.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/mastercard.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/mestro.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/paypal.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/paypal2.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/credit/visa.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/default-50x50.gif">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/icons.png">
+      <publishTime>07/23/2018 19:11:44</publishTime>
+    </File>
+    <File Include="Content/dist/img/photo1.png">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/photo2.png">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/photo3.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/photo4.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user1-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user2-160x160.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user3-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user4-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user5-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user6-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user7-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/img/user8-128x128.jpg">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/js/app.js">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/js/app.min.js">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/js/demo.js">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/js/pages/dashboard.js">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/dist/js/pages/dashboard2.js">
+      <publishTime>07/23/2018 19:11:45</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/add_friend-512.png">
+      <publishTime>07/26/2018 20:20:26</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/animate.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/bootstrap.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/bootstrap.min.js">
+      <publishTime>07/26/2018 19:50:00</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/custom.css">
+      <publishTime>07/26/2018 20:18:27</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/ddntrans.png">
+      <publishTime>07/26/2018 19:51:16</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/font-awesome.css">
+      <publishTime>07/26/2018 19:48:40</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/3.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/4.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/header-profile-skin-1.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/header-profile-skin-2.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/header-profile-skin-3.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/header-profile.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/patterns/shattered.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/css/blueimp-gallery.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/error.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/error.svg">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/loading.gif">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/play-pause.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/play-pause.svg">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/video-play.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/blueimp/img/video-play.svg">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/bootstrapTour/bootstrap-tour.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/c3/c3.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/chartist/chartist.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/chosen/chosen-sprite%402x.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/chosen/chosen-sprite.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/chosen/chosen.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/clockpicker/clockpicker.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/codemirror/ambiance.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/codemirror/codemirror.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/colorpicker/bootstrap-colorpicker.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/cropper/cropper.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/datapicker/datepicker3.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/dataTables/datatables.min.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/daterangepicker/daterangepicker-bs3.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/dropzone/basic.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/dropzone/dropzone.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fonts/glyphicons-halflings-regular-2.html">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fonts/glyphicons-halflings-regular-3.html">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fonts/glyphicons-halflings-regular-4.html">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fonts/glyphicons-halflings-regular.html">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fonts/glyphicons-halflings-regulard41d.html">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/fonts/footable.eot">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/fonts/footable.svg">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/fonts/footable.ttf">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/fonts/footable.woff">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/fonts/footabled41d.eot">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/footable/footable.core.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fullcalendar/fullcalendar.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/fullcalendar/fullcalendar.print.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/iCheck/custom.css">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/iCheck/green%402x.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/iCheck/green.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/bootstrap-colorpicker/alpha-horizontal.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/bootstrap-colorpicker/alpha.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/bootstrap-colorpicker/hue-horizontal.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/bootstrap-colorpicker/hue.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/bootstrap-colorpicker/saturation.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/sprite-skin-flat.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/spritemap%402x.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/images/spritemap.png">
+      <publishTime>07/23/2018 19:26:43</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/ionRangeSlider/ion.rangeSlider.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jasny/jasny-bootstrap.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jqGrid/ui.jqgrid.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/animated-overlay.gif">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-icons_222222_256x240.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-icons_454545_256x240.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-icons_888888_256x240.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jQueryUI/jquery-ui.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/jsTree/style.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/ladda/ladda-themeless.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/morris/morris-0.4.3.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/nouslider/jquery.nouislider.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/select2/select2.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/ajax-loader.gif">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/fonts/slick.eot">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/fonts/slick.svg">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/fonts/slick.ttf">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/fonts/slick.woff">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/fonts/slickd41d.eot">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/slick-theme.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/slick/slick.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/steps/jquery.steps.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/summernote/summernote-bs3.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/summernote/summernote.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/sweetalert/sweetalert.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/switchery/switchery.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/toastr/toastr.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/Ispinia/css/style.css">
+      <publishTime>07/23/2018 19:26:44</publishTime>
+    </File>
+    <File Include="Content/materialize.css">
+      <publishTime>07/23/2018 19:41:19</publishTime>
+    </File>
+    <File Include="Content/MyCSS.css">
+      <publishTime>07/27/2018 11:38:46</publishTime>
+    </File>
+    <File Include="Content/plugins/fastclick/fastclick.js">
+      <publishTime>07/23/2018 19:13:34</publishTime>
+    </File>
+    <File Include="Content/plugins/fastclick/fastclick.min.js">
+      <publishTime>07/23/2018 19:13:34</publishTime>
+    </File>
+    <File Include="Content/plugins/icheck.min.js">
+      <publishTime>07/26/2018 20:16:59</publishTime>
+    </File>
+    <File Include="Content/plugins/jQuery/jQuery-2.1.4.min.js">
+      <publishTime>07/23/2018 19:12:24</publishTime>
+    </File>
+    <File Include="Content/plugins/MySelect/Select.css">
+      <publishTime>08/08/2018 20:57:55</publishTime>
+    </File>
+    <File Include="Content/plugins/Protip/protip.min.css">
+      <publishTime>08/05/2018 18:22:25</publishTime>
+    </File>
+    <File Include="Content/plugins/Protip/protip.min.js">
+      <publishTime>08/05/2018 13:54:21</publishTime>
+    </File>
+    <File Include="Content/plugins/slimScroll/jquery.slimscroll.js">
+      <publishTime>07/23/2018 19:12:57</publishTime>
+    </File>
+    <File Include="Content/plugins/slimScroll/jquery.slimscroll.min.js">
+      <publishTime>07/23/2018 19:12:57</publishTime>
+    </File>
+    <File Include="Content/tooltip.css">
+      <publishTime>07/28/2018 16:13:54</publishTime>
+    </File>
+    <File Include="Content/w3schools.css">
+      <publishTime>07/24/2018 10:31:29</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>07/23/2018 15:41:42</publishTime>
+    </File>
+    <File Include="Models/DbModel.edmx.diagram">
+      <publishTime>08/06/2018 09:36:34</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>07/24/2018 11:18:00</publishTime>
+    </File>
+    <File Include="Scripts/Angular/angular-route.min.js">
+      <publishTime>07/23/2018 19:07:58</publishTime>
+    </File>
+    <File Include="Scripts/Angular/angular-ui-router.min.js">
+      <publishTime>08/04/2018 14:49:15</publishTime>
+    </File>
+    <File Include="Scripts/Angular/angular.min.js">
+      <publishTime>07/23/2018 19:07:58</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/Account.js">
+      <publishTime>08/02/2018 16:04:26</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/ProjAdd.js">
+      <publishTime>08/04/2018 09:29:44</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/ProjDetails.js">
+      <publishTime>08/09/2018 12:44:03</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/Project.js">
+      <publishTime>08/05/2018 17:42:14</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/ProjTask.js">
+      <publishTime>08/09/2018 13:43:37</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Controller/WorkSpace.js">
+      <publishTime>07/29/2018 15:27:23</publishTime>
+    </File>
+    <File Include="Scripts/Angular/module.js">
+      <publishTime>07/29/2018 16:19:38</publishTime>
+    </File>
+    <File Include="Scripts/Angular/route.js">
+      <publishTime>08/03/2018 11:33:46</publishTime>
+    </File>
+    <File Include="Scripts/Chat/chat.js">
+      <publishTime>08/08/2018 17:44:17</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.4.js">
+      <publishTime>07/23/2018 19:06:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.4.min.js">
+      <publishTime>07/23/2018 19:06:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.3.0.js">
+      <publishTime>07/23/2018 19:06:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.3.0.min.js">
+      <publishTime>07/23/2018 19:06:27</publishTime>
+    </File>
+    <File Include="Scripts/ModalAnimate.js">
+      <publishTime>08/08/2018 21:12:42</publishTime>
+    </File>
+    <File Include="uploads/kanon.jpg">
+      <publishTime>07/29/2018 17:14:21</publishTime>
+    </File>
+    <File Include="uploads/Kasumeme.jpg">
+      <publishTime>07/18/2018 12:24:19</publishTime>
+    </File>
+    <File Include="uploads/Moralde.png">
+      <publishTime>04/13/2018 22:49:28</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>07/28/2018 08:53:18</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>08/02/2018 09:29:23</publishTime>
+    </File>
+    <File Include="Views/PartialViews/modal.cshtml">
+      <publishTime>07/24/2018 10:40:09</publishTime>
+    </File>
+    <File Include="Views/PartialViews/ProjAdd.cshtml">
+      <publishTime>08/04/2018 14:18:09</publishTime>
+    </File>
+    <File Include="Views/PartialViews/ProjDetails.cshtml">
+      <publishTime>08/09/2018 13:16:35</publishTime>
+    </File>
+    <File Include="Views/PartialViews/ProjList.cshtml">
+      <publishTime>08/06/2018 10:15:46</publishTime>
+    </File>
+    <File Include="Views/PartialViews/ProjTask.cshtml">
+      <publishTime>08/09/2018 13:01:24</publishTime>
+    </File>
+    <File Include="Views/PartialViews/WorkList.cshtml">
+      <publishTime>07/29/2018 17:21:37</publishTime>
+    </File>
+    <File Include="Views/Project/List.cshtml">
+      <publishTime>07/25/2018 11:40:50</publishTime>
+    </File>
+    <File Include="Views/Shared/_HomeLayout.cshtml">
+      <publishTime>08/09/2018 10:13:55</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>07/23/2018 15:41:42</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/25/2018 21:03:50</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

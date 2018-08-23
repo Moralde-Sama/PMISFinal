@@ -1,0 +1,63 @@
+﻿<div class="animated fadeIn">
+    <div class="card" style="border-top: 2px solid blue">
+        <div class="card-content" style="padding:0 20px 0 20px;">
+            <div class=" row">
+                <div class="col-sm-4">
+                    <h2 style="font-weight:bold;">Workspace List</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            Workspace
+                        </li>
+                        <li class="active">
+                            <a href="../Workspace/List">List</a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-sm-8" style="text-align:end; padding: 30px 20px 20px 30px;">
+                    <a href="/project/details" class="btn btn-app">
+                        <i class="fa fa-plus-square-o" style="margin-top:-3px;"></i> New Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeInUp">
+    <div class="row">
+        <div class="col-md-4" ng-repeat="workspace in workspaces">
+            <div class="card">
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header" style="background-color:#3C8DBC; text-align:center;">
+                        <h3 style="margin-top: 6px; color:white;">{{workspace.title}}</h3>
+                        <div style="margin-top:-3px; text-align:center; color:white;">
+                            <span>Completed Projects:</span>
+                            <div style="display:inline-block;" class="stat-percent">{{workspace.Percentage}}%</div>
+                            <div class="progress active" style="border-radius: 10px; margin-top: 4px;">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" style="width:{{workspace.Percentage}}%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-6 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{workspace.Projects}}</h5>
+                                    <span class="description-text">Projects</span>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-6">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{workspace.Members}}</h5>
+                                    <span class="description-text">Members</span>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

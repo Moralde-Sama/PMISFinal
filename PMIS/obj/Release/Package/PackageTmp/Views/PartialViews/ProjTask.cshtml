@@ -1,0 +1,155 @@
+﻿<div class="animated fadeIn">
+    <div class="card" style="border-top: 2px solid blue">
+        <div class="card-content" style="padding:0 20px 0 20px;">
+            <div class=" row">
+                <div class="col-sm-7">
+                    <h2 style="font-weight:bold;">{{projtitle}} Tasks</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            Projects
+                        </li>
+                        <li class="active">
+                            <a href="../Project/List">List</a>
+                        </li>
+                        <li class="active">
+                            <a href="../Project/Details/projectId={{projId}}">{{projtitle}}</a>
+                        </li>
+                        <li class="active">
+                            <strong>Task</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card" style="border-top: 2px solid blue">
+                <div class="card-title" style="padding:20px 20px 0 20px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+                <div class="card-content" style="padding:20px 15px 5px 15px;">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr class="animated fadeIn">
+                                <td style=" text-align:center;padding-top:13px;" width="40px;">
+                                    <span class="label label-info ng-binding">Available</span>
+                                </td>
+                                <td style="text-align:center; font-weight:bold;">
+                                    <input type="text" style="cursor:pointer;" class="form-control" id="inputSuccess" placeholder="Write a task name" ng-model="tasktitle" ng-click="showData($index, 'NewTask')" ng-keyup="keyDown('New')">
+                                </td>
+                            </tr>
+                            <tr class="animated fadeIn" ng-repeat="task in tasks">
+                                <td style=" text-align:center;padding-top:13px;" width="40px;">
+                                    <span class="{{setStatusColor(task.status)}}">{{task.status}}</span>
+                                </td>
+                                <td style="text-align:center; font-weight:bold;">
+                                    <input type="text" style="cursor:pointer;" class="form-control" id="{{task.taskId}}task" value="{{task.title}}" placeholder="Write a task name" ng-click="showData($index, task.taskId)" ng-keyup="keyDown('old', task.taskId+'task')">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card" style="border-top: 2px solid blue">
+                <div class="card-content">
+                    <div class=" row" style="padding: 0 15px 15px 15px;">
+                        <div class="col-md-12" style="border-bottom: 2px solid gray; padding-bottom:10px;">
+                            <div class="row" style="text-align:center;">
+                                <div class="col-md-7" style="margin-left:-5px;">
+                                    @*<button class="btn btn-primary" style="margin-bottom:20px;" type="button"><i class="fa fa-check"></i>&nbsp;Mark as Complete</button>*@
+                                    
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;Mark as Complete</button>
+                                    <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-left:-10px; border-bottom-right-radius:5px; border-top-right-radius:5px;">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                        <ul class="dropdown-menu" role="menu" style="margin-left:35px;">
+                                            <li><a href="#"><i class="fa fa-check"></i>&nbsp;Mark as Reject</a></li>
+                                        </ul>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="MySelectContainer" ng-click="clickAssignTo()">
+                                        <div class="MySelect">
+                                            <img id="MySelectImg" src="~/uploads/Kasumeme.jpg" />
+                                            <p style="font-weight: bold;">Assign To</p>
+                                            <p style="width: 85px;"><marquee scrollamount="3" id="MySelectName">Emmanuel Paul G. Moralde</marquee></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align: center; border-bottom: 2px solid gray; padding-bottom:10px;">
+                            <h3 id="title2" style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
+                        </div>
+                        <div class="col-md-12" style="margin-top:10px;">
+                            <div class="form-group">
+                                <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
+                                <textarea class="form-control" rows="3" placeholder="Description" ng-model="data.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
+                            <p style="font-size: 12px;">No Log</p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:10px; text-align:center;">
+                            <button class="btn btn-info" id="btnCreate" ng-click="createUPTask(data)">Create Task</button>
+                            <button class="btn btn-warning" ng-click="clear()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal" style="display:none; background-color:transparent;">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:ActiveBorder;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="closeAssignTo()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" style="font-weight:bold;">Assign To</h4>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-title" style="padding:20px 20px 0 20px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="overflow-y:auto; max-height:300px;">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr class="animated fadeIn" ng-repeat="participant in participants | filter:searchProj">
+                                        <td style="text-align:end; padding-top:15px; max-width: 250px;">
+                                            <div class="animated fadeIn" style="margin-left:5px; width:40px; height: 40px;">
+
+                                                <a href=""><img src="{{participant.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+
+                                            </div>
+                                        </td>
+                                        <td style="min-width:140px; padding-top:25px;">
+                                            {{participant.fullname}}
+                                        </td>
+
+                                        <td style="text-align:center; padding-top:17px; width:100px;">
+                                            <a class="btn btn-info" ng-click="assignTo(participant.profpath, participant.fullname, participant.userId)"><i class="fa fa-check">Assign</i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PMISModelStoreContainer" CdmEntityContainer="DbModel">
+    <FunctionImportMapping FunctionImportName="spGetProjList" FunctionName="PMISModel.Store.spGetProjList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetProjList_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="position" ColumnName="position" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="participants">
+      <EntityTypeMapping TypeName="PMISModel.participant">
+        <MappingFragment StoreEntitySet="participant">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="partId" ColumnName="partId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projects">
+      <EntityTypeMapping TypeName="PMISModel.project">
+        <MappingFragment StoreEntitySet="project">
+          <ScalarProperty Name="enddate" ColumnName="enddate" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projecmessages">
+      <EntityTypeMapping TypeName="PMISModel.projecmessage">
+        <MappingFragment StoreEntitySet="projecmessage">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="messId" ColumnName="messId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="PMISModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="middlename" ColumnName="middlename" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tasks">
+      <EntityTypeMapping TypeName="PMISModel.task">
+        <MappingFragment StoreEntitySet="task">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="enddate" ColumnName="enddate" />
+          <ScalarProperty Name="startdate" ColumnName="startdate" />
+          <ScalarProperty Name="assignto" ColumnName="assignto" />
+          <ScalarProperty Name="createdby" ColumnName="createdby" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

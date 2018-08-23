@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PMISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="participant">
+    <Key>
+      <PropertyRef Name="partId" />
+    </Key>
+    <Property Name="partId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projId" Type="int" Nullable="false" />
+    <Property Name="userId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="projecmessage">
+    <Key>
+      <PropertyRef Name="messId" />
+      <PropertyRef Name="projId" />
+      <PropertyRef Name="message" />
+      <PropertyRef Name="date" />
+    </Key>
+    <Property Name="messId" Type="int" Nullable="false" />
+    <Property Name="projId" Type="int" Nullable="false" />
+    <Property Name="message" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="project">
+    <Key>
+      <PropertyRef Name="projId" />
+    </Key>
+    <Property Name="projId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userId" Type="int" Nullable="false" />
+    <Property Name="lastupdated" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="version" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="createddate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="enddate" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="taskId" />
+    </Key>
+    <Property Name="taskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projId" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="createdby" Type="int" Nullable="false" />
+    <Property Name="assignto" Type="int" Nullable="false" />
+    <Property Name="startdate" Type="datetime" Nullable="false" />
+    <Property Name="enddate" Type="varchar" MaxLength="50" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tasklog">
+    <Key>
+      <PropertyRef Name="tasklogId" />
+    </Key>
+    <Property Name="tasklogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taskId" Type="int" Nullable="false" />
+    <Property Name="logcontent" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="date" Type="datetime" Nullable="false" />
+    <Property Name="assignto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="middlename" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="profpath" Type="varchar(max)" Nullable="false" />
+    <Property Name="coverpath" Type="varchar(max)" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetProjList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spGetProjTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spgetTaskLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spUserProjectList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="PMISModelStoreContainer">
+    <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="projecmessage" EntityType="Self.projecmessage" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [projecmessage].[messId] AS [messId], 
+    [projecmessage].[projId] AS [projId], 
+    [projecmessage].[message] AS [message], 
+    [projecmessage].[date] AS [date]
+    FROM [dbo].[projecmessage] AS [projecmessage]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

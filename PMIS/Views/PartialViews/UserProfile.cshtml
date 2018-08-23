@@ -1,0 +1,300 @@
+﻿
+@using PMIS.Models;
+@{
+
+    user ur = (user)Session["userInfo"];
+    string fullname = ur.firstname + " " + ur.lastname;
+}
+
+<style>
+    #myModal .modal-dialog {
+        -webkit-transform: translate(0,-50%);
+        -o-transform: translate(0,-50%);
+        transform: translate(0,-50%);
+        top: 50%;
+        margin: 0 auto;
+    }
+</style>
+
+<!-- Global stylesheets -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+<link href="~/Content/Limitless/icons/icomoon/styles.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Limitless/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Limitless/core.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Limitless/profileCss.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/Content/Limitless/app.min.js"></script>
+@*<script type="text/javascript" src="~/Content/assets/js/pages/user_pages_profile.js"></script>*@
+
+<!-- /theme JS files -->
+<script src="~/Content/Limitless/sweetalert.min.js"></script>
+
+<section class="content-header" ng-controller="profileCtrl">
+    <div class="profile-cover">
+        <div class="profile-cover-img" id="coverid" style="background-image: url('../../uploads/kanon.jpg');"></div>
+        <div class="media">
+
+
+            <div class="media-left">
+                <a href="#" class="profile-thumb">
+
+                    <img src="@ur.profpath" id="file" class="img-circle" alt="" style="width: 150px; height: 150px" />
+
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h1 id="fullname"></h1>
+
+            </div>
+            <div class="media-right media-middle row">
+                <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
+                    <li ng-click="click(@ur.userId)" onclick="ProfilePictureModalTitle()"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
+                    <li ng-click="change()" ) onclick="CoverImageModalTitle()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-default navbar-xs content-group">
+        <ul class="nav navbar-nav visible-xs-block">
+            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter" class="legitRipple"><i class="icon-menu7"></i></a></li>
+        </ul>
+
+        <div class="navbar-collapse collapse" id="navbar-filter">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#activity" data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
+                <li class=""><a href="#schedule" data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task @*<span class="badge badge-success badge-inline position-right">32</span>*@</a></li>
+                <li class="" ng-click="click(@ur.userId)"><a href="#settings" data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
+            </ul>
+
+
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="tabbable">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="activity">
+
+                        <!-- Timeline -->
+                        <div class="panel panel-flat">
+
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Project</th>
+                                        <th>Progress</th>
+                                        <th style="width: 40px">Label</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Project Management Information System</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-red">55%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>Odong na Lame</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-yellow">70%</span></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /timeline -->
+
+                    </div>
+
+                    <div class="tab-pane fade" id="schedule">
+                        <!-- Task -->
+                        <div class="panel panel-flat">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Project</th>
+                                        <th>Progress</th>
+                                        <th style="width: 40px">Label</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Project Management Information System</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-red">55%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>Oding na Lame</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-yellow">70%</span></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /Task -->
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="settings">
+
+
+                        <div class="col-lg-6">
+                            <div class="panel panel-flat">
+
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Profile Information</h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                        </div><!-- /.box-tools -->
+                                    </div><!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="row">
+
+                                                <div class="form-group col-md-12">
+                                                    <label for="username">Username</label>
+                                                    <input type="text" class="form-control" id="username" ng-model="data.username" placeholder="Username">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="firstname">Firstname</label>
+                                                    <input type="text" class="form-control" id="firstname" ng-model="data.firstname" placeholder="Firstname">
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <label for="middlename">Middlename</label>
+                                                    <input type="text" class="form-control" id="middlename" ng-model="data.middlename" placeholder="Middlename">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="lastname">Lastname</label>
+                                                    <input type="text" class="form-control" id="lastname" ng-model="data.lastname" placeholder="Lastname">
+                                                </div>
+                                                <div>
+                                                    <input type="text" id="Name" name="userid" ng-model="data.userId" style="display:none">
+                                                </div>
+                                            </div>
+                                        </div><!-- /.box-body -->
+
+                                        <div class="box-footer">
+                                            <button type="button" class="btn btn-primary" ng-click="updateprofile(data)">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-flat">
+
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Change Password</h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                        </div><!-- /.box-tools -->
+                                    </div><!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <label for="password">Old Password</label>
+                                                    <input type="password" class="form-control" id="password" ng-model="oldpass" placeholder="Old Password">
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <label for="newpassword">New Password</label>
+                                                    <input type="password" class="form-control" id="newpassword" ng-model="newpass" placeholder="new Password">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="retypepassword">Retype Password</label>
+                                                    <input type="password" class="form-control" id="retypepassword" ng-model="retypepass" placeholder="Password">
+                                                </div>
+
+                                            </div>
+                                        </div><!-- /.box-body -->
+
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary" ng-click="checkpassword(oldpass,@ur.userId,newpass,retypepass)">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-lg-3">
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+            <div class="modal-content">
+
+                <div class="modal-header box-header box-primary">
+                    <h5 class="modal-title" id="modaltitle" onload="">edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input id="selectedFile" type="file"
+                           name="file"
+                           accept="image/*"
+                           ng-click="click(@ur.userId)"
+                           multiple onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" ng-click="SaveFile()" data-dismiss="modal">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

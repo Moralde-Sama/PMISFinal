@@ -1,0 +1,51 @@
+﻿<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PMIS | Login</title>
+    <link href="~/Content/Ispinia/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Ispinia/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="~/Content/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/Ispinia/css/style.css" rel="stylesheet" />
+    <script src="~/Scripts/Angular/angular.min.js"></script>
+    <script src="~/Scripts/Angular/Controller/Account.js"></script>
+
+
+</head>
+<body class="gray-bg" ng-app="myApp" ng-controller="UserMgmt">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div class="img-responsive">
+                <img src="~/Content/Ispinia/css/ddntrans.png" style="height:150px;width:150px" />
+                @*<h1 class="logo-name">IN+</h1>*@
+
+            </div>
+            <h2>Login</h2>
+            <form class="m-t" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="" ng-model="data.username" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="" ng-model="data.password">
+                </div>
+                <button class="btn btn-primary block full-width m-b" ng-click="Login(data)">Login</button>
+
+                <a href="#"><small>Forgot password?</small></a>
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="../Account/Register">Create an account</a>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/Content/Ispinia/css/bootstrap.min.js"></script>
+
+
+</body>
+</html>
