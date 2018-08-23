@@ -17,11 +17,10 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     $(document).ready(function () {
         $("#file").attr("src", name[0].profpath);
     })
-<<<<<<< HEAD
+
 
     $("#modaltitle").text("Edit Profile Picture");
-=======
->>>>>>> 58096511cc19456237d3872372c790895ee8643e
+
         
     
     $(document).ready(function () {
@@ -46,7 +45,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     }
     s.click_editcover=function()
     {
-        s.modaltitle = "Edit Cover Picture";
+        s.modaltitle = "Edit Cover Image";
             //$("#modaltitle").text("Edit Cover Image");
 
     }
@@ -56,7 +55,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.updateprofile = function (d) {
         r.post("../Account/updateprofile", d).then(function (d) {
             console.log(d);
-            swal("Successfully Updated", "", "success");
+            //swal("Successfully Updated", "", "success");
+            alert("Successfully Updated");
 
             $("#fullname").text(d.data.firstname + " " + d.data.lastname);
             //$window.location.reload();   
@@ -115,7 +115,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                         var height = this.height;
                         var width = this.width;
                         if (width < 815 && height < 315) {
-                            swal("Minumum height 315px and Minimum width 815px", "", "error");
+                            //swal("Minumum height 315px and Minimum width 815px", "", "error");
+                            alert("Minumum height 315px and Minimum width 815px");
                             return false;
 
                         }
@@ -130,11 +131,13 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
                 }
             } else {
-                swal("This browser does not support HTML5.", "", "error");
+                //swal("This browser does not support HTML5.", "", "error");
+                alert("This browser does not support HTML5.");
                 return false;
             }
         } else {
-            swal("Image Required!", "", "error");
+            //swal("Image Required!", "", "error");
+            alert("Image Required!");
             return false;
         }
     }
@@ -155,7 +158,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
         }
         else {
             s.FileInvalidMessage = "Image required!";
-            swal("Image Required!", "", "error");
+            //swal("Image Required!", "", "error");
+            alert("Image Required!");
         }
         s.IsFileValid = isValid;
     };
@@ -183,7 +187,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             }
             else {
                 s.Message = "All the fields are required.";
-                swal("Image Required!", "", "error");
+                //swal("Image Required!", "", "error");
+                
             }
         }
         else if ((document.getElementById("modaltitle").innerText) == "Edit Cover Image") {
@@ -212,7 +217,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function (response) {
-                swal("Successfully Updated", "", "success");
+                //swal("Successfully Updated", "", "success");
+                alert("Successfully Updated");
                 localStorage.userinfo = JSON.stringify(response.data);
                 location.reload();
             });
@@ -234,7 +240,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function (response) {
-                swal("Successfully Updated", "", "success");
+                //swal("Successfully Updated", "", "success");
+                alert("Successfully Updated");
                 localStorage.userinfo = JSON.stringify(response.data);
                 location.reload();
             });

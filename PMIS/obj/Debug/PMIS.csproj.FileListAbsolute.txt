@@ -67,4 +67,3 @@ C:\Users\bryan\Music\OJT_PROJECT\PMISFinal\PMIS\bin\System.Web.Helpers.xml
 C:\Users\bryan\Music\OJT_PROJECT\PMISFinal\PMIS\bin\System.Web.Mvc.xml
 C:\Users\bryan\Music\OJT_PROJECT\PMISFinal\PMIS\obj\Debug\PMIS.dll
 C:\Users\bryan\Music\OJT_PROJECT\PMISFinal\PMIS\obj\Debug\PMIS.pdb
-C:\Users\bryan\Music\OJT_PROJECT\PMISFinal\PMIS\obj\Debug\PMIS.csprojResolveAssemblyReference.cache
