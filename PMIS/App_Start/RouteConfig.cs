@@ -32,6 +32,12 @@ namespace PMIS
                 "project/mytasks",
                 defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
                 );
+            
+                routes.MapRoute(
+                "Profile",
+                "user/profile/userId={id}",
+                defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
+                );
             routes.MapRoute(
                 "Login",
                 "Project/Account/Login",

@@ -12,13 +12,16 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.USERNAME = "";
     s.PROFPATH = "";
 
-    
+    $("#ProfilePictureModal").css("display", "none");
     
     $(document).ready(function () {
         $("#file").attr("src", name[0].profpath);
     })
+<<<<<<< HEAD
 
     $("#modaltitle").text("Edit Profile Picture");
+=======
+>>>>>>> 58096511cc19456237d3872372c790895ee8643e
         
     
     $(document).ready(function () {
@@ -37,18 +40,14 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     }
     s.click_editprofile=function()
     {
-
-        
-        
-            $("#modaltitle").text("Edit Profile Picture");
+        s.modaltitle = "Edit Profile Picture";
+            //$("#modaltitle").text("Edit Profile Picture");
         
     }
     s.click_editcover=function()
     {
-
-
-        
-            $("#modaltitle").text("Edit Cover Image");
+        s.modaltitle = "Edit Cover Picture";
+            //$("#modaltitle").text("Edit Cover Image");
 
     }
 

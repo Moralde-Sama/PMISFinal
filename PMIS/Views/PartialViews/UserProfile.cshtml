@@ -48,7 +48,11 @@
             <div class="media-right media-middle row">
                 <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
                     <li ng-click="click_editprofile();click(@ur.userId)"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
+<<<<<<< HEAD
                     <li ng-click="click_editcover()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+=======
+                    <li ng-click="click_editcover();"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+>>>>>>> 58096511cc19456237d3872372c790895ee8643e
                 </ul>
             </div>
         </div>
@@ -266,7 +270,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;">
         <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
         <div class="modal-dialog modal-dialog-centered" role="document">
 
@@ -274,7 +278,7 @@
             <div class="modal-content">
 
                 <div class="modal-header box-header box-primary">
-                    <h5 class="modal-title" id="modaltitle"></h5>
+                    <h5 class="modal-title" id="modaltitle" ng-bind="modaltitle"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
