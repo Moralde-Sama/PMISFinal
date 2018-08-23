@@ -2,8 +2,6 @@
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
-    var interval;
-    var interval2;
     s.data = {};
 
     //initialize();
@@ -22,27 +20,6 @@
         var userplParam = { "userId": userInfo[0].userId };
         h.post("../Project/getUserProjectList", userplParam).then(function (r) {
             s.projlist = r.data;
-            interval = setInterval(function () {
-                //var coll = document.getElementsByClassName("mycollapsible");
-
-                //for (i = 0; i < coll.length; i++) {
-                //    coll[i].addEventListener("click", function () {
-                //        var content = this.nextElementSibling;
-                //        content.style.overflow = "hidden";
-                //        this.classList.toggle("myactive");
-                //        if (content.style.maxHeight) {
-                //            content.style.maxHeight = null;
-                //        } else {
-                //            content.style.maxHeight = content.scrollHeight + "px";
-                //            interval2 = setInterval(function () {
-                //                content.style.overflow = "visible";
-                //                clearInterval(interval2);
-                //            }, 800);
-                //        }
-                //    });
-                //}
-                clearInterval(interval);
-            }, 1000);
         })
 
         h.post("../User/getParticipants").then(function (r) {
@@ -174,7 +151,7 @@
 
     s.showhideTask = function (index) {
         var coll = document.getElementsByClassName("mycollapsible");
-        
+        var interval2;
         var content = coll[index].nextElementSibling;
                 content.style.overflow = "hidden";
                 coll[index].classList.toggle("myactive");
