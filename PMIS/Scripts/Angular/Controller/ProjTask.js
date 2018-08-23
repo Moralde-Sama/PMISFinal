@@ -115,6 +115,8 @@
         }
     }
 
+    var shit = "S";
+
     s.convertJsonDate = function (date) {
         var date = new Date(parseInt(s.tasklog[0].date.substr(6)));
         return date;
