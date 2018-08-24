@@ -389,7 +389,9 @@
     <Content Include="uploads\kanon.jpg" />
     <Content Include="uploads\Kasumeme.jpg" />
     <Content Include="uploads\Moralde.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
