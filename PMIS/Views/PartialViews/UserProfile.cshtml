@@ -22,12 +22,10 @@
 <link href="~/Content/Limitless/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Limitless/core.min.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Limitless/profileCss.css" rel="stylesheet" type="text/css" />
-<link href="~/Content/sweetalert2.min.css" rel="stylesheet" />
 <script src="~/Content/Limitless/app.min.js"></script>
-@*<script type="text/javascript" src="~/Content/assets/js/pages/user_pages_profile.js"></script>*@
 
-<!-- /theme JS files -->
-<script src="~/Content/Limitless/sweetalert.min.js"></script>
+
+
 
 <section class="content-header" ng-controller="profileCtrl">
     <div class="profile-cover">
@@ -50,7 +48,8 @@
             <div class="media-right media-middle row">
                 <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
                     <li ng-click="click_editprofile();click(@ur.userId)"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
-                    <li ng-click="click_editcover();"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+                    <li ng-click="click_editcover();click(@ur.userId)"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+
                 </ul>
             </div>
         </div>
@@ -298,3 +297,9 @@
         </div>
     </div>
 </section>
+<script>
+    
+
+
+
+</script>

@@ -1,4 +1,5 @@
-﻿module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
+﻿
+module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
     s.Message = "";
     s.FileInvalidMessage = "";
     s.SelectedFileForUpload = null;
@@ -16,6 +17,10 @@
     $(document).ready(function () {
         $("#file").attr("src", name[0].profpath);
     })
+
+
+    $("#modaltitle").text("Edit Profile Picture");
+
         
     
     $(document).ready(function () {
@@ -40,7 +45,7 @@
     }
     s.click_editcover=function()
     {
-        s.modaltitle = "Edit Cover Picture";
+        s.modaltitle = "Edit Cover Image";
             //$("#modaltitle").text("Edit Cover Image");
 
     }
@@ -50,7 +55,8 @@
     s.updateprofile = function (d) {
         r.post("../Account/updateprofile", d).then(function (d) {
             console.log(d);
-            swal("Successfully Updated", "", "success");
+            //swal("Successfully Updated", "", "success");
+            alert("Successfully Updated");
 
             $("#fullname").text(d.data.firstname + " " + d.data.lastname);
             //$window.location.reload();   
@@ -109,7 +115,8 @@
                         var height = this.height;
                         var width = this.width;
                         if (width < 815 && height < 315) {
-                            swal("Minumum height 315px and Minimum width 815px", "", "error");
+                            //swal("Minumum height 315px and Minimum width 815px", "", "error");
+                            alert("Minumum height 315px and Minimum width 815px");
                             return false;
 
                         }
@@ -124,11 +131,13 @@
 
                 }
             } else {
-                swal("This browser does not support HTML5.", "", "error");
+                //swal("This browser does not support HTML5.", "", "error");
+                alert("This browser does not support HTML5.");
                 return false;
             }
         } else {
-            swal("Image Required!", "", "error");
+            //swal("Image Required!", "", "error");
+            alert("Image Required!");
             return false;
         }
     }
@@ -149,7 +158,8 @@
         }
         else {
             s.FileInvalidMessage = "Image required!";
-            swal("Image Required!", "", "error");
+            //swal("Image Required!", "", "error");
+            alert("Image Required!");
         }
         s.IsFileValid = isValid;
     };
@@ -177,7 +187,8 @@
             }
             else {
                 s.Message = "All the fields are required.";
-                swal("Image Required!", "", "error");
+                //swal("Image Required!", "", "error");
+                
             }
         }
         else if ((document.getElementById("modaltitle").innerText) == "Edit Cover Image") {
@@ -206,7 +217,8 @@
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function (response) {
-                swal("Successfully Updated", "", "success");
+                //swal("Successfully Updated", "", "success");
+                alert("Successfully Updated");
                 localStorage.userinfo = JSON.stringify(response.data);
                 location.reload();
             });
@@ -228,7 +240,8 @@
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function (response) {
-                swal("Successfully Updated", "", "success");
+                //swal("Successfully Updated", "", "success");
+                alert("Successfully Updated");
                 localStorage.userinfo = JSON.stringify(response.data);
                 location.reload();
             });
