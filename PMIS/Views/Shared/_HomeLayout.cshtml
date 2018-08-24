@@ -43,7 +43,7 @@
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" ng-app="myApp">
 
-    @{
+    @*@{
         user userInfo = null;
         string fullname = "";
         if (Session["userInfo"] != null)
@@ -55,10 +55,7 @@
         {
             Response.Redirect("../Account/Login");
         }
-    }
-    <input type="hidden" id="userId" value="@userInfo.userId" />
-    <input type="hidden" id="profPath" value="@userInfo.profpath" />
-    <input type="hidden" id="userName" value="@userInfo.username" />
+    }*@
 
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -97,7 +94,7 @@
                                             <!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="@userInfo.profpath" class="img-circle" alt="User Image">
+                                                    <img id="profilePicture" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -167,16 +164,14 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="@userInfo.profpath" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@fullname</span>
+                                <img id="profilePicture2" class="user-image" alt="User Image">
+                                <span id="fullname2" class="hidden-xs"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="@userInfo.profpath" class="img-circle" alt="User Image">
-                                    <p>
-                                        @fullname<br />
-                                        Web Developer
+                                    <img id="profilePicture3" class="img-circle" alt="User Image">
+                                    <p id="fullname3">
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -194,7 +189,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="/user/profile/userId=@userInfo.userId" class="btn btn-default btn-flat">Profile</a>
+                                        <a id="userProfile" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="" onclick="logout()" class="btn btn-default btn-flat">Sign out</a>
@@ -219,10 +214,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="@userInfo.profpath" class="img-circle" alt="User Image">
+                        <img id="profilePicture4" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>@fullname</p>
+                        <p id="fullname4"></p>
                         <a id="status" href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -448,6 +443,8 @@
     </div><!-- ./wrapper -->
     <!-- jQuery 2.1.4 -->
     <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!--userProfile-->
+    <script src="~/Scripts/ProfileJS.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->

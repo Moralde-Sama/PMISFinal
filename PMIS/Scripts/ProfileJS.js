@@ -1,19 +1,42 @@
-﻿function readURL(input) {
+﻿
+
+userProfile(localStorage.userInfo);
+
+function userProfile(storage) {
+    var Info = JSON.parse(storage);
+    var fullname = Info[0].firstname + " " + Info[0].lastname;
+    var profpath = Info[0].profpath;
+    var coverpath = Info[0].coverpath;
+    var userId = Info[0].userId;
+    $("#profilePicture").attr("src", profpath);
+    $("#profilePicture2").attr("src", profpath);
+    $("#profilePicture3").attr("src", profpath);
+    $("#profilePicture4").attr("src", profpath);
+    $("#file").attr("src", profpath);
+    $("#coverid").css("background-image", 'url("'+coverpath+'")');
+    $("#fullname2").text(fullname);
+    $("#fullname3").html(fullname + '<br /> Web Developer');
+    $("#fullname4").text(fullname);
+    $("#userProfile").attr("href", '/user/profile/userId=' + userId);
+
+}
+
+function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
             $('#file')
                 .attr('src', e.target.result)
-                .width(100)
-                .height(100);
+                //.width(100)
+                //.height(100);
 
         };
 
         reader.readAsDataURL(input.files[0]);
     }
     //$('#exampleModalCenter').modal({ backdrop: 'static', keyboard: false });
-    $('#exampleModalCenter').modal('show');
+    //$('#exampleModalCenter').modal('show');
 }
 
 

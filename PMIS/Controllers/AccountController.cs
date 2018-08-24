@@ -30,7 +30,7 @@ namespace PMIS.Controllers
         public ActionResult Login(string username, string password)
         {
             string EncryptPass = EncryptMeth(password);
-            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).ToList();
+            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
             if (userInfo.Count() == 1)
             {
                 Session["userInfo"] = userInfo[0];
@@ -193,9 +193,9 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.profpath = filepath;
                     db.SaveChanges();
-                    List<user> ur = db.users.Where(e => e.userId == userid).ToList();
+                    var ur = db.users.Where(e => e.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
 
-                    return Json(ur[0], JsonRequestBehavior.AllowGet);
+                    return Json(ur, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception)
@@ -235,9 +235,9 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.coverpath = filepath;
                     db.SaveChanges();
-                    List<user> ur = db.users.Where(e => e.userId == userid).ToList();
+                    var ur = db.users.Where(e => e.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
 
-                    return Json(ur[0], JsonRequestBehavior.AllowGet);
+                    return Json(ur, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception)

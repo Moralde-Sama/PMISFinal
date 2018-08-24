@@ -7,15 +7,15 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.IsFormSubmitted = false;
     s.IsFileValid = false;
     s.IsFormValid = false;
-    var name = JSON.parse(localStorage.userInfo);
     s.USERID = "";
     s.USERNAME = "";
     s.PROFPATH = "";
-
+    var userInfo = "";
+    userInfo = JSON.parse(localStorage.userInfo);
     $("#ProfilePictureModal").css("display", "none");
     
     $(document).ready(function () {
-        $("#file").attr("src", name[0].profpath);
+        $("#file").attr("src", userInfo[0].profpath);
     })
 
 
@@ -24,11 +24,11 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
         
     
     $(document).ready(function () {
-        $('#coverid').css("background-image", "url('" + name[0].coverpath + "')");
+        $('#coverid').css("background-image", "url('" + userInfo[0].coverpath + "')");
     })
-    $("#fullname").text(name[0].firstname + " " + name[0].lastname);
-    s.click = function (id) {
-        r.post("../Account/getUser?id=" + id).then(function (d) {
+    $("#fullname").text(userInfo[0].firstname + " " + userInfo[0].lastname);
+    s.click = function () {
+        r.post("../Account/getUser?id=" + userInfo[0].userId).then(function (d) {
 
             s.data = d.data;
             s.USERID = d.data.userId;
@@ -65,16 +65,16 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
         })
     }
-    s.checkpassword = function (oldpassword, userid, password, retype) {
+    s.checkpassword = function (oldpassword, password, retype) {
         console.log(password);
-        r.post("../Account/checkpassword?oldpassword=" + oldpassword + "&userid=" + userid).then(function (d) {
+        r.post("../Account/checkpassword?oldpassword=" + oldpassword + "&userid=" + userInfo[0].userId).then(function (d) {
 
             if (d.data == "exist") {
                 if (password != retype) {
                     alert("New Password does not match");
                 }
                 else {
-                    r.post("../Account/changedpassword?password=" + password + "&userid=" + userid).then(function (d) {
+                    r.post("../Account/changedpassword?password=" + password + "&userid=" + userInfo[0].userId).then(function (d) {
 
                         alert("succesfully change");
                     })
@@ -219,8 +219,9 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             }).then(function (response) {
                 //swal("Successfully Updated", "", "success");
                 alert("Successfully Updated");
-                localStorage.userinfo = JSON.stringify(response.data);
-                location.reload();
+                localStorage.userInfo = JSON.stringify(response.data);
+                userProfile(JSON.stringify(response.data));
+                //location.reload();
             });
 
         //return defer.promise;
@@ -242,14 +243,16 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             }).then(function (response) {
                 //swal("Successfully Updated", "", "success");
                 alert("Successfully Updated");
-                localStorage.userinfo = JSON.stringify(response.data);
-                location.reload();
+                localStorage.userInfo = JSON.stringify(response.data);
+                //location.reload();
+                userProfile(JSON.stringify(response.data));
             });
 
         //return defer.promise;
 
     }
     return fac;
+
 
 
 

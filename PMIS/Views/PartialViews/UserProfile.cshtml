@@ -1,12 +1,4 @@
-﻿
-@using PMIS.Models;
-@{
-
-    user ur = (user)Session["userInfo"];
-    string fullname = ur.firstname + " " + ur.lastname;
-}
-
-<style>
+﻿<style>
     #myModal .modal-dialog {
         -webkit-transform: translate(0,-50%);
         -o-transform: translate(0,-50%);
@@ -36,7 +28,7 @@
             <div class="media-left">
                 <a href="#" class="profile-thumb">
 
-                    <img src="@ur.profpath" id="file" class="img-circle" alt="" style="width: 150px; height: 150px" />
+                    <img id="file" class="img-circle" alt="" style="width: 150px; height: 150px" />
 
                 </a>
             </div>
@@ -47,8 +39,8 @@
             </div>
             <div class="media-right media-middle row">
                 <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
-                    <li ng-click="click_editprofile();click(@ur.userId)"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
-                    <li ng-click="click_editcover();click(@ur.userId)"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
+                    <li ng-click="click_editprofile();click()"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
+                    <li ng-click="click_editcover();click()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
 
                 </ul>
             </div>
@@ -63,7 +55,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#activity" data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
                 <li class=""><a href="#schedule" data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task @*<span class="badge badge-success badge-inline position-right">32</span>*@</a></li>
-                <li class="" ng-click="click(@ur.userId)"><a href="#settings" data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
+                <li class="" ng-click="click()"><a href="#settings" data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
             </ul>
 
 
@@ -242,7 +234,7 @@
                                         </div><!-- /.box-body -->
 
                                         <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary" ng-click="checkpassword(oldpass,@ur.userId,newpass,retypepass)">Update</button>
+                                            <button type="submit" class="btn btn-primary" ng-click="checkpassword(oldpass,newpass,retypepass)">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -285,7 +277,7 @@
                     <input id="selectedFile" type="file"
                            name="file"
                            accept="image/*"
-                           ng-click="click(@ur.userId)"
+                           ng-click="click()"
                            multiple onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
                 </div>
                 <div class="modal-footer">

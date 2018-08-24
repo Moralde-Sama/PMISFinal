@@ -1,6 +1,7 @@
 ﻿
 function logout() {
     $.post("../Account/Logout", function (data, status) {
+        localStorage.removeItem("userInfo");
         location.href = "../Account/Login";
     });
 }

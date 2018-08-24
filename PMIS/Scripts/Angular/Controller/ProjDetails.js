@@ -70,7 +70,7 @@
         spamCount++;
         if(!mute){
             if($("#message").val() != ""){
-                chat.server.sendToGroup($("#userName").val(), $("#message").val(),  $("#profPath").val(), $("#getGroup").val());
+                chat.server.sendToGroup(userInfo[0].username, $("#message").val(),  userInfo[0].profpath, $("#getGroup").val());
                 $("#message").val('').focus();
             }
             if(interval == null){
@@ -95,7 +95,7 @@
             spamCount++;
             if (!mute) {
                 if ($("#message").val() != "") {
-                    chat.server.sendToGroup($("#userName").val(), $("#message").val(), $("#profPath").val(), $("#getGroup").val());
+                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, $("#getGroup").val());
                     $("#message").val('').focus();
                 }
                 if (interval == null && interval2 == null) {
