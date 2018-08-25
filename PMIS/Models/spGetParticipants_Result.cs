@@ -14,6 +14,7 @@ namespace PMIS.Models
     public partial class spGetParticipants_Result
     {
         public int projId { get; set; }
+        public int userId { get; set; }
         public string fullname { get; set; }
         public string profpath { get; set; }
     }

@@ -75,15 +75,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="fullname" ColumnName="fullname" />
-          <ScalarProperty Name="profpath" ColumnName="profpath" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
@@ -168,6 +159,16 @@
           <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="creator" ColumnName="creator" />
           <ScalarProperty Name="Completed" ColumnName="Completed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

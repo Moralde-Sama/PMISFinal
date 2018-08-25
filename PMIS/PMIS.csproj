@@ -306,6 +306,7 @@
     <Content Include="Content\MyIcon\icons8_Tasklist_1.ico" />
     <Content Include="Content\sweetalert.min.js" />
     <Content Include="Scripts\Angular\Controller\Profile.js" />
+    <Content Include="Scripts\Angular\Controller\UserProfile.js" />
     <Content Include="uploads\userimage.png" />
     <Content Include="Content\plugins\fastclick\fastclick.js" />
     <Content Include="Content\plugins\fastclick\fastclick.min.js" />
@@ -479,6 +480,7 @@
     <Content Include="Views\PartialViews\ProjTask.cshtml" />
     <Content Include="Views\PartialViews\UserTask.cshtml" />
     <Content Include="Views\PartialViews\UserProfile.cshtml" />
+    <Content Include="Views\PartialViews\MyProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

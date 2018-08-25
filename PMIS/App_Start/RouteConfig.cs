@@ -38,6 +38,11 @@ namespace PMIS
                 "user/profile/userId={id}",
                 defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
                 );
+                routes.MapRoute(
+                    "MyProfile",
+                    "user/profile/myprofile",
+                    defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
+                    );
             routes.MapRoute(
                 "Login",
                 "Project/Account/Login",

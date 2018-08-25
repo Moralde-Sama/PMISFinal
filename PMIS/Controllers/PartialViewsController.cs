@@ -41,5 +41,9 @@ namespace PMIS.Controllers
         {
             return View();
         }
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
     }
 }

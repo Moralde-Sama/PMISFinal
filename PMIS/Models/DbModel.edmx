@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PMISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PMISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="participant">
           <Key>
             <PropertyRef Name="partId" />
@@ -113,8 +113,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     FROM [dbo].[projecmessage] AS [projecmessage]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PMISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -196,32 +195,27 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="projecmessages" EntityType="Self.projecmessage" />
-          <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
           <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
-            <Parameter Name="projId" Mode="In" Type="Int32" />
+          <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
           <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
-            <Parameter Name="projId" Mode="In" Type="Int32" />
+          <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
-            <Parameter Name="taskId" Mode="In" Type="Int32" />
+          <Parameter Name="taskId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
+          <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
-            <Parameter Name="projId" Mode="In" Type="Int32" />
+          <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
+          <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
         </EntityContainer>
-        <ComplexType Name="spGetParticipants_Result">
-          <Property Type="Int32" Name="projId" Nullable="false" />
-          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
-          <Property Type="String" Name="profpath" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="spGetParticipantsByProj_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
           <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
@@ -280,6 +274,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
           <Property Type="Int32" Name="Completed" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetParticipants_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="profpath" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -361,15 +361,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
-                <ScalarProperty Name="projId" ColumnName="projId" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
@@ -454,6 +445,16 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

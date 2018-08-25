@@ -78,7 +78,6 @@
     <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
     <EntitySet Name="users" EntityType="Self.user" />
     <EntitySet Name="projecmessages" EntityType="Self.projecmessage" />
-    <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
     <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
       <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -98,12 +97,8 @@
     <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
       <Parameter Name="userId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
   </EntityContainer>
-  <ComplexType Name="spGetParticipants_Result">
-    <Property Type="Int32" Name="projId" Nullable="false" />
-    <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
-    <Property Type="String" Name="profpath" Nullable="false" />
-  </ComplexType>
   <ComplexType Name="spGetParticipantsByProj_Result">
     <Property Type="Int32" Name="userId" Nullable="false" />
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
@@ -162,5 +157,11 @@
     <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
     <Property Type="Int32" Name="Completed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spGetParticipants_Result">
+    <Property Type="Int32" Name="projId" Nullable="false" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+    <Property Type="String" Name="profpath" Nullable="false" />
   </ComplexType>
 </Schema>

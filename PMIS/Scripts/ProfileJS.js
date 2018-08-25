@@ -18,7 +18,6 @@ function userProfile(storage) {
     $("#fullname2").text(fullname);
     $("#fullname3").html(fullname + '<br /> Web Developer');
     $("#fullname4").text(fullname);
-    $("#userProfile").attr("href", '/user/profile/userId=' + userId);
 
 }
 

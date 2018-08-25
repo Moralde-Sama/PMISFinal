@@ -23,8 +23,12 @@
     })
     .when("/user/profile/userId=:userId", {
         templateUrl: "../PartialViews/UserProfile",
-        controller: "profileCtrl"
+        controller: "userprofileCtrl"
         
+    })
+    .when("/user/profile/myprofile", {
+        templateUrl: "../PartialViews/MyProfile",
+        controller: "profileCtrl"
     })
     $locationProvider.html5Mode(true);
 })

@@ -1,5 +1,5 @@
 ﻿
-module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
+module.controller("userprofileCtrl", ["$scope", "$http", "$routeParams", "FileUploadService", function (s, r, rp, FileUploadService) {
     s.Message = "";
     s.FileInvalidMessage = "";
     s.SelectedFileForUpload = null;
@@ -13,8 +13,9 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.COVERPATH = "";
     var userInfo = "";
     userInfo = JSON.parse(localStorage.userInfo);
+
     $("#ProfilePictureModal").css("display", "none");
-    
+
     $(document).ready(function () {
         $("#file").attr("src", userInfo[0].profpath);
     })
@@ -22,31 +23,31 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
     $("#modaltitle").text("Edit Profile Picture");
 
-        
-    
+
+
     $(document).ready(function () {
         $('#coverid').css("background-image", "url('" + userInfo[0].coverpath + "')");
     })
     $("#fullname").text(userInfo[0].firstname + " " + userInfo[0].lastname);
     s.click = function () {
         r.post("../Account/getUser?id=" + userInfo[0].userId).then(function (d) {
+
             s.data = d.data;
             s.USERID = d.data.userId;
             s.USERNAME = d.data.username;
             s.PROFPATH = d.data.profpath;
             s.COVERPATH - d.data.coverpath;
+            console.log(d.data);
         });
     }
-    s.click_editprofile=function()
-    {
+    s.click_editprofile = function () {
         s.modaltitle = "Edit Profile Picture";
-            //$("#modaltitle").text("Edit Profile Picture");
-        
+        //$("#modaltitle").text("Edit Profile Picture");
+
     }
-    s.click_editcover=function()
-    {
+    s.click_editcover = function () {
         s.modaltitle = "Edit Cover Image";
-            //$("#modaltitle").text("Edit Cover Image");
+        //$("#modaltitle").text("Edit Cover Image");
 
     }
 
@@ -111,7 +112,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                     image.src = e.target.result;
 
                     //Validate the File Height and Width.
-                    image.onload = function (e) {
+                    image.onload = function () {
                         var height = this.height;
                         var width = this.width;
                         if (width < 815 && height < 315) {
@@ -188,7 +189,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             else {
                 s.Message = "All the fields are required.";
                 //swal("Image Required!", "", "error");
-                
+
             }
         }
         else if ((document.getElementById("modaltitle").innerText) == "Edit Cover Image") {

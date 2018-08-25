@@ -34,11 +34,6 @@ namespace PMIS.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<projecmessage> projecmessages { get; set; }
     
-        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
-        }
-    
         public virtual ObjectResult<spGetParticipantsByProj_Result> spGetParticipantsByProj(Nullable<int> projId)
         {
             var projIdParameter = projId.HasValue ?
@@ -96,6 +91,11 @@ namespace PMIS.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
         }
     }
 }
