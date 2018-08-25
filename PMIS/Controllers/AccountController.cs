@@ -259,14 +259,5 @@ namespace PMIS.Controllers
             List<user> ur = db.users.Where(e => e.userId == id).ToList();
             return Json(ur[0], JsonRequestBehavior.AllowGet);
         }
-
-        [HttpPost]
-        public ActionResult getImageByte()
-        {
-            var file = Request.Files[0];
-            BinaryReader reader = new BinaryReader(file.InputStream);
-            byte[] Imagebyte = reader.ReadBytes(file.ContentLength);
-            return File(Imagebyte, "image/jpg");
-        }
     }
 }
