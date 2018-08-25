@@ -3,6 +3,7 @@
 userProfile(localStorage.userInfo);
 
 function userProfile(storage) {
+    console.log(storage);
     var Info = JSON.parse(storage);
     var fullname = Info[0].firstname + " " + Info[0].lastname;
     var profpath = Info[0].profpath;
@@ -20,6 +21,7 @@ function userProfile(storage) {
     $("#userProfile").attr("href", '/user/profile/userId=' + userId);
 
 }
+
 
 function readURL(input) {
     if (input.files && input.files[0]) {

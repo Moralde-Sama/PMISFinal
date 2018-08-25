@@ -10,6 +10,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.USERID = "";
     s.USERNAME = "";
     s.PROFPATH = "";
+    s.COVERPATH = "";
     var userInfo = "";
     userInfo = JSON.parse(localStorage.userInfo);
     $("#ProfilePictureModal").css("display", "none");
@@ -34,6 +35,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             s.USERID = d.data.userId;
             s.USERNAME = d.data.username;
             s.PROFPATH = d.data.profpath;
+            s.COVERPATH - d.data.coverpath;
             console.log(d.data);
         });
     }
@@ -120,7 +122,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                             return false;
 
                         }
-                        FileUploadService.changecover(s.SelectedFileForUpload, s.USERNAME, s.USERID, s.PROFPATH).then(function (d) {
+                        FileUploadService.changecover(s.SelectedFileForUpload, s.USERNAME, s.USERID, s.COVERPATH).then(function (d) {
 
 
                         }, function (e) {
@@ -227,12 +229,12 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
         //return defer.promise;
 
     }
-    fac.changecover = function (file, username, userid, profpath) {
+    fac.changecover = function (file, username, userid, coverpath) {
         var formData = new FormData();
         formData.append("file", file);
         formData.append("username", username);
         formData.append("userid", userid);
-        formData.append("profpath", profpath);
+        formData.append("coverpath", coverpath);
         //We can send more data to server using append         
         //var defer = $q.defer();
         $http.post("/Account/UpdateCover", formData,
@@ -247,6 +249,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 //location.reload();
                 userProfile(JSON.stringify(response.data));
             });
+
 
         //return defer.promise;
 

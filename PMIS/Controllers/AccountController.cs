@@ -172,9 +172,10 @@ namespace PMIS.Controllers
 
                 var file = Request.Files[0];
                 actualFileName = file.FileName;
-                fileName = username + Path.GetExtension(file.FileName);
+                fileName = username + "_pp_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + Path.GetExtension(file.FileName);
                 int size = file.ContentLength;
                 var extension = Path.GetExtension(file.FileName);
+
 
 
                 try
@@ -188,7 +189,7 @@ namespace PMIS.Controllers
 
                     file.SaveAs(Path.Combine(Server.MapPath("/uploads"), fileName));
                     //var filepath = Path.Combine(Server.MapPath("~/UploadFiles"), fileName);
-                    var filepath = "/uploads/" + username + extension;
+                    var filepath = "/uploads/" + fileName;
 
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.profpath = filepath;
@@ -207,7 +208,7 @@ namespace PMIS.Controllers
 
             return new JsonResult { Data = new { Message = Message, Status = flag } };
         }
-        public JsonResult UpdateCover(string username, int userid, string profpath)
+        public JsonResult UpdateCover(string username, int userid, string coverpath)
         {
 
             string Message, fileName, actualFileName;
@@ -218,19 +219,23 @@ namespace PMIS.Controllers
 
                 var file = Request.Files[0];
                 actualFileName = file.FileName;
-                fileName = username + "_" + userid + Path.GetExtension(file.FileName);
+                fileName = username + "_cv_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + Path.GetExtension(file.FileName);
                 int size = file.ContentLength;
                 var extension = Path.GetExtension(file.FileName);
 
 
                 try
                 {
-
+                    var serverpath = Path.Combine(Server.MapPath(coverpath));
+                    if (System.IO.File.Exists(serverpath))
+                    {
+                        System.IO.File.Delete(serverpath);
+                    }
 
 
                     file.SaveAs(Path.Combine(Server.MapPath("/uploads"), fileName));
                     //var filepath = Path.Combine(Server.MapPath("~/UploadFiles"), fileName);
-                    var filepath = "/uploads/" + username + "_" + userid + extension;
+                    var filepath = "/uploads/" + fileName;
 
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.coverpath = filepath;
@@ -253,6 +258,15 @@ namespace PMIS.Controllers
         {
             List<user> ur = db.users.Where(e => e.userId == id).ToList();
             return Json(ur[0], JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult getImageByte()
+        {
+            var file = Request.Files[0];
+            BinaryReader reader = new BinaryReader(file.InputStream);
+            byte[] Imagebyte = reader.ReadBytes(file.ContentLength);
+            return File(Imagebyte, "image/jpg");
         }
     }
 }
