@@ -122,20 +122,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
-          <ScalarProperty Name="taskId" ColumnName="taskId" />
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="fullname" ColumnName="fullname" />
-          <ScalarProperty Name="profpath" ColumnName="profpath" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
@@ -169,6 +155,20 @@
           <ScalarProperty Name="userId" ColumnName="userId" />
           <ScalarProperty Name="fullname" ColumnName="fullname" />
           <ScalarProperty Name="profpath" ColumnName="profpath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="description" ColumnName="description" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

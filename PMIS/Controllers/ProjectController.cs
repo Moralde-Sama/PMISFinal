@@ -243,9 +243,9 @@ namespace PMIS.Controllers
             return Json(tasks, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult getUserTask(int userId)
+        public ActionResult getUserTask(int userId, int projId)
         {
-            var tasks = db.spGetUserTask(userId).ToList();
+            var tasks = db.spGetUserTask(projId, userId).ToList();
             return Json(tasks, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -265,14 +265,19 @@ namespace PMIS.Controllers
         {
             var oldtask = db.tasks.Where(e => e.taskId == task.taskId).First();
             tasklog log = new tasklog();
-            if (task.assignto != oldtask.assignto)
-            {
-                log.logcontent = "assigned task to";
-            }
-            else
-            {
-                log.logcontent = "assigned task to";
-            }
+                if (task.status == "Completed")
+                {
+                    log.logcontent = "approved the submission";
+                }
+                else if (task.assignto != oldtask.assignto)
+                {
+                    log.logcontent = "assigned task to";
+                }
+                else
+                {
+                    log.logcontent = "assigned task to";
+                }
+
             return log;
         }
     }

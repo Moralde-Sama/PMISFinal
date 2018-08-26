@@ -8,9 +8,8 @@
     s.marks1 = ["Accept", "Available"];
     s.marks2 = ["Accept", "Return"];
     
-
-    refreshTask();
-    getParticipants();
+    s.projCreator;
+    
 
     $("#inputSuccess").click(function () {
         $("#inputSuccess1").val("").focus();
@@ -27,7 +26,33 @@
     var projDetailsParam = {'ProjId': rp.projId};
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
         s.projtitle = r.data.title;
+        if (r.data.userId != userInfo[0].userId)
+            $("#tab1").css("display", "block");
+        else
+            $("#tab2").css("display", "block");
+
+        refreshTask(r.data.userId);
+        getParticipants();
     })
+
+
+    function refreshTask(id) {
+        if (id == userInfo[0].userId) {
+            s.projCreator = true;
+            var taskparam = { "projId": s.projId };
+            h.post("../Project/getProjTask", taskparam).then(function (r) {
+                s.tasks = r.data;
+            })
+        }
+        else {
+            s.projCreator = false;
+            console.log(userInfo[0].userId + " == " + s.projId);
+            var taskparam = { "userId": userInfo[0].userId, "projId": s.projId };
+            h.post("../Project/getUserTask", taskparam).then(function (r) {
+                s.tasks = r.data;
+            })
+        }
+    }
 
     function getParticipants() {
         var partiparam = {'projId': rp.projId };
@@ -68,6 +93,39 @@
         refreshTask();
     }
 
+    s.submitCancelTask = function () {
+        var btn = document.getElementById("btnSubmit1");
+        var text = $("#btnSubmit1").text();
+        if (text == " Submit") {
+            var updatetuParam = { "taskId": s.data.taskId, "status": "Pending" };
+            h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
+                if (r.data == "Success") {
+                    btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
+                    btn.className = "btn btn-warning";
+                    refreshTask();
+                    alert("Updated Successfull!");
+                }
+                else {
+                    alert("Error!");
+                }
+            })
+        }
+        else {
+            var updatetuParam = { "taskId": s.data.taskId, "status": "Available" };
+            h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
+                if (r.data == "Success") {
+                    btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
+                    btn.className = "btn btn-info";
+                    refreshTask();
+                    alert("Updated Successfull!");
+                }
+                else {
+                    alert("Error!");
+                }
+            })
+        }
+    }
+
     s.keyDown = function (input, id) {
         if(input == "New"){
             if ($("#inputSuccess").val() == "") {
@@ -96,13 +154,6 @@
         $("#MySelectName").text("Click to assign");
     }
 
-    function refreshTask() {
-        var taskparam = { "projId": rp.projId };
-        h.post("../Project/getProjTask", taskparam).then(function (r) {
-            s.tasks = r.data;
-        })
-    }
-
     s.setStatusColor = function (status) {
         if (status == "Completed") {
             return "labelPrimary";
@@ -121,24 +172,32 @@
         var date = new Date(parseInt(s.tasklog[0].date.substr(6)));
         return date;
     }
-    s.showCreatedBy = function (userId, fullname, index, content) {
+    s.showCreatedBy = function (userId, fullname, index, content, userId2, fullname2) {
         if (content == "finished the task" || content == "canceled the submission") {
-            return fullname;
+            if (userId2 == userInfo[0].userId){
+                $("#" + index + "log1").css("color", "black");
+                return "You";
+            }
+            else {
+                $("#" + index + "log3").attr("href", "sdf");
+                return fullname2;
+            }
         }
         else if (userId == userInfo[0].userId) {
-            $("#"+index+"log").css("color", "black");
+            $("#" + index + "log3").css("color", "black");
             return "You";
         }
         else {
-            $("#" + index + "log").attr("href", "sdf");
+            $("#" + index + "log1").attr("href", "sdf");
             return fullname;
         }
     }
-    s.showAssignTo = function (userId, log, fullname) {
+    s.showAssignTo = function (userId, log, index, fullname) {
         if (log != "assigned task to"){
             return "";
         }
-        else if (userId == userInfo[0].userId){
+        else if (userId == userInfo[0].userId) {
+            $("#" + index + "log2").css("color", "black");
             return "you"
         }
         else {
@@ -149,6 +208,7 @@
 
     s.showData = function (index, taskId) {
         document.getElementById("tasklog").style.display = "none";
+        var btn = document.getElementById("btnSubmit1");
         if (taskId == "NewTask") {
             s.clear();
             $("#btnCreate").text("Create Task");
@@ -163,12 +223,17 @@
                 if (s.task.status == "Completed") {
                     s.markAs("Accept");
                     s.defValMark = "Accepted";
+                    btn.style.display = "none";
                 }
                 else if (s.task.status == "Pending") {
                     s.markAs("Pending");
+                    btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
+                    btn.className = "btn btn-warning";
                 }
                 else {
                     s.markAs("Available");
+                    btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
+                    btn.className = "btn btn-info";
                 }
 
                 h.post("../User/getUser?userId=" + s.task.assignto).then(function (r) {

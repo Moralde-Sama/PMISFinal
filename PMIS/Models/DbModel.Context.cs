@@ -66,15 +66,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetTaskLog_Result>("spgetTaskLog", taskIdParameter);
         }
     
-        public virtual ObjectResult<spGetUserTask_Result> spGetUserTask(Nullable<int> userId)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserTask_Result>("spGetUserTask", userIdParameter);
-        }
-    
         public virtual ObjectResult<spProjectDetails_Result> spProjectDetails(Nullable<int> projId)
         {
             var projIdParameter = projId.HasValue ?
@@ -96,6 +87,19 @@ namespace PMIS.Models
         public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
+        }
+    
+        public virtual ObjectResult<spGetUserTask_Result> spGetUserTask(Nullable<int> projId, Nullable<int> userId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserTask_Result>("spGetUserTask", projIdParameter, userIdParameter);
         }
     }
 }

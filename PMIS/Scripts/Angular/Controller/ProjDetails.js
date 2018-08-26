@@ -8,6 +8,7 @@
     var spamLimit = 3;
     var mute = 0;
     var creatorId = null;
+    var ppArray = null;
 
     var x = window.matchMedia("(max-width: 764px)")
     myFunction(x)
@@ -61,6 +62,7 @@
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
             s.projParticipants = r.data;
+            ppArray = r.data;
         })
     }
 
@@ -146,7 +148,14 @@
             return true;
         }
         else {
-            return false;
+            if (ppArray.some(function (it) {
+                return it.userId == userInfo[0].userId;
+            })) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 

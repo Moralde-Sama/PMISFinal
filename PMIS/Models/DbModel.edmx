@@ -90,6 +90,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Parameter Name="taskId" Type="int" Mode="In" />
         </Function>
         <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projId" Type="int" Mode="In" />
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
         <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -205,9 +206,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
           <Parameter Name="taskId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
-          <Parameter Name="userId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
           <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -215,6 +213,10 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
+          <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
+            <Parameter Name="projId" Mode="In" Type="Int32" />
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetParticipantsByProj_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
@@ -247,16 +249,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="Int32" Name="userId2" Nullable="false" />
           <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
         </ComplexType>
-        <ComplexType Name="spGetUserTask_Result">
-          <Property Type="Int32" Name="taskId" Nullable="false" />
-          <Property Type="Int32" Name="projId" Nullable="false" />
-          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
-          <Property Type="String" Name="profpath" Nullable="false" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
-        </ComplexType>
         <ComplexType Name="spProjectDetails_Result">
           <Property Type="Int32" Name="projId" Nullable="false" />
           <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
@@ -280,6 +272,16 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="Int32" Name="userId" Nullable="false" />
           <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
           <Property Type="String" Name="profpath" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetUserTask_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -408,20 +410,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
-                <ScalarProperty Name="taskId" ColumnName="taskId" />
-                <ScalarProperty Name="projId" ColumnName="projId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
@@ -455,6 +443,20 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="profpath" ColumnName="profpath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="description" ColumnName="description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
