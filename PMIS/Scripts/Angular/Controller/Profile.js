@@ -19,11 +19,6 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
         $("#file").attr("src", userInfo[0].profpath);
     })
 
-
-    $("#modaltitle").text("Edit Profile Picture");
-
-        
-    
     $(document).ready(function () {
         $('#coverid').css("background-image", "url('" + userInfo[0].coverpath + "')");
     })
@@ -35,32 +30,43 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             s.USERNAME = d.data.username;
             s.PROFPATH = d.data.profpath;
             s.COVERPATH - d.data.coverpath;
+            
         });
     }
-    s.click_editprofile=function()
-    {
-        s.modaltitle = "Edit Profile Picture";
-            //$("#modaltitle").text("Edit Profile Picture");
-        
-    }
-    s.click_editcover=function()
-    {
-        s.modaltitle = "Edit Cover Image";
-            //$("#modaltitle").text("Edit Cover Image");
+   
+    s.showmodal_profilepic = function () {
+        document.getElementById("myModal").style.display = "block";
+        $('#modal-title').text("Edit Profile Picture");
+        $('#myModal').animateCss('zoomIn', function () {
 
+        });
+    }
+    s.showmodal_coverimage = function () {
+        document.getElementById("myModal").style.display = "block";
+        $('#modal-title').text("Edit Cover Image");
+        $('#myModal').animateCss('zoomIn', function () {
+
+        });
+    }
+    s.hidemodal = function () {
+        $('#myModal').animateCss('zoomOut', function () {
+            document.getElementById("myModal").style.display = "none";
+
+        });
     }
 
 
 
     s.updateprofile = function (d) {
-        r.post("../Account/updateprofile", d).then(function (d) {
-            console.log(d);
-            //swal("Successfully Updated", "", "success");
+        
+        r.post("../Account/updateprofile", d).then(function (response) {
+            console.log(response);
             alert("Successfully Updated");
+            localStorage.userInfo = JSON.stringify(response.data);
+            userProfile(JSON.stringify(response.data));
 
-            $("#fullname").text(d.data.firstname + " " + d.data.lastname);
-            //$window.location.reload();   
-            //location.href("../home/profile2"); 
+            $("#fullname").text(d.firstname + " " + d.lastname);
+      
 
 
         })
@@ -120,7 +126,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                             return false;
 
                         }
-                        FileUploadService.changecover(s.SelectedFileForUpload, s.USERNAME, s.USERID, s.COVERPATH).then(function (d) {
+                        FileUploadService.changecover(s.SelectedFileForUpload, s.USERNAME, s.USERID).then(function (d) {
 
 
                         }, function (e) {
@@ -151,7 +157,8 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 isValid = true;
 
             }
-            else {
+            else
+            {
                 s.FileInvalidMessage = "Selected file is Invalid. (only file type png, jpeg and gif)";
                 alert("Selected file is Invalid. (only file type png, jpeg and gif and 512 kb size allowed)");
             }
@@ -162,6 +169,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             alert("Image Required!");
         }
         s.IsFileValid = isValid;
+        
     };
 
     s.selectFileforUpload = function (file) {
@@ -170,16 +178,16 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
     s.SaveFile = function () {
 
-
-
-        if ((document.getElementById("modaltitle").innerText) == "Edit Profile Picture") {
+        
+        
+        if ((document.getElementById("modal-title").innerText) == "Edit Profile Picture") {
             s.IsFormSubmitted = true;
             s.Message = "";
 
             s.ChechFileValid(s.SelectedFileForUpload);
             if (s.IsFileValid) {
-                FileUploadService.UploadFile(s.SelectedFileForUpload, s.USERNAME, s.USERID, s.PROFPATH).then(function (d) {
-                    alert("Save");
+                FileUploadService.UploadFile(s.SelectedFileForUpload, s.USERNAME, s.USERID).then(function (d) {
+                    
 
                 }, function (e) {
                     alert(e);
@@ -187,11 +195,11 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             }
             else {
                 s.Message = "All the fields are required.";
-                //swal("Image Required!", "", "error");
+             
                 
             }
         }
-        else if ((document.getElementById("modaltitle").innerText) == "Edit Cover Image") {
+        else if ((document.getElementById("modal-title").innerText) == "Edit Cover Image") {
             cover();
 
         }
@@ -200,15 +208,18 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
     }
 
+
+    
+
+
 }]).factory('FileUploadService', function ($http, $q) { // explained abour controller and service in part 2
 
     var fac = {};
-    fac.UploadFile = function (file, username, userid, profpath) {
+    fac.UploadFile = function (file, username, userid) {
         var formData = new FormData();
         formData.append("file", file);
         formData.append("username", username);
         formData.append("userid", userid);
-        formData.append("profpath", profpath);
         //We can send more data to server using append         
         //var defer = $q.defer();
         $http.post("/Account/SaveFiles", formData,
@@ -218,21 +229,20 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 transformRequest: angular.identity
             }).then(function (response) {
                 //swal("Successfully Updated", "", "success");
-                alert("Successfully Updated");
+                //alert("Successfully Updated");
+                
                 localStorage.userInfo = JSON.stringify(response.data);
                 userProfile(JSON.stringify(response.data));
-                //location.reload();
             });
 
         //return defer.promise;
 
     }
-    fac.changecover = function (file, username, userid, coverpath) {
+    fac.changecover = function (file, username, userid) {
         var formData = new FormData();
         formData.append("file", file);
         formData.append("username", username);
         formData.append("userid", userid);
-        formData.append("coverpath", coverpath);
         //We can send more data to server using append         
         //var defer = $q.defer();
         $http.post("/Account/UpdateCover", formData,
@@ -243,8 +253,9 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             }).then(function (response) {
                 //swal("Successfully Updated", "", "success");
                 alert("Successfully Updated");
+                
                 localStorage.userInfo = JSON.stringify(response.data);
-                //location.reload();
+                
                 userProfile(JSON.stringify(response.data));
             });
 
