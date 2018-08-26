@@ -24,7 +24,7 @@ namespace PMIS
                 );
             routes.MapRoute(
                 "ProjectTask",
-                "Project/NewTask/projectId={id}",
+                "Project/Tasks/projectId={id}",
                 defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
                 );
             routes.MapRoute(

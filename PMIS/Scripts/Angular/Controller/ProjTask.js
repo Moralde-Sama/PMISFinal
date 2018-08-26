@@ -122,7 +122,7 @@
         return date;
     }
     s.showCreatedBy = function (userId, fullname, index, content) {
-        if (content == "submitted the task" || content == "canceled the submission") {
+        if (content == "finished the task" || content == "canceled the submission") {
             return fullname;
         }
         else if (userId == userInfo[0].userId) {
