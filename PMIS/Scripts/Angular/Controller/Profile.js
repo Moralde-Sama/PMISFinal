@@ -66,30 +66,39 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             userProfile(JSON.stringify(response.data));
 
             $("#fullname").text(d.firstname + " " + d.lastname);
-      
-
+            
 
         })
     }
     s.checkpassword = function (oldpassword, password, retype) {
         console.log(password);
+
+
+
         r.post("../Account/checkpassword?oldpassword=" + oldpassword + "&userid=" + userInfo[0].userId).then(function (d) {
 
             if (d.data == "exist") {
                 if (password != retype) {
                     alert("New Password does not match");
+                    $('#newpassword').val("");
+                    $('#retypepassword').val("");
                 }
                 else {
                     r.post("../Account/changedpassword?password=" + password + "&userid=" + userInfo[0].userId).then(function (d) {
 
-                        alert("succesfully change");
+                        alert("succesfully changeacsadcsa");
+                        $('#password').val("");
+                        $('#newpassword').val("");
+                        $('#retypepassword').val("");
+
+
                     })
                 }
 
 
             }
             else if (d.data == "notexist") {
-                alert("false")
+                alert("not exist");
             }
 
 
@@ -229,8 +238,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 transformRequest: angular.identity
             }).then(function (response) {
                 //swal("Successfully Updated", "", "success");
-                //alert("Successfully Updated");
-                
+                alert("Successfully Updated");
                 localStorage.userInfo = JSON.stringify(response.data);
                 userProfile(JSON.stringify(response.data));
             });
