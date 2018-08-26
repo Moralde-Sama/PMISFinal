@@ -13,7 +13,7 @@
         templateUrl: "../PartialViews/ProjAdd",
         controller: "projAddCtrl"
     })
-    .when("/Project/NewTask/projectId=:projId", {
+    .when("/Project/Tasks/projectId=:projId", {
         templateUrl: "../PartialViews/ProjTask",
         controller: "projTask"
     })

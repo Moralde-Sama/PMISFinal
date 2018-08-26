@@ -223,7 +223,7 @@ namespace PMIS.Controllers
                 if (task.status != "Pending")
                     log.logcontent = "canceled the submission";
                 else
-                    log.logcontent = "submitted the task";
+                    log.logcontent = "finished the task";
 
                 log.assignto = task.assignto;
                 db.tasklogs.Add(log);
