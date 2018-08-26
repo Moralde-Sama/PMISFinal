@@ -39,9 +39,8 @@
             </div>
             <div class="media-right media-middle row">
                 <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
-                    <li ng-click="click_editprofile();click()"><a class="btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</a></li>
-                    <li ng-click="click_editcover();click()"><a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#ProfilePictureModal" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover image</a></li>
-
+                    <li ng-click="showmodal_profilepic();click()"><button id="" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Profile Picture</button></li>
+                    <li ng-click="showmodal_coverimage();click()"><button id="" class="btn btn-default"><i class="glyphicon glyphicon-edit position-left"></i> Cover Image</button></li>
                 </ul>
             </div>
         </div>
@@ -259,35 +258,35 @@
         </div>
     </div>
 
-    <div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;">
-        <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
-
-
-            <div class="modal-content">
-
-                <div class="modal-header box-header box-primary">
-                    <h5 class="modal-title" id="modaltitle" ng-bind="modaltitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="modal" id="myModal" style="display:none; background-color:transparent;">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color:ActiveBorder;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeAssignTo()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 id="modal-title" style="font-weight:bold;">Assign To</h4>
                 </div>
-
                 <div class="modal-body">
-                    <input id="selectedFile" type="file"
-                           name="file"
-                           accept="image/*"
-                           ng-click="click()"
-                           multiple onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" ng-click="SaveFile()" data-dismiss="modal">Save changes</button>
-                </div>
+                    <div class="modal-body">
+                        <input id="selectedFile" type="file"
+                               name="file"
+                               accept="image/*"
+                               ng-click="click()"
+                               multiple onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" ng-click="hidemodal()">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="hidemodal();SaveFile()">Save changes</button>
+                    </div>
 
-            </div>
-        </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div>
+
+
+
+
+
 </section>
 <script>
 
