@@ -113,31 +113,7 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult updateprofile(user data)
         {
-            //var profpath = ((user)Session["userInfo"]).profpath;
-            //var coverpath = ((user)Session["userInfo"]).coverpath;
-
-            //var extension = profpath.Substring(profpath.Length - 3);
-            //string filename = data.username + "." + extension;
-            //string filenamecover = data.username + "_" + data.userId + "." + extension;
-            ////var old = Path.Combine(Server.MapPath(((user)Session["userInfo"]).profpath));
-            ////var path = Path.Combine(Server.MapPath("/uploads"), filename);
-
-            //var oldpic = Path.Combine(Server.MapPath(profpath));
-            //var newpic = Path.Combine(Server.MapPath("/uploads"), filename);
-
-            //var oldcover = Path.Combine(Server.MapPath(coverpath));
-            //var newcover = Path.Combine(Server.MapPath("/uploads"), filenamecover);
-
-
-            //System.IO.File.Move(oldpic, newpic);
-            //System.IO.File.Move(oldcover, newcover);
-            //data.coverpath = "/uploads/" + data.username + "_" + data.userId + "." + extension;
-            //data.profpath = "/uploads/" + data.username + "." + extension;
-            //db.Entry(data).State = EntityState.Modified;
-            //db.SaveChanges();
-            //List<user> ur = db.users.Where(e => e.userId == data.userId).ToList();
-            //Session["userInfo"] = ur[0];
-
+        
             var profpath = data.profpath;
             var coverpath = data.coverpath;
             var profileextension = profpath.Substring(profpath.Length - 4);
@@ -168,8 +144,8 @@ namespace PMIS.Controllers
         }
         public ActionResult checkpassword(string oldpassword, int userid)
         {
-
-            List<user> ur = db.users.Where(e => e.userId == userid && e.password == oldpassword).ToList();
+            string EncryptPass = EncryptMeth(oldpassword);
+            List<user> ur = db.users.Where(e => e.userId == userid && e.password == EncryptPass).ToList();
             if (ur.Count() > 0)
             {
                 return Json("exist", JsonRequestBehavior.AllowGet);
@@ -182,7 +158,7 @@ namespace PMIS.Controllers
         public ActionResult changedpassword(string password, int userid)
         {
             user f = db.users.FirstOrDefault(x => x.userId == userid);
-            f.password = password;
+            f.password =EncryptMeth(password);
             db.SaveChanges();
             return Json("Succesfully Updated", JsonRequestBehavior.AllowGet);
         }
