@@ -275,7 +275,7 @@
         else {
             s.marks1 = ["Accept", "Available"];
             s.defValMark = "Return";
-            s.data.status = "Available";
+            s.data.status = "Return";
         }
     }
 

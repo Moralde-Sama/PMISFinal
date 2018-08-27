@@ -269,6 +269,11 @@ namespace PMIS.Controllers
                 {
                     log.logcontent = "approved the submission";
                 }
+                else if (task.status == "Return")
+                {
+                    task.status = "Available";
+                    log.logcontent = "returned your task";
+                }
                 else if (task.assignto != oldtask.assignto)
                 {
                     log.logcontent = "assigned task to";
