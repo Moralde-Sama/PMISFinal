@@ -307,6 +307,7 @@
     <Content Include="Content\sweetalert.min.js" />
     <Content Include="Scripts\Angular\Controller\Profile.js" />
     <Content Include="Scripts\Angular\Controller\UserProfile.js" />
+    <Content Include="uploads\Kasumeme.jpg" />
     <Content Include="uploads\userimage.png" />
     <Content Include="Content\plugins\fastclick\fastclick.js" />
     <Content Include="Content\plugins\fastclick\fastclick.min.js" />
@@ -388,7 +389,6 @@
     <Content Include="Scripts\ModalAnimate.js" />
     <Content Include="Scripts\ProfileJS.js" />
     <Content Include="uploads\kanon.jpg" />
-    <Content Include="uploads\Kasumeme.jpg" />
     <Content Include="uploads\Moralde.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -418,6 +418,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\projectactivity.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProjectList.cs" />
     <Compile Include="Models\participant.cs">

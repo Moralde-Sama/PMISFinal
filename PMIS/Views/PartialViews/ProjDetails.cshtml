@@ -346,19 +346,22 @@
                         </div>
                         <div id="tab-3" style="display:none; padding:20px;">
                             <div class="row">
-                                <div class="animated fadeIn" ng-repeat="pp in projParticipants">
+                                <div class="animated fadeIn" ng-repeat="pp in projParticipants" style="cursor:pointer;" ng-click="profile(pp.userId)">
                                     <div class="col-md-4" >
                                             <div class="box box-widget widget-user">
                                                 <!-- Add the bg color to the header using any of the bg-* classes -->
-                                                <div class="widget-user-header bg-aqua-active">
-                                                    <h3 class="widget-user-username" style="color:white;">{{pp.fullname}}</h3>
-                                                    <h5 class="widget-user-desc" style="color:white;">{{pp.position}}</h5>
+                                                <div class="widget-user-header" style="background-image: url({{pp.coverpath}}); background-position:center; background-repeat:no-repeat; background-size: 100% 100%;">
+                                                    
                                                 </div>
                                                 <div class="widget-user-image">
                                                     <img class="img-circle" style="width:90px; height:90px;" src="{{pp.profpath}}" alt="User Avatar">
                                                 </div>
                                                 <div class="box-footer">
                                                     <div class="row">
+                                                        <div class="col-sm-12" style="text-align:center;">
+                                                            <h3 class="widget-user-username" style="color:black; font-weight:500;">{{pp.fullname}}</h3>
+                                                            <h5 class="widget-user-desc" style="color:black; font-weight:bold;">{{pp.position}}</h5>
+                                                        </div>
                                                         <div class="col-sm-6 border-right">
                                                             <div class="description-block">
                                                                 <h5 class="description-header">3,200</h5>

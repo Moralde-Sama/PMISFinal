@@ -102,6 +102,7 @@ namespace PMIS.Controllers
                 participant.fullname = p.fullname;
                 participant.creator = p.creator;
                 participant.profpath = p.profpath;
+                participant.coverpath = p.coverpath;
                 if (p.creator == 1)
                 {
                     participant.position = "Creator";

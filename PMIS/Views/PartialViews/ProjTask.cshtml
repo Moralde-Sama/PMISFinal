@@ -119,10 +119,10 @@
                         <div class="col-md-12" style="margin-top:10px;">
                             <div class="form-group">
                                 <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
-                                <textarea class="form-control" rows="3" placeholder="Description" ng-model="data.description"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Description" ng-model="data.description" required></textarea>
                             </div>
                         </div>
-                        <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:block;">
+                        <div id="tasklog2" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
                             <div ng-repeat="(lIndex, log) in tasklogs">
                                 <p style="font-size: 12px; cursor:default;"><a id="{{lIndex + 'log3'}}">{{showCreatedBy(log.userId, log.fullname, lIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{lIndex + 'log4'}}"> {{showAssignTo(log.userId2, log.logcontent, lIndex, log.fullname2)}} </a></p>
                             </div>

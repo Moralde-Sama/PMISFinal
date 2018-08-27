@@ -35,6 +35,15 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="createddate" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="enddate" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="projectactivity">
+    <Key>
+      <PropertyRef Name="activityId" />
+    </Key>
+    <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projId" Type="int" Nullable="false" />
+    <Property Name="taskId" Type="int" Nullable="false" />
+    <Property Name="logContent" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
   <EntityType Name="task">
     <Key>
       <PropertyRef Name="taskId" />
@@ -97,6 +106,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   <EntityContainer Name="PMISModelStoreContainer">
     <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="projectactivity" EntityType="Self.projectactivity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />

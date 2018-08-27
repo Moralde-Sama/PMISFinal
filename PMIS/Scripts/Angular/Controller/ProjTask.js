@@ -154,6 +154,12 @@
         $("#inputSuccess").val("");
         $("#MySelectImg").attr("src", "../uploads/userimage.png");
         $("#MySelectName").text("Click to assign");
+        $("#tasklog").animateCss("fadeOut", function () {
+            $("#tasklog").css("display", "none");
+        })
+        $("#tasklog2").animateCss("fadeOut", function () {
+            $("#tasklog2").css("display", "none");
+        })
     }
 
     s.setStatusColor = function (status) {
@@ -261,6 +267,12 @@
                         $('#tasklog').animateCss("fadeIn", function () {
                         })
                     }
+                })
+                $("#tasklog").css("display", "block");
+                $("#tasklog").animateCss("fadeIn", function () {
+                })
+                $("#tasklog2").css("display", "block");
+                $("#tasklog2").animateCss("fadeIn", function () {
                 })
                 $("#btnCreate").text("Update");
             })

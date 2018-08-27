@@ -1,4 +1,4 @@
-﻿module.controller("ProjDetailsCtrl", ["$scope", "$http", "$routeParams", function (s, h, rp) {
+﻿module.controller("ProjDetailsCtrl", ["$scope", "$http", "$routeParams", "$location", function (s, h, rp, l) {
 
     document.title = "PMIS | Project Details"
 
@@ -62,6 +62,7 @@
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
             s.projParticipants = r.data;
+            console.log(s.projParticipants);
             ppArray = r.data;
         })
     }
@@ -157,6 +158,10 @@
                 return false;
             }
         }
+    }
+
+    s.profile = function (userId) {
+        l.path("/user/profile/userId=" + userId);
     }
 
     function myFunction(x) {

@@ -21,7 +21,7 @@
 
 <section class="content-header" ng-controller="userprofileCtrl">
     <div class="profile-cover">
-        <div class="profile-cover-img" id="coverid" style="background-image: url(''); "></div>
+        <div class="profile-cover-img" id="coverid" style="Background-image: url(''); "></div>
         <div class="media">
 
 
@@ -55,7 +55,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#activity" data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
                 <li class=""><a href="#schedule" data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task @*<span class="badge badge-success badge-inline position-right">32</span>*@</a></li>
-                <li class="" ng-click="click()"><a href="#settings" data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
+                
             </ul>
 
 
@@ -150,148 +150,8 @@
 
 
                     </div>
-
-                    <div class="tab-pane fade" id="settings">
-
-
-                        <div class="col-lg-6">
-                            <div class="panel panel-flat">
-
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Profile Information</h3>
-                                        <div class="box-tools pull-right">
-                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                        </div><!-- /.box-tools -->
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form">
-                                        <div class="box-body">
-                                            <div class="row">
-
-                                                <div class="form-group col-md-12">
-                                                    <label for="username">Username</label>
-                                                    <input type="text" class="form-control" id="username" ng-model="data.username" placeholder="Username">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="firstname">Firstname</label>
-                                                    <input type="text" class="form-control" id="firstname" ng-model="data.firstname" placeholder="Firstname">
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label for="middlename">Middlename</label>
-                                                    <input type="text" class="form-control" id="middlename" ng-model="data.middlename" placeholder="Middlename">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="lastname">Lastname</label>
-                                                    <input type="text" class="form-control" id="lastname" ng-model="data.lastname" placeholder="Lastname">
-                                                </div>
-                                                <div>
-                                                    <input type="text" id="Name" name="userid" ng-model="data.userId" style="display:none">
-                                                </div>
-                                            </div>
-                                        </div><!-- /.box-body -->
-
-                                        <div class="box-footer">
-                                            <button type="button" class="btn btn-primary" ng-click="updateprofile(data)">Update</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="panel panel-flat">
-
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Change Password</h3>
-                                        <div class="box-tools pull-right">
-                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                        </div><!-- /.box-tools -->
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form">
-                                        <div class="box-body">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="password">Old Password</label>
-                                                    <input type="password" class="form-control" id="password" ng-model="oldpass" placeholder="Old Password">
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label for="newpassword">New Password</label>
-                                                    <input type="password" class="form-control" id="newpassword" ng-model="newpass" placeholder="new Password">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="retypepassword">Retype Password</label>
-                                                    <input type="password" class="form-control" id="retypepassword" ng-model="retypepass" placeholder="Password">
-                                                </div>
-
-                                            </div>
-                                        </div><!-- /.box-body -->
-
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary" ng-click="checkpassword(oldpass,newpass,retypepass)">Update</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-
-
-                    </div>
                 </div>
-            </div>
-
-
-
-        </div>
-
-        <div class="col-lg-3">
-
-
-        </div>
-    </div>
-
-    <div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;">
-        <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
-
-
-            <div class="modal-content">
-
-                <div class="modal-header box-header box-primary">
-                    <h5 class="modal-title" id="modaltitle" ng-bind="modaltitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <input id="selectedFile" type="file"
-                           name="file"
-                           accept="image/*"
-                           ng-click="click()"
-                           multiple onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" ng-click="SaveFile()" data-dismiss="modal">Save changes</button>
-                </div>
-
             </div>
         </div>
     </div>
 </section>
-<script>
-    
-
-
-
-</script>

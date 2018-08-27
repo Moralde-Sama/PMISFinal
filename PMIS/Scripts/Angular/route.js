@@ -23,7 +23,7 @@
     })
     .when("/user/profile/userId=:userId", {
         templateUrl: "../PartialViews/UserProfile",
-        controller: "userprofileCtrl"
+        controller: "urprofCtrl"
         
     })
     .when("/user/profile/myprofile", {

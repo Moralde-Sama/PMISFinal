@@ -40,6 +40,15 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="createddate" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="enddate" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="projectactivity">
+          <Key>
+            <PropertyRef Name="activityId" />
+          </Key>
+          <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projId" Type="int" Nullable="false" />
+          <Property Name="taskId" Type="int" Nullable="false" />
+          <Property Name="logContent" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="task">
           <Key>
             <PropertyRef Name="taskId" />
@@ -102,6 +111,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         <EntityContainer Name="PMISModelStoreContainer">
           <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="projectactivity" EntityType="Self.projectactivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
@@ -163,20 +173,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="assignto" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="user">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="profpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="coverpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="projecmessage">
           <Key>
             <PropertyRef Name="messId" />
@@ -194,11 +190,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="projects" EntityType="Self.project" />
           <EntitySet Name="tasks" EntityType="Self.task" />
           <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
-          <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="projecmessages" EntityType="Self.projecmessage" />
-          <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
-          <Parameter Name="projId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
           <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
           <Parameter Name="projId" Mode="In" Type="Int32" />
@@ -217,14 +209,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
             <Parameter Name="projId" Mode="In" Type="Int32" />
             <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
+          <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
+          <Parameter Name="projId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="users" EntityType="PMISModel.user" />
         </EntityContainer>
-        <ComplexType Name="spGetParticipantsByProj_Result">
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
-          <Property Type="String" Name="profpath" Nullable="false" />
-          <Property Type="Int32" Name="creator" Nullable="true" />
-          <Property Type="String" Name="position" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="spGetProjList_Result">
           <Property Type="Int32" Name="projId" Nullable="false" />
           <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
@@ -283,6 +273,37 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="profpath" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
         </ComplexType>
+        <EntityType Name="projectactivity">
+          <Key>
+            <PropertyRef Name="activityId" />
+          </Key>
+          <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projId" Type="Int32" Nullable="false" />
+          <Property Name="taskId" Type="Int32" Nullable="false" />
+          <Property Name="logContent" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="spGetParticipantsByProj_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" />
+          <Property Type="String" Name="coverpath" Nullable="true" />
+          <Property Type="Int32" Name="creator" Nullable="true" />
+          <Property Type="String" Name="position" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="middlename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="coverpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -338,21 +359,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="PMISModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="middlename" ColumnName="middlename" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
-                <ScalarProperty Name="coverpath" ColumnName="coverpath" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="projecmessages">
             <EntityTypeMapping TypeName="PMISModel.projecmessage">
               <MappingFragment StoreEntitySet="projecmessage">
@@ -363,17 +369,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
-                <ScalarProperty Name="creator" ColumnName="creator" />
-                <ScalarProperty Name="position" ColumnName="position" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetProjList" FunctionName="PMISModel.Store.spGetProjList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PMISModel.spGetProjList_Result">
@@ -460,6 +455,43 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="projectactivities">
+            <EntityTypeMapping TypeName="PMISModel.projectactivity">
+              <MappingFragment StoreEntitySet="projectactivity">
+                <ScalarProperty Name="logContent" ColumnName="logContent" />
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="activityId" ColumnName="activityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetParticipantsByProj" FunctionName="PMISModel.Store.spGetParticipantsByProj">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetParticipantsByProj_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="coverpath" ColumnName="coverpath" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="position" ColumnName="position" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="PMISModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="coverpath" ColumnName="coverpath" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
