@@ -25,6 +25,7 @@
     s.data.title = "Write a task name";
     var projDetailsParam = {'ProjId': rp.projId};
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
+        s.projuserId = r.data.userId;
         s.projtitle = r.data.title;
         if (r.data.userId != userInfo[0].userId)
             $("#tab1").css("display", "block");
@@ -51,6 +52,7 @@
             h.post("../Project/getUserTask", taskparam).then(function (r) {
                 s.tasks = r.data;
             })
+            $("#writeTask").css("display", "none");
         }
     }
 
@@ -90,7 +92,7 @@
                 }
             })
         }
-        refreshTask();
+        refreshTask(s.projuserId);
     }
 
     s.submitCancelTask = function () {
@@ -209,6 +211,7 @@
     s.showData = function (index, taskId) {
         document.getElementById("tasklog").style.display = "none";
         var btn = document.getElementById("btnSubmit1");
+        var btnWrapper = document.getElementById("showBtn");
         if (taskId == "NewTask") {
             s.clear();
             $("#btnCreate").text("Create Task");
@@ -223,17 +226,25 @@
                 if (s.task.status == "Completed") {
                     s.markAs("Accept");
                     s.defValMark = "Accepted";
-                    btn.style.display = "none";
+                    $("#showBtn").animateCss("fadeOut", function () {
+                        btnWrapper.style.display = "none";
+                    })
                 }
                 else if (s.task.status == "Pending") {
                     s.markAs("Pending");
                     btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                     btn.className = "btn btn-warning";
+                    btnWrapper.style.display = "block";
+                    $("#showBtn").animateCss("fadeIn", function () {
+                    })
                 }
                 else {
                     s.markAs("Available");
                     btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                     btn.className = "btn btn-info";
+                    btnWrapper.style.display = "block";
+                    $("#showBtn").animateCss("fadeIn", function () {
+                    })
                 }
 
                 h.post("../User/getUser?userId=" + s.task.assignto).then(function (r) {
