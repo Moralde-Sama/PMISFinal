@@ -182,8 +182,9 @@ namespace PMIS.Controllers
                 projectactivity pact = new projectactivity();
                 pact.projId = task.projId;
                 pact.taskId = task.taskId;
+                pact.status = task.status;
                 pact.datetime = date;
-                pact.logContent = "created the task and assign to";
+                pact.logContent = "created a task and assign to";
                 db.projectactivities.Add(pact);
                 db.SaveChanges();
 
@@ -224,6 +225,7 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult updateTaskUser(int taskId, string status)
         {
+            bool finished;
             try { 
                 var task = db.tasks.Where(e => e.taskId == taskId).First();
                 task.status = status;
@@ -234,13 +236,31 @@ namespace PMIS.Controllers
                 log.taskId = task.taskId;
                 log.date = DateTime.Now;
 
-                if (task.status != "Pending")
+                if (task.status != "Pending"){
                     log.logcontent = "canceled the submission";
-                else
+                    finished = false;
+                }
+                else {
                     log.logcontent = "finished the task";
+                    finished = true;
+                }
 
                 log.assignto = task.assignto;
                 db.tasklogs.Add(log);
+                db.SaveChanges();
+
+                projectactivity pact = new projectactivity();
+                pact.projId = task.projId;
+                pact.taskId = task.taskId;
+                pact.status = task.status;
+                pact.datetime = DateTime.Now;
+
+                if (finished)
+                    pact.logContent = "finished the task.";
+                else
+                    pact.logContent = "canceled the submission.";
+               
+                db.projectactivities.Add(pact);
                 db.SaveChanges();
 
                 updateLastActDate(task.projId);
@@ -295,14 +315,24 @@ namespace PMIS.Controllers
         {
             var oldtask = db.tasks.Where(e => e.taskId == task.taskId).First();
             tasklog log = new tasklog();
+
+            projectactivity pact = new projectactivity();
+            pact.projId = oldtask.projId;
+            pact.taskId = oldtask.taskId;
+            pact.datetime = DateTime.Now;
+
                 if (task.status == "Completed")
                 {
                     log.logcontent = "approved the submission";
+                    pact.logContent = "approved the submission of";
+                    pact.status = task.status;
                 }
                 else if (task.status == "Return")
                 {
                     task.status = "Available";
                     log.logcontent = "returned your task";
+                    pact.logContent = "returned the task of";
+                    pact.status = task.status;
                 }
                 else if (task.assignto != oldtask.assignto)
                 {
@@ -312,6 +342,9 @@ namespace PMIS.Controllers
                 {
                     log.logcontent = "assigned task to";
                 }
+
+            db.projectactivities.Add(pact);
+            db.SaveChanges();    
 
             return log;
         }

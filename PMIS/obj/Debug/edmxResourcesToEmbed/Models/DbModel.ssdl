@@ -54,6 +54,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="taskId" Type="int" Nullable="false" />
     <Property Name="logContent" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="datetime" Type="datetime" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="task">
     <Key>

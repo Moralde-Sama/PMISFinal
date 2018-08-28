@@ -79,6 +79,22 @@
         return date2.toLocaleTimeString("en-us", options);
     }
 
+    s.logcontent = function (content, userId, fullname, userId2, fullname2, index) {
+        if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of") {
+            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            $("#anchor2" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
+            return content;
+        }
+        else if (content == "finished the task.") {
+            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId);
+            return content;
+        }
+        else if (content == "canceled the submission.") {
+            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            return content;
+        }
+    }
+
     var interval = null;
     var interval2 = null;
     s.sendMessage = function () {

@@ -187,6 +187,7 @@
     <EntitySetMapping Name="projectactivities">
       <EntityTypeMapping TypeName="PMISModel.projectactivity">
         <MappingFragment StoreEntitySet="projectactivity">
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="datetime" ColumnName="datetime" />
           <ScalarProperty Name="logContent" ColumnName="logContent" />
           <ScalarProperty Name="taskId" ColumnName="taskId" />
