@@ -178,6 +178,9 @@ namespace PMIS.Controllers
                     db.tasklogs.Add(log);
                     db.SaveChanges();
                 }
+
+                updateLastActDate(task.projId);
+
                 return Json("Success", JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -200,6 +203,8 @@ namespace PMIS.Controllers
                 log.assignto = task.assignto;
                 db.tasklogs.Add(log);
                 db.SaveChanges();
+
+                updateLastActDate(task.projId);
 
                 return Json("Success", JsonRequestBehavior.AllowGet);
             }
@@ -229,6 +234,8 @@ namespace PMIS.Controllers
                 log.assignto = task.assignto;
                 db.tasklogs.Add(log);
                 db.SaveChanges();
+
+                updateLastActDate(task.projId);
 
                 return Json("Success", JsonRequestBehavior.AllowGet);
             }
@@ -260,6 +267,14 @@ namespace PMIS.Controllers
         {
             var tasklog = db.spgetTaskLog(taskId).ToList();
             return Json(tasklog, JsonRequestBehavior.AllowGet);
+        }
+
+        private void updateLastActDate(int projId)
+        {
+            var details = db.projects.Where(e => e.projId == projId).First();
+            details.lastupdated = DateTime.Now.ToString("dddd, dd MMMM yyyy hh:mm tt");
+            db.Entry(details).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         private tasklog checkChanged(task task)

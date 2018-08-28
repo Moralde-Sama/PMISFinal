@@ -68,6 +68,7 @@
         data.createdby = userInfo[0].userId;
         data.projId = rp.projId;
         data.status = s.data.status;
+        console.log("update status = " + data.status);
         if ($("#btnCreate").text() == "Create Task") {
             //data.title = s.tasktitle;
             h.post("../Project/addTask", data).then(function (r) {

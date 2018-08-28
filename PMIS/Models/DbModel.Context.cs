@@ -34,6 +34,7 @@ namespace PMIS.Models
         public virtual DbSet<projecmessage> projecmessages { get; set; }
         public virtual DbSet<projectactivity> projectactivities { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
     
         public virtual ObjectResult<spGetProjList_Result> spGetProjList()
         {

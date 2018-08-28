@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PMISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="notifId" />
+          </Key>
+          <Property Name="notifId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="notifcontent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="participant">
           <Key>
             <PropertyRef Name="partId" />
@@ -109,6 +119,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="PMISModelStoreContainer">
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="projectactivity" EntityType="Self.projectactivity" Schema="dbo" store:Type="Tables" />
@@ -214,6 +225,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="users" EntityType="PMISModel.user" />
+          <EntitySet Name="notifications" EntityType="PMISModel.notification" />
         </EntityContainer>
         <ComplexType Name="spGetProjList_Result">
           <Property Type="Int32" Name="projId" Nullable="false" />
@@ -303,6 +315,16 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="coverpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="notifId" />
+          </Key>
+          <Property Name="notifId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="notifcontent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -489,6 +511,17 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="PMISModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="notifcontent" ColumnName="notifcontent" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="notifId" ColumnName="notifId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -183,5 +183,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="notifications">
+      <EntityTypeMapping TypeName="PMISModel.notification">
+        <MappingFragment StoreEntitySet="notification">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="notifcontent" ColumnName="notifcontent" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="notifId" ColumnName="notifId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

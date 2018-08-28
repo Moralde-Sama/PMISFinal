@@ -86,6 +86,7 @@
       <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="users" EntityType="PMISModel.user" />
+    <EntitySet Name="notifications" EntityType="PMISModel.notification" />
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -175,5 +176,15 @@
     <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="coverpath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="notification">
+    <Key>
+      <PropertyRef Name="notifId" />
+    </Key>
+    <Property Name="notifId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="notifcontent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
 </Schema>

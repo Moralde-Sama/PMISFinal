@@ -35,5 +35,11 @@ namespace PMIS.Controllers
             var users = db.users.Where(e => e.userId == userId).Select(s => new { s.userId, s.firstname, s.middlename, s.lastname, s.profpath, s.coverpath }).First();
             return Json(users, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult addNotification(int userId, string type, string content)
+        {
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
     }
 }
