@@ -33,7 +33,25 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             
         });
     }
-   
+    s.tabcontrol = function (tab) {
+        if (tab == "tab_project") {
+
+            $('#tab-schedule').removeClass('active in');
+            $('#tab-setting').removeClass('active in');
+            $('#tab-project').addClass('active in');
+        }
+        else if (tab == "tab_schedule") {
+            $('#tab-project').removeClass('active in');
+            $('#tab-setting').removeClass('active in');
+            $('#tab-schedule').addClass('active in');
+        }
+        else if (tab == "tab_setting") {
+            $('#tab-schedule').removeClass('active in');
+            $('#tab-project').removeClass('active in');
+            $('#tab-setting').addClass('active in');
+        }
+
+    }
     s.showmodal_profilepic = function () {
         document.getElementById("myModal").style.display = "block";
         $('#modal-title').text("Edit Profile Picture");
@@ -86,7 +104,7 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
                 else {
                     r.post("../Account/changedpassword?password=" + password + "&userid=" + userInfo[0].userId).then(function (d) {
 
-                        alert("succesfully changeacsadcsa");
+                        alert("succesfully change");
                         $('#password').val("");
                         $('#newpassword').val("");
                         $('#retypepassword').val("");
