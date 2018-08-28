@@ -62,9 +62,21 @@
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
             s.projParticipants = r.data;
-            console.log(s.projParticipants);
             ppArray = r.data;
         })
+
+        h.post("../Project/getProjectActivity?projId=" + rp.projId).then(function (r) {
+            s.activities = r.data;
+        })
+    }
+
+    s.convertJsonDate = function (date) {
+        var date2 = new Date(parseInt(date.substr(6)));
+        let options = {
+            weekday: "long", year: "numeric", month: "short",
+            day: "numeric", hour: "2-digit", minute: "2-digit"
+        };
+        return date2.toLocaleTimeString("en-us", options);
     }
 
     var interval = null;

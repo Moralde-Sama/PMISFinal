@@ -75,6 +75,7 @@
                 if (r.data == "Success") {
                     alert("Save Successfully");
                     s.clear();
+                    refreshTask(s.projuserId);
                 }
                 else {
                     alert("Error");
@@ -87,13 +88,13 @@
                 if (r.data == "Success") {
                     alert("Update Successfully");
                     s.clear();
+                    refreshTask(s.projuserId);
                 }
                 else {
                     alert("Error");
                 }
             })
         }
-        refreshTask(s.projuserId);
     }
 
     s.submitCancelTask = function () {
@@ -174,8 +175,6 @@
             return "label label-info";
         }
     }
-
-    var shit = "S";
 
     s.convertJsonDate = function (date) {
         var date = new Date(parseInt(s.tasklog[0].date.substr(6)));

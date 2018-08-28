@@ -10,14 +10,16 @@
 namespace PMIS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class projectactivity
+    public partial class spGetProjectActivity_Result
     {
-        public int activityId { get; set; }
-        public int projId { get; set; }
-        public int taskId { get; set; }
-        public string logContent { get; set; }
+        public string status { get; set; }
+        public string title { get; set; }
         public System.DateTime datetime { get; set; }
+        public string logContent { get; set; }
+        public int userId { get; set; }
+        public string fullname { get; set; }
+        public int userId2 { get; set; }
+        public string fullname2 { get; set; }
     }
 }

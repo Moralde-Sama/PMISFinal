@@ -53,6 +53,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="projId" Type="int" Nullable="false" />
     <Property Name="taskId" Type="int" Nullable="false" />
     <Property Name="logContent" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="datetime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="task">
     <Key>
@@ -94,6 +95,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   </EntityType>
   <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetProjectActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
   </Function>
   <Function Name="spGetProjList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />

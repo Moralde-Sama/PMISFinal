@@ -435,6 +435,9 @@
     <Compile Include="Models\project.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spGetProjectActivity_Result.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\spGetParticipantsByProj_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>

@@ -81,12 +81,15 @@
       <Parameter Name="projId" Mode="In" Type="Int32" />
       <Parameter Name="userId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
     <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
       <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="users" EntityType="PMISModel.user" />
     <EntitySet Name="notifications" EntityType="PMISModel.notification" />
+    <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
+    <FunctionImport Name="spGetProjectActivity" ReturnType="Collection(PMISModel.spGetProjectActivity_Result)">
+      <Parameter Name="projId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -146,15 +149,6 @@
     <Property Type="String" Name="profpath" Nullable="false" />
     <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
   </ComplexType>
-  <EntityType Name="projectactivity">
-    <Key>
-      <PropertyRef Name="activityId" />
-    </Key>
-    <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="projId" Type="Int32" Nullable="false" />
-    <Property Name="taskId" Type="Int32" Nullable="false" />
-    <Property Name="logContent" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-  </EntityType>
   <ComplexType Name="spGetParticipantsByProj_Result">
     <Property Type="Int32" Name="userId" Nullable="false" />
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
@@ -187,4 +181,24 @@
     <Property Name="notifcontent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
+  <EntityType Name="projectactivity">
+    <Key>
+      <PropertyRef Name="activityId" />
+    </Key>
+    <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projId" Type="Int32" Nullable="false" />
+    <Property Name="taskId" Type="Int32" Nullable="false" />
+    <Property Name="logContent" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <ComplexType Name="spGetProjectActivity_Result">
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="datetime" Nullable="false" Precision="23" />
+    <Property Type="String" Name="logContent" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+    <Property Type="Int32" Name="userId2" Nullable="false" />
+    <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
+  </ComplexType>
 </Schema>

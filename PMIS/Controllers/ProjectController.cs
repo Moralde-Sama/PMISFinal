@@ -179,6 +179,14 @@ namespace PMIS.Controllers
                     db.SaveChanges();
                 }
 
+                projectactivity pact = new projectactivity();
+                pact.projId = task.projId;
+                pact.taskId = task.taskId;
+                pact.datetime = date;
+                pact.logContent = "created the task and assign to";
+                db.projectactivities.Add(pact);
+                db.SaveChanges();
+
                 updateLastActDate(task.projId);
 
                 return Json("Success", JsonRequestBehavior.AllowGet);
@@ -267,6 +275,12 @@ namespace PMIS.Controllers
         {
             var tasklog = db.spgetTaskLog(taskId).ToList();
             return Json(tasklog, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult getProjectActivity(int projId)
+        {
+            var activites = db.spGetProjectActivity(projId).ToList();
+            return Json(activites, JsonRequestBehavior.AllowGet);
         }
 
         private void updateLastActDate(int projId)
