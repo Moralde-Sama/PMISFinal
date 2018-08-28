@@ -52,9 +52,9 @@
 
         <div class="navbar-collapse collapse" id="navbar-filter">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#activity" data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
-                <li class=""><a href="#schedule" data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task @*<span class="badge badge-success badge-inline position-right">32</span>*@</a></li>
-                <li class="" ng-click="click()"><a href="#settings" data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
+                <li style="cursor:pointer;" id="tab1" class="active" ng-click="tabcontrol('tab_project')"><a data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
+                <li style="cursor:pointer;" id="tab2" class="" ng-click="tabcontrol('tab_schedule')"><a data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task <span class="badge badge-success badge-inline position-right">32</span></a></li>
+                <li style="cursor:pointer;" id="tab3" class="" ng-click="click();tabcontrol('tab_setting')"><a data-toggle="tab" class="fadeOutUpBig" aria-expanded="false"><i class="icon-cog3 position-left"></i> Settings</a></li>
             </ul>
 
 
@@ -68,7 +68,7 @@
         <div class="col-lg-9">
             <div class="tabbable">
                 <div class="tab-content">
-                    <div class="tab-pane fade active in" id="activity">
+                    <div class="tab-pane fade active in" id="tab-project">
 
                         <!-- Timeline -->
                         <div class="panel panel-flat">
@@ -110,7 +110,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="schedule">
+                    <div class="tab-pane fade" id="tab-schedule">
                         <!-- Task -->
                         <div class="panel panel-flat">
                             <table class="table table-striped">
@@ -123,7 +123,7 @@
                                     </tr>
                                     <tr>
                                         <td>1.</td>
-                                        <td>Project Management Information System</td>
+                                        <td>Project Management Information SystemSystem</td>
                                         <td>
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
@@ -150,7 +150,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="settings">
+                    <div class="tab-pane fade" id="tab-setting">
 
 
                         <div class="col-lg-6">
