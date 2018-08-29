@@ -71,18 +71,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
-          <ScalarProperty Name="taskId" ColumnName="taskId" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="fullname" ColumnName="fullname" />
-          <ScalarProperty Name="profpath" ColumnName="profpath" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spgetTaskLog" FunctionName="PMISModel.Store.spgetTaskLog">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spgetTaskLog_Result">
@@ -207,6 +195,19 @@
           <ScalarProperty Name="fullname" ColumnName="fullname" />
           <ScalarProperty Name="userId2" ColumnName="userId2" />
           <ScalarProperty Name="fullname2" ColumnName="fullname2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="description" ColumnName="description" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

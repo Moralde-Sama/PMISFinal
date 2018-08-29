@@ -64,9 +64,6 @@
     <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
     <EntitySet Name="projecmessages" EntityType="Self.projecmessage" />
     <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
-    <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
-      <Parameter Name="projId" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
       <Parameter Name="taskId" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -90,6 +87,9 @@
     <FunctionImport Name="spGetProjectActivity" ReturnType="Collection(PMISModel.spGetProjectActivity_Result)">
       <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
+      <Parameter Name="projId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -97,14 +97,6 @@
     <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
     <Property Type="Int32" Name="Completed" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="spGetProjTask_Result">
-    <Property Type="Int32" Name="taskId" Nullable="false" />
-    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
-    <Property Type="String" Name="profpath" Nullable="false" />
-    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
   </ComplexType>
   <ComplexType Name="spgetTaskLog_Result">
     <Property Type="Int32" Name="taskId" Nullable="false" />
@@ -201,5 +193,14 @@
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
     <Property Type="Int32" Name="userId2" Nullable="false" />
     <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
+  </ComplexType>
+  <ComplexType Name="spGetProjTask_Result">
+    <Property Type="Int32" Name="taskId" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+    <Property Type="String" Name="profpath" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
   </ComplexType>
 </Schema>

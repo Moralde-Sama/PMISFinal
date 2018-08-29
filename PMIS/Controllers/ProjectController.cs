@@ -92,11 +92,11 @@ namespace PMIS.Controllers
         public ActionResult getParticipantsByProjId(int projId)
         {
             var participants = db.spGetParticipantsByProj(projId).ToList();
-            List<spGetParticipantsByProj_Result> pFinal = new List<spGetParticipantsByProj_Result>();
+            List<participantsProj> pFinal = new List<participantsProj>();
 
             foreach (spGetParticipantsByProj_Result p in participants)
             {
-                spGetParticipantsByProj_Result participant = new spGetParticipantsByProj_Result();
+                participantsProj participant = new participantsProj();
 
                 participant.userId = p.userId;
                 participant.fullname = p.fullname;
@@ -111,6 +111,11 @@ namespace PMIS.Controllers
                 {
                     participant.position = "Member";
                 }
+
+                participant.projects = db.participants.Where(e => e.userId == participant.userId).Count();
+
+                participant.tasks = db.tasks.Where(e => e.assignto == participant.userId).Count();
+
                 pFinal.Add(participant);
             }
 
@@ -337,10 +342,14 @@ namespace PMIS.Controllers
                 else if (task.assignto != oldtask.assignto)
                 {
                     log.logcontent = "assigned task to";
+                    pact.logContent = "assigned task to";
+                    pact.status = task.status;
                 }
                 else
                 {
                     log.logcontent = "assigned task to";
+                    pact.logContent = "assigned task to";
+                    pact.status = task.status;
                 }
 
             db.projectactivities.Add(pact);

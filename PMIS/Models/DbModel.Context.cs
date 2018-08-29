@@ -41,15 +41,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjList_Result>("spGetProjList");
         }
     
-        public virtual ObjectResult<spGetProjTask_Result> spGetProjTask(Nullable<int> projId)
-        {
-            var projIdParameter = projId.HasValue ?
-                new ObjectParameter("projId", projId) :
-                new ObjectParameter("projId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjTask_Result>("spGetProjTask", projIdParameter);
-        }
-    
         public virtual ObjectResult<spgetTaskLog_Result> spgetTaskLog(Nullable<int> taskId)
         {
             var taskIdParameter = taskId.HasValue ?
@@ -111,6 +102,15 @@ namespace PMIS.Models
                 new ObjectParameter("projId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjectActivity_Result>("spGetProjectActivity", projIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetProjTask_Result> spGetProjTask(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjTask_Result>("spGetProjTask", projIdParameter);
         }
     }
 }

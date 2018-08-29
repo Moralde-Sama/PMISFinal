@@ -422,6 +422,7 @@
     <Compile Include="Models\notification.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\participantsProj.cs" />
     <Compile Include="Models\projectactivity.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

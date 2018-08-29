@@ -200,13 +200,13 @@
                                                         </div>
                                                         <div class="col-sm-6 border-right">
                                                             <div class="description-block">
-                                                                <h5 class="description-header">3,200</h5>
+                                                                <h5 class="description-header">{{pp.projects}}</h5>
                                                                 <span class="description-text">Projects</span>
                                                             </div><!-- /.description-block -->
                                                         </div><!-- /.col -->
                                                         <div class="col-sm-6">
                                                             <div class="description-block">
-                                                                <h5 class="description-header">13,000</h5>
+                                                                <h5 class="description-header">{{pp.tasks}}</h5>
                                                                 <span class="description-text">Tasks</span>
                                                             </div><!-- /.description-block -->
                                                         </div><!-- /.col -->
@@ -236,7 +236,7 @@
                                             {{task.title}}
                                         </td>
                                         <td style="text-align:center; min-width: 90px;">
-                                            <a href="" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                            <a href="/user/profile/userId={{task.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                         </td>
                                         <td style="text-align:center;">
                                             <p class="small" style="word-break:break-all; font-size:14px; font-weight:bold;">

@@ -208,9 +208,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
           <EntitySet Name="projecmessages" EntityType="Self.projecmessage" />
           <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
-          <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
-          <Parameter Name="projId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
           <Parameter Name="taskId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -232,6 +229,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="notifications" EntityType="PMISModel.notification" />
           <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
           <FunctionImport Name="spGetProjectActivity" ReturnType="Collection(PMISModel.spGetProjectActivity_Result)">
+          <Parameter Name="projId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
             <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -241,14 +241,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
           <Property Type="Int32" Name="Completed" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="spGetProjTask_Result">
-          <Property Type="Int32" Name="taskId" Nullable="false" />
-          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
-          <Property Type="String" Name="profpath" Nullable="false" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="spgetTaskLog_Result">
           <Property Type="Int32" Name="taskId" Nullable="false" />
@@ -346,6 +338,15 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="Int32" Name="userId2" Nullable="false" />
           <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
         </ComplexType>
+        <ComplexType Name="spGetProjTask_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+          <Property Type="String" Name="profpath" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -419,18 +420,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
-                <ScalarProperty Name="taskId" ColumnName="taskId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
-                <ScalarProperty Name="description" ColumnName="description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -558,6 +547,19 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="userId2" ColumnName="userId2" />
                 <ScalarProperty Name="fullname2" ColumnName="fullname2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="description" ColumnName="description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

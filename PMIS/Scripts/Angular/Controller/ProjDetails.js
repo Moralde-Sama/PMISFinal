@@ -80,13 +80,13 @@
     }
 
     s.logcontent = function (content, userId, fullname, userId2, fullname2, index) {
-        if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of") {
+        if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of" || content == "assigned task to") {
             $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
             $("#anchor2" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
             return content;
         }
         else if (content == "finished the task.") {
-            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId);
+            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
             return content;
         }
         else if (content == "canceled the submission.") {
