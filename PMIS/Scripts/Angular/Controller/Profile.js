@@ -11,6 +11,9 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
     s.USERNAME = "";
     s.PROFPATH = "";
     s.COVERPATH = "";
+    s.FIRSTNAME = "";
+    s.MIDDLENAME = "";
+    s.LASTNAME = "";
     var userInfo = "";
     userInfo = JSON.parse(localStorage.userInfo);
     $("#ProfilePictureModal").css("display", "none");
@@ -30,7 +33,9 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
             s.USERNAME = d.data.username;
             s.PROFPATH = d.data.profpath;
             s.COVERPATH - d.data.coverpath;
-            
+            s.FIRSTNAME = d.data.firstname;
+            s.MIDDLENAME = d.data.middlename;
+            s.LASTNAME = d.data.lastname;
         });
     }
     s.tabcontrol = function (tab) {
@@ -76,17 +81,77 @@ module.controller("profileCtrl", ["$scope", "$http", "$routeParams", "FileUpload
 
 
     s.updateprofile = function (d) {
-        
-        r.post("../Account/updateprofile", d).then(function (response) {
-            console.log(response);
-            alert("Successfully Updated");
-            localStorage.userInfo = JSON.stringify(response.data);
-            userProfile(JSON.stringify(response.data));
 
-            $("#fullname").text(d.firstname + " " + d.lastname);
+
+        if (d.username != s.USERNAME)
+        {
             
 
-        })
+            r.post("../Account/check_username_duplicate", d).then(function (response) {
+                
+                if (response.data == "username already exist")
+                {
+                    alert(response.data);
+                }
+                else
+                {
+                    r.post("../Account/updateusername", d).then(function (response) {
+                        console.log(response.data);
+                        alert("Successfully Updated");
+                        localStorage.userInfo = JSON.stringify(response.data);
+                        userProfile(JSON.stringify(response.data));
+                        $("#fullname").text(d.firstname + " " + d.lastname);
+                        s.USERID = response.data[0].userId;
+                        s.USERNAME = response.data[0].username;
+                        s.PROFPATH = response.data[0].profpath;
+                        s.COVERPATH - response.data[0].coverpath;
+                        s.FIRSTNAME = response.data[0].firstname;
+                        s.MIDDLENAME = response.data[0].middlename;
+                        s.LASTNAME = response.data[0].lastname;
+                        
+                    })
+                }
+            })
+
+
+        }
+        else
+        {
+            alert("normal update");
+            if (d.username == s.USERNAME
+                && d.firstname == s.FIRSTNAME
+                && d.middlename == s.MIDDLENAME
+                && d.lastname == s.LASTNAME)
+            {
+                alert("No data to update");
+            }
+            else
+            {
+                r.post("../Account/editprofile_info", d).then(function (response) {
+                    console.log(response.data);
+                    alert("Successfully Updated");
+                    localStorage.userInfo = JSON.stringify(response.data);
+                    userProfile(JSON.stringify(response.data));
+                    $("#fullname").text(d.firstname + " " + d.lastname);
+                    s.USERID = response.data[0].userId;
+                    s.USERNAME = response.data[0].username;
+                    s.PROFPATH = response.data.profpath;
+                    s.COVERPATH - response.data[0].coverpath;
+                    s.FIRSTNAME = response.data[0].firstname;
+                    s.MIDDLENAME = response.data[0].middlename;
+                    s.LASTNAME = response.data[0].lastname;
+                   
+                })
+}
+
+
+            
+            
+
+        }
+
+        
+    
     }
     s.checkpassword = function (oldpassword, password, retype) {
         console.log(password);

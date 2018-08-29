@@ -109,24 +109,35 @@ namespace PMIS.Controllers
             }
             return sb.ToString();
         }
-
-        [HttpPost]
-        public ActionResult updateprofile(user data)
+        public ActionResult check_username_duplicate(user p)
         {
-        
-            var profpath = data.profpath;
-            var coverpath = data.coverpath;
-            var profileextension = profpath.Substring(profpath.Length - 4);
-            var coverextension = coverpath.Substring(profpath.Length - 4);
-            string filename_profile = data.username + "_pp_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + profileextension;
-            string filename_cover = data.username + "_cv_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + coverextension;
+            var usercount = db.users.Where(x => x.username == p.username);
+            if (usercount.Count() > 0)
+            {
+                return Json("username already exist", JsonRequestBehavior.AllowGet);
 
+            }
+            else
+            {
+                return Json("notexist", JsonRequestBehavior.AllowGet);
+            }
 
+            
+        }
+        [HttpPost]
+        public ActionResult updateusername(user data)
+        {
+            var user = db.users.Where(x => x.userId == data.userId).FirstOrDefault();
+            var profpath = user.profpath;
+            var coverpath = user.coverpath;
+            var profileextension = profpath.Substring(profpath.Length - 27);
+            var coverextension = coverpath.Substring(coverpath.Length - 27);
+            string filename_profile = "/uploads/"+data.username+profileextension;
+            string filename_cover = "/uploads/"+data.username + coverextension;
             var oldpic = Path.Combine(Server.MapPath(profpath));
-            var newpic = Path.Combine(Server.MapPath("/uploads"), filename_profile);
-
+            var newpic = Path.Combine(Server.MapPath(filename_profile));
             var oldcover = Path.Combine(Server.MapPath(coverpath));
-            var newcover = Path.Combine(Server.MapPath("/uploads"), filename_cover);
+            var newcover = Path.Combine(Server.MapPath(filename_cover));
             System.IO.File.Move(oldpic, newpic);
             System.IO.File.Move(oldcover, newcover);
             user f = db.users.FirstOrDefault(x => x.userId == data.userId);
@@ -134,13 +145,24 @@ namespace PMIS.Controllers
             f.username = data.username;
             f.middlename = data.middlename;
             f.lastname = data.lastname;
-            f.profpath = "/uploads/" + data.username + "_pp_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + profileextension;
-            f.coverpath = "/uploads/" + data.username + "_cv_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + coverextension;
+            f.profpath = filename_profile;
+            f.coverpath = filename_cover;
             db.SaveChanges();
-            List<user> ur = db.users.Where(e => e.userId == data.userId).ToList();
+            var ur = db.users.Where(e => e.userId == data.userId).ToList();
             return Json(ur, JsonRequestBehavior.AllowGet);
-
-
+        }
+        public ActionResult editprofile_info(user data)
+        {
+            user f = db.users.FirstOrDefault(x => x.userId == data.userId);
+            f.firstname = data.firstname;
+            f.username = data.username;
+            f.middlename = data.middlename;
+            f.lastname = data.lastname;
+            f.profpath = data.profpath;
+            f.coverpath = data.coverpath;
+            db.SaveChanges();
+            var ur = db.users.Where(e => e.userId == data.userId).ToList();
+            return Json(ur, JsonRequestBehavior.AllowGet);
         }
         public ActionResult checkpassword(string oldpassword, int userid)
         {
