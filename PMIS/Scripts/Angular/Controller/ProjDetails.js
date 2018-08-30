@@ -15,16 +15,21 @@
     x.addListener(myFunction)
 
     var chat = $.connection.chatHub;
+
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            getProjDetails(rp.projId);
-            refreshTask();
+            alert($.connection.hub.state);
+            chat.server.saveConnectionId();
+            chat.server.join(s.projDetails.projId);
         })
     }
-    else {
-        getProjDetails(rp.projId);
-        refreshTask();
-    }
+    //else {
+    //    getProjDetails(rp.projId);
+    //    refreshTask();
+    //}
+
+    getProjDetails(rp.projId);
+    refreshTask();
 
     s.click = function (tab) {
         if (tab == "tab1") {
@@ -57,7 +62,6 @@
         h.post("../project/getProjDetails?projId=" + projId).then(function (r) {
             s.projDetails = r.data;
             creatorId = s.projDetails.userId;
-            chat.server.join(s.projDetails.projId);
         })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {

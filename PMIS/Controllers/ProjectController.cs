@@ -188,6 +188,7 @@ namespace PMIS.Controllers
                 pact.projId = task.projId;
                 pact.taskId = task.taskId;
                 pact.status = task.status;
+                pact.assignto = task.assignto;
                 pact.datetime = date;
                 pact.logContent = "created a task and assign to";
                 db.projectactivities.Add(pact);
@@ -258,6 +259,7 @@ namespace PMIS.Controllers
                 pact.projId = task.projId;
                 pact.taskId = task.taskId;
                 pact.status = task.status;
+                pact.assignto = task.assignto;
                 pact.datetime = DateTime.Now;
 
                 if (finished)
@@ -324,6 +326,7 @@ namespace PMIS.Controllers
             projectactivity pact = new projectactivity();
             pact.projId = oldtask.projId;
             pact.taskId = oldtask.taskId;
+            pact.assignto = oldtask.assignto;
             pact.datetime = DateTime.Now;
 
                 if (task.status == "Completed")

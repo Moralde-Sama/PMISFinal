@@ -1,4 +1,5 @@
-﻿
+﻿var userInfo = JSON.parse(localStorage.userInfo);
+
 function logout() {
     $.post("../Account/Logout", function (data, status) {
         localStorage.removeItem("userInfo");
@@ -14,15 +15,42 @@ $(document).ready(function () {
     $.protip();
 })
 
+window.onbeforeunload = function () {
+    $.post("../Account/onDisconnect",
+        {userId: userInfo[0].userId},
+        function (result) {
+
+        }
+    )
+}
+
 $(function () {
 
     //chat
 
     var chat = $.connection.chatHub;
     
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            chat.server.saveConnectionId();
+        })
+    }
+    else {
+        $.connection.hub.start().done(function () {
+            chat.server.saveConnectionId();
+        })
+    }
 
-    $.connection.hub.start().done(function () {
-    })
+    chat.client.ConnectionId = function (connectionId) {
+        $.post("../Account/saveConnectionId",
+            {
+                conId: connectionId,
+                userId: userInfo[0].userId
+            },
+            function (result) {
+
+            })
+    }
 
 
     chat.client.sendToAll = function (name, message) {

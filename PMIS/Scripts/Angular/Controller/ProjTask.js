@@ -187,7 +187,7 @@
                 return "You";
             }
             else {
-                $("#" + index + "log3").attr("href", "sdf");
+                $("#" + index + "log3").attr("href", "/user/profile/userId=" + userId);
                 return fullname2;
             }
         }
@@ -196,7 +196,7 @@
             return "You";
         }
         else {
-            $("#" + index + "log1").attr("href", "sdf");
+            $("#" + index + "log1").attr("href", "/user/profile/userId=" + userId);
             return fullname;
         }
     }
@@ -209,6 +209,8 @@
             return "you"
         }
         else {
+            $("#" + index + "log2").attr("href", "/user/profile/userId=" + userId);
+            $("#" + index + "log4").attr("href", "/user/profile/userId=" + userId);
             return fullname;
         }
     }

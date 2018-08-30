@@ -22,6 +22,7 @@ namespace PMIS.Models
         public string lastname { get; set; }
         public string profpath { get; set; }
         public string coverpath { get; set; }
+        public string connectionid { get; set; }
         public string status { get; set; }
     }
 }

@@ -109,6 +109,33 @@ namespace PMIS.Controllers
             }
             return sb.ToString();
         }
+        [HttpPost]
+        public ActionResult saveConnectionId(string conId, int userId)
+        {
+            try { 
+                var user = db.users.Where(e => e.userId == userId).First();
+                user.connectionid = conId;
+                user.status = "online";
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult onDisconnect(int userId)
+        {
+            var user = db.users.Where(e => e.userId == userId).First();
+                user.status = "offline";
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult check_username_duplicate(user p)
         {
             var usercount = db.users.Where(x => x.username == p.username);

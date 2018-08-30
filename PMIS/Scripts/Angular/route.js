@@ -17,7 +17,7 @@
         templateUrl: "../PartialViews/ProjTask",
         controller: "projTask"
     })
-    .when("/project/mytasks", {
+    .when("/project/myprojects", {
         templateUrl: "../PartialViews/UserTask",
         controller: "userTask"
     })

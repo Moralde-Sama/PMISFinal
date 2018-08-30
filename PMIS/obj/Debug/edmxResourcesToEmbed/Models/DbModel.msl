@@ -146,21 +146,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="users">
-      <EntityTypeMapping TypeName="PMISModel.user">
-        <MappingFragment StoreEntitySet="user">
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="coverpath" ColumnName="coverpath" />
-          <ScalarProperty Name="profpath" ColumnName="profpath" />
-          <ScalarProperty Name="lastname" ColumnName="lastname" />
-          <ScalarProperty Name="middlename" ColumnName="middlename" />
-          <ScalarProperty Name="firstname" ColumnName="firstname" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="notifications">
       <EntityTypeMapping TypeName="PMISModel.notification">
         <MappingFragment StoreEntitySet="notification">
@@ -175,6 +160,7 @@
     <EntitySetMapping Name="projectactivities">
       <EntityTypeMapping TypeName="PMISModel.projectactivity">
         <MappingFragment StoreEntitySet="projectactivity">
+          <ScalarProperty Name="assignto" ColumnName="assignto" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="datetime" ColumnName="datetime" />
           <ScalarProperty Name="logContent" ColumnName="logContent" />
@@ -184,6 +170,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetProjectActivity" FunctionName="PMISModel.Store.spGetProjectActivity">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spGetProjectActivity_Result">
@@ -198,18 +197,21 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spGetProjTask" FunctionName="PMISModel.Store.spGetProjTask">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spGetProjTask_Result">
-          <ScalarProperty Name="taskId" ColumnName="taskId" />
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="PMISModel.user">
+        <MappingFragment StoreEntitySet="user">
           <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="connectionid" ColumnName="connectionid" />
+          <ScalarProperty Name="coverpath" ColumnName="coverpath" />
           <ScalarProperty Name="profpath" ColumnName="profpath" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="middlename" ColumnName="middlename" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

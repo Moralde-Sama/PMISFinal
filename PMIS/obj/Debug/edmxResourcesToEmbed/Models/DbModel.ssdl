@@ -54,6 +54,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="taskId" Type="int" Nullable="false" />
     <Property Name="logContent" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="datetime" Type="datetime" Nullable="false" />
+    <Property Name="assignto" Type="int" Nullable="false" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="task">
@@ -91,7 +92,8 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="middlename" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="profpath" Type="varchar(max)" Nullable="false" />
-    <Property Name="coverpath" Type="varchar(max)" />
+    <Property Name="coverpath" Type="varchar(max)" Nullable="false" />
+    <Property Name="connectionid" Type="varchar" MaxLength="200" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />

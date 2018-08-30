@@ -32,9 +32,9 @@ namespace PMIS.Models
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<tasklog> tasklogs { get; set; }
         public virtual DbSet<projecmessage> projecmessages { get; set; }
-        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<notification> notifications { get; set; }
         public virtual DbSet<projectactivity> projectactivities { get; set; }
+        public virtual DbSet<user> users { get; set; }
     
         public virtual ObjectResult<spGetProjList_Result> spGetProjList()
         {
@@ -95,15 +95,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipantsByProj_Result>("spGetParticipantsByProj", projIdParameter);
         }
     
-        public virtual ObjectResult<spGetProjectActivity_Result> spGetProjectActivity(Nullable<int> projId)
-        {
-            var projIdParameter = projId.HasValue ?
-                new ObjectParameter("projId", projId) :
-                new ObjectParameter("projId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjectActivity_Result>("spGetProjectActivity", projIdParameter);
-        }
-    
         public virtual ObjectResult<spGetProjTask_Result> spGetProjTask(Nullable<int> projId)
         {
             var projIdParameter = projId.HasValue ?
@@ -111,6 +102,15 @@ namespace PMIS.Models
                 new ObjectParameter("projId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjTask_Result>("spGetProjTask", projIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetProjectActivity_Result> spGetProjectActivity(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjectActivity_Result>("spGetProjectActivity", projIdParameter);
         }
     }
 }

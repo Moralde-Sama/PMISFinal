@@ -13,17 +13,17 @@
     //    })
     //}
 
-    document.title = "PMIS | My Projects and Tasks"
+    document.title = "PMIS | My Projects"
     getList();
 
     function getList() {
-        var userplParam = { "userId": userInfo[0].userId };
-        h.post("../Project/getUserProjectList", userplParam).then(function (r) {
-            s.projlist = r.data;
-        })
-
         h.post("../User/getParticipants").then(function (r) {
             s.participants = r.data;
+
+            var userplParam = { "userId": userInfo[0].userId };
+            h.post("../Project/getUserProjectList", userplParam).then(function (r) {
+                s.projlist = r.data;
+            })
         })
 
         refreshTask();
