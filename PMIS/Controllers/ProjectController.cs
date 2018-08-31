@@ -158,6 +158,50 @@ namespace PMIS.Controllers
             }
 
         }
+
+        [HttpPost]
+        public ActionResult updateProject(project project, int[] users, int[] Rusers)
+        {
+            try {
+
+
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
+
+                if (users.Length != 0)
+                {
+                    for (int i = 0; i < users.Length; i++)
+                    {
+                        participant pp = new participant();
+                        pp.projId = project.projId;
+                        pp.userId = users[i];
+                        db.participants.Add(pp);
+                        db.SaveChanges();
+                    }
+                }
+
+                //wont proceed when error
+
+                if (Rusers.Length != 0)
+                {
+                    for (int i = 0; i < Rusers.Length; i++)
+                    {
+                        var userId = Rusers[i];
+                        var partId = new participant { partId = db.participants.Where(e => e.projId == project.projId && e.userId == userId).Select(s => s.partId).First() };
+                        db.participants.Attach(partId);
+                        db.participants.Remove(partId);
+                        db.SaveChanges();
+                    }
+                }
+                
+
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+        }
         
         [HttpPost]
         public ActionResult addTask(task task)

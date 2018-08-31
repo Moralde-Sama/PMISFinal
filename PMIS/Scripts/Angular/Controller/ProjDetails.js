@@ -9,6 +9,11 @@
     var mute = 0;
     var creatorId = null;
     var ppArray = null;
+    var userarray = [];
+    var olduserarray = [];
+    var removeuser = [];
+
+    s.data = {};
 
     var x = window.matchMedia("(max-width: 764px)")
     myFunction(x)
@@ -30,6 +35,115 @@
 
     getProjDetails(rp.projId);
     refreshTask();
+
+
+    //Modal
+
+    s.tab = function (tab) {
+        if (tab == "tab1") {
+            document.getElementById("tab-5").style.display = "block";
+            document.getElementById("tab-6").style.display = "none";
+        }
+        else if (tab == "tab2") {
+            document.getElementById("tab-6").style.display = "block";
+            document.getElementById("tab-5").style.display = "none";
+        }
+    }
+
+    s.Modal = function (action) {
+        if (action == "show") {
+            $("#editmodal").css("display", "block");
+            document.getElementById("tab-6").style.display = "none";
+            document.getElementById("tab-5").style.display = "block";
+            document.getElementById("tab1").className = "active";
+            document.getElementById("tab2").className = "";
+            $("#editmodal").animateCss("fadeIn", function () {
+            })
+        }
+        else {
+            $("#editmodal").animateCss("fadeOut", function () {
+                $("#editmodal").css("display", "none");
+            })
+        }
+    }
+
+    s.participants = function (id) {
+        var index = userarray.indexOf(id);
+        var indexR = removeuser.indexOf(id);
+
+        if (index == -1) {
+            userarray.push(id);
+            if (indexR != -1) {
+                removeuser.splice(index, 1);
+            }
+        }
+        else {
+            userarray.splice(index, 1);
+            removeuser.push(id);
+        }
+
+        console.log(removeuser);
+    }
+
+    s.remUsers = function (id) {
+        var index = userarray.indexOf(id);
+
+        if (index != -1) {
+            userarray.splice(index, 1);
+        }
+    }
+
+    s.checkbox = function (id, eq) {
+        if (userarray.indexOf(id) != -1) {
+            $('.checkParticipants').eq(eq).prop('checked', true);
+        }
+    }
+
+    s.btnStatus = function (status) {
+        if (status == "Active") {
+            $("#btnActive").html('<i class="fa fa-check"></i> Active');
+            $("#btnSuccess").text("Completed");
+            $("#btnDefault").text("Cancelled");
+            s.data.status = "Active";
+        }
+        else if (status == "Completed") {
+            $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
+            $("#btnActive").text("Active");
+            $("#btnDefault").text("Cancelled");
+            s.data.status = "Completed";
+        }
+        else {
+            $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
+            $("#btnActive").text("Active");
+            $("#btnSuccess").text("Completed");
+            s.data.status = "Cancelled";
+        }
+    }
+
+    s.updateProject = function (data) {
+        for (i = 0; i < olduserarray.length; i++) {
+            s.remUsers(olduserarray[i]);
+
+            if (olduserarray.length - 1 == i) {
+
+                console.log(userarray);
+
+                var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
+                h.post("../Project/updateProject", updateProjParam).then(function (r) {
+                       if (r.data == "Success") {
+                        alert("Update Successfull!");
+                        getProjDetails(rp.projId);
+                        s.Modal("hide");
+                    }
+                    else {
+                        alert(r.data);
+                    }
+                })
+            }
+        }
+    }
+
+    //Modal End
 
     s.click = function (tab) {
         if (tab == "tab1") {
@@ -61,11 +175,26 @@
     function getProjDetails(projId) {
         h.post("../project/getProjDetails?projId=" + projId).then(function (r) {
             s.projDetails = r.data;
+            s.data = r.data;
+            s.btnStatus(r.data.status);
             creatorId = s.projDetails.userId;
         })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
+
             s.projParticipants = r.data;
+            console.log("projParticipants");
+            for (i = 0; Object.keys(r.data).length; i++) {
+                userarray.push(s.projParticipants[i].userId);
+                olduserarray.push(s.projParticipants[i].userId);
+
+                if (Object.keys(r.data).length - 1 == i) {
+                    h.post("../User/getUsers?userid=" + userInfo[0].userId).then(function (r) {
+                        s.users = r.data;
+                        console.log("users");
+                    })
+                }
+            }
             ppArray = r.data;
         })
 
@@ -172,6 +301,18 @@
         }
         else {
             return "label label-info";
+        }
+    }
+
+    s.setProjStatusColor = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Active") {
+            return "label label-info";
+        }
+        else {
+            return "label label-default";
         }
     }
 

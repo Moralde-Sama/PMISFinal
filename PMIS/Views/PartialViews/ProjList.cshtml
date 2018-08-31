@@ -42,7 +42,7 @@
                             <tbody>
                                 <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
                                     <td style=" text-align:center;padding-top:23px; min-width:70px;">
-                                    <span class="label label-info">{{data.status}}</span></td>
+                                        <span class="{{setProjStatusColor(data.status)}}">{{data.status}}</span></td>
                                     <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
                                         <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
                                     </td>

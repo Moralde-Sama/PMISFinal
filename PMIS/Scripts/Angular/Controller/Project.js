@@ -16,6 +16,18 @@
         })
     }
 
+    s.setProjStatusColor = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Active") {
+            return "label label-info";
+        }
+        else {
+            return "label label-default";
+        }
+    }
+
 
 
 }])
