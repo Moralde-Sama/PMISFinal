@@ -162,13 +162,15 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult updateProject(project project, int[] users, int[] Rusers)
         {
-            try {
+            //try {
 
 
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
 
-                if (users.Length != 0)
+                
+
+                if (users != null)
                 {
                     for (int i = 0; i < users.Length; i++)
                     {
@@ -180,9 +182,8 @@ namespace PMIS.Controllers
                     }
                 }
 
-                //wont proceed when error
 
-                if (Rusers.Length != 0)
+                if (Rusers != null)
                 {
                     for (int i = 0; i < Rusers.Length; i++)
                     {
@@ -196,11 +197,11 @@ namespace PMIS.Controllers
                 
 
                 return Json("Success", JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json("Success", JsonRequestBehavior.AllowGet);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Json("Success", JsonRequestBehavior.AllowGet);
+            //}
         }
         
         [HttpPost]

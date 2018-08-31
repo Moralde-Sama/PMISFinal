@@ -335,43 +335,38 @@
                             </div>
                         </div>
                         <div id="tab-5" style="display:block;">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
-
-                                        <h2 class="animated fadeIn" style="margin-left:50px; font-weight: 600;">New Project</h2>
-                                    </div>
-
-                                </div>
-                            </div>
                             <div class="animated fadeIn">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <form class="form-horizontal">
-                                            <div class="box-body">
-                                                <div class="form-group">
-                                                    <label for="projectname" class="col-sm-2 control-label">Project Name:</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="projectname" placeholder="" ng-model="data.title" required>
-                                                    </div>
+                                <div class="col-lg-12">
+                                    <form class="form-horizontal">
+                                        <div class="box-body">
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Project Name:</label>
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label for="Version" class="col-sm-2 control-label">Version:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="Version" placeholder="" ng-model="data.version" required>
-                                                    </div>
-                                                    <label for="Status" class="control-label">
-                                                        Status:
-                                                    </label>
-
-                                                    <button id="btnActive" ng-click="btnStatus('Active')" class="btn btn-primary" style="display:inline-block; margin-left:5px;"><i class="fa fa-check"></i> Active</button>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <input type="text" class="form-control" id="projectname" placeholder="" ng-model="data.title" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Version:</label>
+                                                </div>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <input type="text" class="form-control" id="Version" placeholder="" ng-model="data.version" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Status:</label>
+                                                </div>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <button id="btnActive" ng-click="btnStatus('Active')" class="btn btn-primary" style="display:inline-block;"><i class="fa fa-check"></i> Active</button>
                                                     <button id="btnSuccess" ng-click="btnStatus('Completed')" class="btn btn-success" style="display:inline-block;">Completed</button>
                                                     <button id="btnDefault" ng-click="btnStatus('Cancelled')" class="btn btn-default" style="display:inline-block;">Cancelled</button>
                                                 </div>
-                                        </form>
-
-                                    </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
