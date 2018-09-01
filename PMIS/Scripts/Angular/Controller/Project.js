@@ -37,6 +37,10 @@
         }
     }
 
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
+    }
+
     //Modal
 
     s.tab = function (tab) {

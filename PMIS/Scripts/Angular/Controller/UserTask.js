@@ -26,16 +26,16 @@
             })
         })
 
-        refreshTask();
+        //refreshTask();
         
     }
 
-    function refreshTask() {
-        var taskparam = { "userId": userInfo[0].userId };
-        h.post("../Project/getUserTask", taskparam).then(function (r) {
-            s.tasks = r.data;
-        })
-    }
+    //function refreshTask() {
+    //    var taskparam = { "userId": userInfo[0].userId };
+    //    h.post("../Project/getUserTask", taskparam).then(function (r) {
+    //        s.tasks = r.data;
+    //    })
+    //}
 
     s.submitCancelTask = function (Index, taskId) {
         var btn = document.getElementById("btnSubmit" + Index);
@@ -183,5 +183,9 @@
         else {
             return "label label-info";
         }
+    }
+
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
     }
 }])
