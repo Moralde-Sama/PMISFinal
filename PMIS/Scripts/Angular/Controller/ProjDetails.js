@@ -57,11 +57,11 @@
             document.getElementById("tab-5").style.display = "block";
             document.getElementById("tab1").className = "active";
             document.getElementById("tab2").className = "";
-            $("#editmodal").animateCss("fadeIn", function () {
+            $("#editmodal2").animateCss("zoomIn", function () {
             })
         }
         else {
-            $("#editmodal").animateCss("fadeOut", function () {
+            $("#editmodal2").animateCss("zoomOut", function () {
                 $("#editmodal").css("display", "none");
             })
         }
