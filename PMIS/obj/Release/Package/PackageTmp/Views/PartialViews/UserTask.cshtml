@@ -1,0 +1,80 @@
+﻿
+<div class="animated fadeIn">
+    <div class="card" style="border-top: 2px solid blue">
+        <div class="card-content" style="padding:0 20px 0 20px;">
+            <div class=" row">
+                <div class="col-sm-7">
+                    <h2 style="font-weight:bold;">My Projects </h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            Projects
+                        </li>
+                        <li class="active">
+                            <strong>My Projects</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="border-top: 2px solid blue">
+                <div class="card-title" style="padding:20px 20px 0 20px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div style="overflow-x:auto;">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
+                                    <td style=" text-align:center;padding-top:23px; min-width:70px;">
+                                        <span class="label label-info">{{data.status}}</span>
+                                    </td>
+                                    <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
+                                        <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
+                                    </td>
+                                    <td style="min-width: 150px; text-align:center; padding-top:15px;">
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
+
+                                        </div>
+                                        <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
+
+                                    </td>
+
+                                    <td style="text-align:end; padding-top:15px; max-width: 250px;">
+                                        <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                            <div class="animated fadeIn">
+
+                                                <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                            </div>
+                                        </div>
+                                        <div ng-if="(participants | filter: { projId: data.projId }).length > 5" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                            <div class="animated fadeIn">
+
+                                                <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="/uploads/Kasumeme.jpg" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align:center; padding-top:17px; min-width:180px;">
+                                        <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
+                                        <a href="/Project/Tasks/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-tasks"> Tasks</i></a>
+                                        @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,7 +21,7 @@
     }
 
     function getUser() {
-        h.post("../User/getUsers?userid="+$("#userId").val()).then(function (r) {
+        h.post("../User/getUsers?userid="+userInfo[0].userId).then(function (r) {
             s.users = r.data;
         })
     }
@@ -52,7 +52,6 @@
     s.participants = function (id) {
         var index = array.indexOf(id);
         if (index == -1) {
-            console.log(id);
             array.push(id);
         }
         else {

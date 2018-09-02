@@ -30,7 +30,7 @@ namespace PMIS.Controllers
         public ActionResult Login(string username, string password)
         {
             string EncryptPass = EncryptMeth(password);
-            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
+            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
             if (userInfo.Count() == 1)
             {
                 Session["userInfo"] = userInfo[0];
@@ -118,7 +118,9 @@ namespace PMIS.Controllers
                 user.status = "online";
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json("Success", JsonRequestBehavior.AllowGet);
+
+                var userInfo = db.users.Where(x => x.userId == userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+                return Json(userInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -175,8 +177,10 @@ namespace PMIS.Controllers
             f.profpath = filename_profile;
             f.coverpath = filename_cover;
             db.SaveChanges();
-            var ur = db.users.Where(e => e.userId == data.userId).ToList();
-            return Json(ur, JsonRequestBehavior.AllowGet);
+
+            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
         public ActionResult editprofile_info(user data)
         {
@@ -188,8 +192,8 @@ namespace PMIS.Controllers
             f.profpath = data.profpath;
             f.coverpath = data.coverpath;
             db.SaveChanges();
-            var ur = db.users.Where(e => e.userId == data.userId).ToList();
-            return Json(ur, JsonRequestBehavior.AllowGet);
+            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
         public ActionResult checkpassword(string oldpassword, int userid)
         {
@@ -244,9 +248,9 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.profpath = filepath;
                     db.SaveChanges();
-                    var ur = db.users.Where(e => e.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
+                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
 
-                    return Json(ur, JsonRequestBehavior.AllowGet);
+                    return Json(userInfo, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception)
@@ -290,9 +294,9 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.coverpath = filepath;
                     db.SaveChanges();
-                    var ur = db.users.Where(e => e.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username }).ToList();
+                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
 
-                    return Json(ur, JsonRequestBehavior.AllowGet);
+                    return Json(userInfo, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception)
@@ -308,6 +312,44 @@ namespace PMIS.Controllers
         {
             List<user> ur = db.users.Where(e => e.userId == id).ToList();
             return Json(ur[0], JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult notification(notif nf)
+        {
+            try
+            {
+                notification notif = new notification();
+                notif.date = DateTime.Now;
+                if (nf.type == "Task"){
+                    notif.userId = nf.assignTo;
+                    notif.type = nf.type;
+                    notif.notifcontent = nf.createdBy+ " assign a task to you in " + nf.projTitle + "Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+                db.notifications.Add(notif);
+                db.SaveChanges();
+
+                var connectionId = db.users.Where(e => e.userId == notif.userId).Select(e => e.connectionid).First();
+                var multipleVal = new { connId = connectionId, content = notif.notifcontent };
+                return Json(multipleVal, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult getNotifications(int userId)
+        {
+            var notifications = db.notifications.Where(e => e.userId == userId).ToList();
+            return Json(notifications, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult getConnectionId(int userId)
+        {
+            var connId = db.users.Where(e => e.userId == userId).Select(e => e.connectionid).First();
+            return Json(connId, JsonRequestBehavior.AllowGet);
         }
     }
 }

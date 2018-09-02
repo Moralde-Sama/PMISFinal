@@ -51,6 +51,25 @@
     animation-play-state: paused
 }
 
+.marquee-notfication {
+    width: 450px;
+    margin: 0 auto;
+    display:inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.marquee-notfication span {
+    display: inline-block;
+    text-indent: 0;
+    animation: marquee 3s linear infinite;
+    animation-play-state: paused
+}
+
+.marquee-notfication span:hover {
+    animation-play-state: running;
+}
+
 
 @keyframes marquee {
     0%   { transform: translate(0, 0); }

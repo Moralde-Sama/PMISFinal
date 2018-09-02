@@ -30,14 +30,14 @@
             <div class="card" style="border-top: 2px solid blue">
                 <div class="card-title" style="padding:20px 20px 0 20px;">
                     <div class="input-group">
-                        <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                        <input type="text" class="form-control" ng-model="searchTask" style="color:black;">
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
                 <div class="card-content" style="padding:20px 15px 5px 15px;">
                     <table class="table table-hover">
                         <tbody>
-                            <tr class="animated fadeIn">
+                            <tr id="writeTask" class="animated fadeIn">
                                 <td style=" text-align:center;padding-top:13px;" width="40px;">
                                     <span class="label label-info ng-binding">Available</span>
                                 </td>
@@ -45,7 +45,7 @@
                                     <input type="text" style="cursor:pointer;" class="form-control" id="inputSuccess" placeholder="Write a task name" ng-model="tasktitle" ng-click="showData($index, 'NewTask')" ng-keyup="keyDown('New')">
                                 </td>
                             </tr>
-                            <tr class="animated fadeIn" ng-repeat="task in tasks">
+                            <tr class="animated fadeIn" ng-repeat="task in tasks | filter: searchTask">
                                 <td style=" text-align:center;padding-top:13px;" width="40px;">
                                     <span class="{{setStatusColor(task.status)}}">{{task.status}}</span>
                                 </td>
@@ -58,7 +58,32 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div id="tab1" class="col-md-5" style="display:none;">
+            <div class="card" style="border-top: 2px solid blue; padding: 10px 20px 0 20px;">
+                <div class="card-content">
+                    <div class=" row" style="padding: 0 15px 15px 15px;">
+                        <div class="col-md-12" style="text-align: center; border-bottom: 2px solid gray; border-top: 2px solid gray; padding-bottom:10px;">
+                            <h3 style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
+                        </div>
+                        <div class="col-md-12" style="margin-top:10px;">
+                            <div class="form-group">
+                                <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
+                                <p style="border: 2px solid gray; padding:15px;" ng-bind="data.description"></p>
+                            </div>
+                        </div>
+                        <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
+                            <div ng-repeat="(fIndex, log) in tasklogs">
+                                <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a></p>
+                            </div>
+                        </div>
+                        <div id="showBtn" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
+                            <button id="btnSubmit1" class="btn btn-info" ng-click="submitCancelTask()"><i class="fa fa-send"> Submit</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab2" class="col-md-5" style="display:none;">
             <div class="card" style="border-top: 2px solid blue">
                 <div class="card-content">
                     <div class=" row" style="padding: 0 15px 15px 15px;">
@@ -66,22 +91,23 @@
                             <div class="row" style="text-align:center;">
                                 <div class="col-md-7" style="margin-left:-5px;">
                                     @*<button class="btn btn-primary" style="margin-bottom:20px;" type="button"><i class="fa fa-check"></i>&nbsp;Mark as Complete</button>*@
-                                    
-                                    <button type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;Mark as Complete</button>
-                                    <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-left:-10px; border-bottom-right-radius:5px; border-top-right-radius:5px;">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                        <ul class="dropdown-menu" role="menu" style="margin-left:35px;">
-                                            <li><a href="#"><i class="fa fa-check"></i>&nbsp;Mark as Reject</a></li>
+
+                                    <div class="dropdown" style="margin-top:-5px; margin-left:15px; margin-right:15px;">
+                                        <button class="btn btn-primary btn-block dropdown-toggle" id="markas" type="button" data-toggle="dropdown" style="border-radius: 18px; outline:none; font-size:16px;">
+                                            {{defValMark}}
+                                            <span class="caret" style="margin-left:5px;"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="margin-left:17px; box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);">
+                                            <li ng-repeat="mark in marks1" ng-click="markAs(mark)" style="font-size:18px;"><a href="#">{{mark}}</a></li>
                                         </ul>
+                                    </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="MySelectContainer" ng-click="clickAssignTo()">
                                         <div class="MySelect">
-                                            <img id="MySelectImg" src="~/uploads/Kasumeme.jpg" />
-                                            <p style="font-weight: bold;">Assign To</p>
-                                            <p style="width: 85px;"><marquee scrollamount="3" id="MySelectName">Emmanuel Paul G. Moralde</marquee></p>
+                                            <img id="MySelectImg" src="~/uploads/userimage.png" />
+                                            <p style="font-weight:bold;">Assign To</p>
+                                            <p class="marquee" style="width: 85px;"><span id="MySelectName">Click to assign</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,11 +119,13 @@
                         <div class="col-md-12" style="margin-top:10px;">
                             <div class="form-group">
                                 <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
-                                <textarea class="form-control" rows="3" placeholder="Description" ng-model="data.description"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Description" ng-model="data.description" required></textarea>
                             </div>
                         </div>
-                        <div class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
-                            <p style="font-size: 12px;">No Log</p>
+                        <div id="tasklog2" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
+                            <div ng-repeat="(lIndex, log) in tasklogs">
+                                <p style="font-size: 12px; cursor:default;"><a id="{{lIndex + 'log3'}}">{{showCreatedBy(log.userId, log.fullname, lIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{lIndex + 'log4'}}"> {{showAssignTo(log.userId2, log.logcontent, lIndex, log.fullname2)}} </a></p>
+                            </div>
                         </div>
                         <div class="col-md-12" style="margin-top:10px; text-align:center;">
                             <button class="btn btn-info" id="btnCreate" ng-click="createUPTask(data)">Create Task</button>

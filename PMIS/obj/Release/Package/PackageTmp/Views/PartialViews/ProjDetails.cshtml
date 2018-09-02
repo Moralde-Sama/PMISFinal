@@ -2,7 +2,7 @@
     <div class="card" style="border-top: 2px solid blue">
         <div class="card-content" style="padding:0 20px 0 20px;">
             <div class=" row">
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <h2 style="font-weight:bold;">Project Details</h2>
                     <ol class="breadcrumb">
                         <li>
@@ -16,9 +16,15 @@
                         </li>
                     </ol>
                 </div>
-                <div class="col-sm-5" id="breadcrumbs" style="text-align:end; padding: 30px 20px 20px 30px;">
-                    <a href="/Project/NewTask/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent; margin-left:-5px;">
-                        <i class="glyphicon glyphicon glyphicon-plus" style="margin-top:-3px;"></i> New Task
+                <div ng-show="showBtns()" class="col-md-5" id="breadcrumbs" style="text-align:end; padding: 30px 20px 20px 30px;">
+                    <a href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent; margin-right:-5px; font-weight: 700; display:none;">
+                        <i class="fa fa-user-plus" style="margin: -1px 0 0 0;"></i> Request
+                    </a>
+                    <a class="btn btn-app" style="background-color:transparent; margin-right:10px; font-weight: 700;" ng-click="Modal('show')">
+                        <i class="fa fa-folder" style="margin: -1px 0 0 0;"></i>Edit
+                    </a>
+                    <a href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent; margin-left:-5px; font-weight: 700;">
+                        <i class="fa fa-tasks" style="margin: -1px 0 0 0;"></i>Tasks
                     </a>
                 </div>
             </div>
@@ -38,7 +44,7 @@
                             </div>
                             <dl class="dl-horizontal">
                                 <dt>Status:</dt>
-                                <dd><span class="label label-primary">{{projDetails.status}}</span></dd>
+                                <dd><span class="{{setProjStatusColor(projDetails.status)}}">{{projDetails.status}}</span></dd>
                             </dl>
                         </div>
                     </div>
@@ -56,7 +62,7 @@
                         <div class="col-lg-7" id="cluster_info">
                             <dl class="dl-horizontal">
 
-                                <dt>Last Updated:</dt>
+                                <dt>Last Activity:</dt>
                                 <dd>{{projDetails.lastupdated}}</dd>
                                 <dt>Created:</dt>
                                 <dd>{{projDetails.createddate}}</dd>
@@ -148,194 +154,30 @@
                                 </span>
                             </div>
                         </div>
-                        <div id="tab-2" style="display:none;  padding: 0 1px 0 0; margin:0 20px 0 30px; overflow-y:auto">
-                            <table class="table table-striped">
+                        <div id="tab-2" class="animated fadeIn" style="display:none;  padding: 0 1px 0 0; margin:0 20px 0 30px; overflow-y:auto">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Status</th>
                                         <th>Title</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th>
-                                        <th style="min-width: 200px;">Comments</th>
+                                        <th>Date and Time</th>
+                                        <th style="min-width: 200px;">Activity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                                    <tr class="animated fadeIn" ng-repeat="(aIndex, activity) in activities">
+                                        <td style="min-width: 100px;">
+                                            <span class="{{setStatusColor(activity.status)}}">{{activity.status}}</span>
                                         </td>
-                                        <td>
-                                            Create project in webapp
+                                        <td style=" min-width: 140px; font-weight:500; font-size:16px;">
+                                            {{activity.title}}
                                         </td>
-                                        <td>
-                                            12.07.2014 10:10:1
+                                        <td style="min-width: 100px; font-weight:500; font-size:16px;">
+                                            {{convertJsonDate(activity.datetime)}}
                                         </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                        </td>
-                                        <td>
-                                            Various versions
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                        </td>
-                                        <td>
-                                            There are many variations
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                        </td>
-                                        <td>
-                                            Latin words
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                Latin words, combined with a handful of model sentence structures
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                        </td>
-                                        <td>
-                                            The generated Lorem
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                        </td>
-                                        <td>
-                                            The first line
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                        </td>
-                                        <td>
-                                            The standard chunk
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                        </td>
-                                        <td>
-                                            Lorem Ipsum is that
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                            </p>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                        </td>
-                                        <td>
-                                            Contrary to popular
-                                        </td>
-                                        <td>
-                                            12.07.2014 10:10:1
-                                        </td>
-                                        <td>
-                                            14.07.2014 10:16:36
-                                        </td>
-                                        <td>
-                                            <p class="small">
-                                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+                                        <td style="min-width: 200px; font-weight:500; font-size:15px;">
+                                            <p>
+                                                <a id="anchor{{aIndex}}"></a> {{logcontent(activity.logContent, activity.userId, activity.fullname, activity.userId2, activity.fullname2, aIndex)}} <a id="anchor2{{aIndex}}"></a>
                                             </p>
                                         </td>
 
@@ -346,34 +188,37 @@
                         </div>
                         <div id="tab-3" style="display:none; padding:20px;">
                             <div class="row">
-                                <div class="animated fadeIn" ng-repeat="pp in projParticipants">
-                                    <div class="col-md-4" >
-                                            <div class="box box-widget widget-user">
-                                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                                <div class="widget-user-header bg-aqua-active">
-                                                    <h3 class="widget-user-username" style="color:white;">{{pp.fullname}}</h3>
-                                                    <h5 class="widget-user-desc" style="color:white;">{{pp.position}}</h5>
-                                                </div>
-                                                <div class="widget-user-image">
-                                                    <img class="img-circle" style="width:90px; height:90px;" src="{{pp.profpath}}" alt="User Avatar">
-                                                </div>
-                                                <div class="box-footer">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 border-right">
-                                                            <div class="description-block">
-                                                                <h5 class="description-header">3,200</h5>
-                                                                <span class="description-text">Projects</span>
-                                                            </div><!-- /.description-block -->
-                                                        </div><!-- /.col -->
-                                                        <div class="col-sm-6">
-                                                            <div class="description-block">
-                                                                <h5 class="description-header">13,000</h5>
-                                                                <span class="description-text">Tasks</span>
-                                                            </div><!-- /.description-block -->
-                                                        </div><!-- /.col -->
-                                                    </div><!-- /.row -->
-                                                </div>
+                                <div class="animated fadeIn" ng-repeat="pp in projParticipants" style="cursor:pointer;" ng-click="profile(pp.userId)">
+                                    <div class="col-md-4">
+                                        <div class="box box-widget widget-user">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header" style="background-image: url({{pp.coverpath}}); background-position:center; background-repeat:no-repeat; background-size: 100% 100%;">
+
                                             </div>
+                                            <div class="widget-user-image">
+                                                <img class="img-circle" style="width:90px; height:90px;" src="{{pp.profpath}}" alt="User Avatar">
+                                            </div>
+                                            <div class="box-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-12" style="text-align:center;">
+                                                        <h3 class="widget-user-username" style="color:black; font-weight:500;">{{pp.fullname}}</h3>
+                                                        <h5 class="widget-user-desc" style="color:black; font-weight:bold;">{{pp.position}}</h5>
+                                                    </div>
+                                                    <div class="col-sm-6 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">{{pp.projects}}</h5>
+                                                            <span class="description-text">Projects</span>
+                                                        </div><!-- /.description-block -->
+                                                    </div><!-- /.col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">{{pp.tasks}}</h5>
+                                                            <span class="description-text">Tasks</span>
+                                                        </div><!-- /.description-block -->
+                                                    </div><!-- /.col -->
+                                                </div><!-- /.row -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -397,7 +242,7 @@
                                             {{task.title}}
                                         </td>
                                         <td style="text-align:center; min-width: 90px;">
-                                            <a href="" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                            <a href="/user/profile/userId={{task.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                         </td>
                                         <td style="text-align:center;">
                                             <p class="small" style="word-break:break-all; font-size:14px; font-weight:bold;">
@@ -414,4 +259,124 @@
             </div>
         </div>
     </div>
+</div>
+
+<!--Modal-->
+<div id="editmodal" class="modal" style="display:none;">
+    <div id="editmodal2" class="modal-dialog" style="width:100%; max-width:850px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="Modal('close')">×</span></button>
+                <h4 class="modal-title">Edit Project</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row m-t-sm">
+                    <div class="col-lg-12">
+                        <div class="panel blank-panel">
+                            <div class="panel-heading">
+                                <div class="panel-options">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active" ng-click="tab('tab1')" id="tab1" style="cursor:pointer;"><a data-toggle="tab" aria-expanded="false">Project Details</a></li>
+                                        <li class="" ng-click="tab('tab2')" id="tab2" style="cursor:pointer;"><a data-toggle="tab" aria-expanded="true">Participants</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="tab-6" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="box" style="padding:15px; border:none;">
+                                        <div class="box-header" style="padding-top:38px;">
+
+                                            <div class="box-tools">
+                                                <div class="input-group" style="width: 250px;">
+                                                    <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" ng-model="search">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body table-responsive no-padding">
+                                            <div style="max-height:280px; overflow-y:auto;">
+                                                <table class="table table-hover" style="text-align:left;">
+                                                    <tbody>
+                                                        <tr>
+
+                                                            <th style="width:50px;"><h4><strong>User</strong></h4></th>
+
+                                                            <th> </th>
+                                                            <th><h4><strong>Action</strong></h4></th>
+                                                        </tr>
+                                                        <tr class="animated fadeIn" ng-repeat="user in users | filter: search">
+                                                            <td style="width: 20px;">
+                                                                <a href="#" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="{{user.profpath}}" style="width:38px;height:38px;">
+                                                                </a>
+                                                            </td>
+                                                            <td style="padding-top:16px;">{{user.firstname}} {{user.lastname}}</td>
+                                                            <td>
+                                                                <p>
+                                                                    <label>
+                                                                        <input type="checkbox" class="checkParticipants" ng-init="checkbox(user.userId, $index)" style=" width: 18px; height: 18px;" ng-click="participants(user.userId)">
+                                                                    </label>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                         </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-5" style="display:block;">
+                            <div class="animated fadeIn">
+                                <div class="col-lg-12">
+                                    <form class="form-horizontal">
+                                        <div class="box-body">
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Project Name:</label>
+                                                </div>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <input type="text" class="form-control" id="projectname" placeholder="" ng-model="data.title" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Version:</label>
+                                                </div>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <input type="text" class="form-control" id="Version" placeholder="" ng-model="data.version" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px;">
+                                                <div class="col-md-2" style="padding:0;">
+                                                    <label class="control-label">Status:</label>
+                                                </div>
+                                                <div class="col-md-10" style="padding:0;">
+                                                    <button id="btnActive" ng-click="btnStatus('Active')" class="btn btn-primary" style="display:inline-block;"><i class="fa fa-check"></i> Active</button>
+                                                    <button id="btnSuccess" ng-click="btnStatus('Completed')" class="btn btn-success" style="display:inline-block;">Completed</button>
+                                                    <button id="btnDefault" ng-click="btnStatus('Cancelled')" class="btn btn-default" style="display:inline-block;">Cancelled</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" ng-click="Modal('close')">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="updateProject(data)">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>

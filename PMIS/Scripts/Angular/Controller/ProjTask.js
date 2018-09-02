@@ -4,6 +4,19 @@
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
+    //Chat
+
+    var chat = $.connection.chatHub;
+
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            alert($.connection.hub.state);
+            chat.server.saveConnectionId();
+        })
+    }
+
+    //chat end
+
     s.data = {};
     s.marks1 = ["Accept", "Available"];
     s.marks2 = ["Accept", "Return"];
@@ -73,9 +86,25 @@
             //data.title = s.tasktitle;
             h.post("../Project/addTask", data).then(function (r) {
                 if (r.data == "Success") {
-                    alert("Save Successfully");
-                    s.clear();
-                    refreshTask(s.projuserId);
+                    s.nf = {};
+                    
+                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    s.nf.projTitle = s.projtitle;
+                    s.nf.type = "Task";
+                    s.nf.projId = rp.projId;
+                    s.nf.assignTo = s.data.assignto;
+
+                    h.post("../Account/notification", s.nf).then(function (r) {
+                        if (r.data != "Error") {
+                            chat.server.notification(r.data.connId, r.data.content);
+                            alert("Save Successfully");
+                            s.clear();
+                            refreshTask(s.projuserId);
+                        }
+                        else {
+                            alert(r.data);
+                        }
+                    })
                 }
                 else {
                     alert("Error");

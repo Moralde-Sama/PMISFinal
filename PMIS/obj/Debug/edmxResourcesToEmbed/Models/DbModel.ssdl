@@ -9,6 +9,8 @@
     <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="notifcontent" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="date" Type="datetime" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="participant">
     <Key>

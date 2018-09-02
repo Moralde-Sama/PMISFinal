@@ -1,6 +1,8 @@
-﻿
+﻿var userInfo = JSON.parse(localStorage.userInfo);
+
 function logout() {
     $.post("../Account/Logout", function (data, status) {
+        localStorage.removeItem("userInfo");
         location.href = "../Account/Login";
     });
 }
@@ -13,15 +15,50 @@ $(document).ready(function () {
     $.protip();
 })
 
+window.onbeforeunload = function () {
+    $.post("../Account/onDisconnect",
+        {userId: userInfo[0].userId},
+        function (result) {
+
+        }
+    )
+}
+
 $(function () {
 
     //chat
 
     var chat = $.connection.chatHub;
     
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            chat.server.saveConnectionId();
+        })
+    }
+    else {
+        $.connection.hub.start().done(function () {
+            chat.server.saveConnectionId();
+        })
+    }
 
-    $.connection.hub.start().done(function () {
-    })
+    chat.client.ConnectionId = function (connectionId) {
+        $.post("../Account/saveConnectionId",
+            {
+                conId: connectionId,
+                userId: userInfo[0].userId
+            },
+            function (result) {
+                localStorage.userInfo = JSON.stringify(result);
+            })
+    }
+
+    chat.client.Notify = function (connectionId, notifContent) {
+        $("#notification").prepend(
+            '<li id="notifli' + i + '">' +
+            '<a href="#">' +
+            '<i class="fa fa-tasks text-aqua"></i> ' + notifContent + ' </a>' +
+            '<p id="notif' + i + '" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px; display:none;">' + notifContent + '</p></li>');
+    }
 
 
     chat.client.sendToAll = function (name, message) {

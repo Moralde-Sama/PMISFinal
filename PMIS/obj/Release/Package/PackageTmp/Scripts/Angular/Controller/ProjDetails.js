@@ -1,24 +1,149 @@
-﻿module.controller("ProjDetailsCtrl", ["$scope", "$http", "$routeParams", function (s, h, rp) {
+﻿module.controller("ProjDetailsCtrl", ["$scope", "$http", "$routeParams", "$location", function (s, h, rp, l) {
+
+    document.title = "PMIS | Project Details"
+
+    var userInfo = JSON.parse(localStorage.userInfo);
 
     var spamCount = 0;
     var spamLimit = 3;
     var mute = 0;
+    var creatorId = null;
+    var ppArray = null;
+    var userarray = [];
+    var olduserarray = [];
+    var removeuser = [];
+
+    s.data = {};
 
     var x = window.matchMedia("(max-width: 764px)")
     myFunction(x)
     x.addListener(myFunction)
 
     var chat = $.connection.chatHub;
+
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            getProjDetails(rp.projId);
-            refreshTask();
+            alert($.connection.hub.state);
+            chat.server.saveConnectionId();
+            chat.server.join(s.projDetails.projId);
         })
     }
-    else {
-        getProjDetails(rp.projId);
-        refreshTask();
+    //else {
+    //    getProjDetails(rp.projId);
+    //    refreshTask();
+    //}
+
+    getProjDetails(rp.projId);
+    refreshTask();
+
+
+    //Modal
+
+    s.tab = function (tab) {
+        if (tab == "tab1") {
+            document.getElementById("tab-5").style.display = "block";
+            document.getElementById("tab-6").style.display = "none";
+        }
+        else if (tab == "tab2") {
+            document.getElementById("tab-6").style.display = "block";
+            document.getElementById("tab-5").style.display = "none";
+        }
     }
+
+    s.Modal = function (action) {
+        if (action == "show") {
+            $("#editmodal").css("display", "block");
+            document.getElementById("tab-6").style.display = "none";
+            document.getElementById("tab-5").style.display = "block";
+            document.getElementById("tab1").className = "active";
+            document.getElementById("tab2").className = "";
+            $("#editmodal2").animateCss("zoomIn", function () {
+            })
+        }
+        else {
+            $("#editmodal2").animateCss("zoomOut", function () {
+                $("#editmodal").css("display", "none");
+            })
+        }
+    }
+
+    s.participants = function (id) {
+        var index = userarray.indexOf(id);
+        var indexR = removeuser.indexOf(id);
+
+        if (index == -1) {
+            userarray.push(id);
+            if (indexR != -1) {
+                removeuser.splice(index, 1);
+            }
+        }
+        else {
+            userarray.splice(index, 1);
+            removeuser.push(id);
+        }
+
+        console.log(removeuser);
+    }
+
+    s.remUsers = function (id) {
+        var index = userarray.indexOf(id);
+
+        if (index != -1) {
+            userarray.splice(index, 1);
+        }
+    }
+
+    s.checkbox = function (id, eq) {
+        if (userarray.indexOf(id) != -1) {
+            $('.checkParticipants').eq(eq).prop('checked', true);
+        }
+    }
+
+    s.btnStatus = function (status) {
+        if (status == "Active") {
+            $("#btnActive").html('<i class="fa fa-check"></i> Active');
+            $("#btnSuccess").text("Completed");
+            $("#btnDefault").text("Cancelled");
+            s.data.status = "Active";
+        }
+        else if (status == "Completed") {
+            $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
+            $("#btnActive").text("Active");
+            $("#btnDefault").text("Cancelled");
+            s.data.status = "Completed";
+        }
+        else {
+            $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
+            $("#btnActive").text("Active");
+            $("#btnSuccess").text("Completed");
+            s.data.status = "Cancelled";
+        }
+    }
+
+    s.updateProject = function (data) {
+        for (i = 0; i < olduserarray.length; i++) {
+            s.remUsers(olduserarray[i]);
+
+            if (olduserarray.length - 1 == i) {
+
+                console.log(userarray);
+
+                var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
+                h.post("../Project/updateProject", updateProjParam).then(function (r) {
+                       if (r.data == "Success") {
+                        alert("Update Successfull!");
+                        getProjDetails(rp.projId);
+                        s.Modal("hide");
+                    }
+                    else {
+                        alert(r.data);
+                    }
+                })
+            }
+        }
+    }
+
+    //Modal End
 
     s.click = function (tab) {
         if (tab == "tab1") {
@@ -50,12 +175,57 @@
     function getProjDetails(projId) {
         h.post("../project/getProjDetails?projId=" + projId).then(function (r) {
             s.projDetails = r.data;
-            chat.server.join(s.projDetails.projId);
+            s.data = r.data;
+            s.btnStatus(r.data.status);
+            creatorId = s.projDetails.userId;
         })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
+
             s.projParticipants = r.data;
+            console.log("projParticipants");
+            for (i = 0; Object.keys(r.data).length; i++) {
+                userarray.push(s.projParticipants[i].userId);
+                olduserarray.push(s.projParticipants[i].userId);
+
+                if (Object.keys(r.data).length - 1 == i) {
+                    h.post("../User/getUsers?userid=" + userInfo[0].userId).then(function (r) {
+                        s.users = r.data;
+                        console.log("users");
+                    })
+                }
+            }
+            ppArray = r.data;
         })
+
+        h.post("../Project/getProjectActivity?projId=" + rp.projId).then(function (r) {
+            s.activities = r.data;
+        })
+    }
+
+    s.convertJsonDate = function (date) {
+        var date2 = new Date(parseInt(date.substr(6)));
+        let options = {
+            weekday: "long", year: "numeric", month: "short",
+            day: "numeric", hour: "2-digit", minute: "2-digit"
+        };
+        return date2.toLocaleTimeString("en-us", options);
+    }
+
+    s.logcontent = function (content, userId, fullname, userId2, fullname2, index) {
+        if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of" || content == "assigned task to") {
+            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            $("#anchor2" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
+            return content;
+        }
+        else if (content == "finished the task.") {
+            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
+            return content;
+        }
+        else if (content == "canceled the submission.") {
+            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            return content;
+        }
     }
 
     var interval = null;
@@ -64,7 +234,7 @@
         spamCount++;
         if(!mute){
             if($("#message").val() != ""){
-                chat.server.sendToGroup($("#userName").val(), $("#message").val(),  $("#profPath").val(), $("#getGroup").val());
+                chat.server.sendToGroup(userInfo[0].username, $("#message").val(),  userInfo[0].profpath, $("#getGroup").val());
                 $("#message").val('').focus();
             }
             if(interval == null){
@@ -89,7 +259,7 @@
             spamCount++;
             if (!mute) {
                 if ($("#message").val() != "") {
-                    chat.server.sendToGroup($("#userName").val(), $("#message").val(), $("#profPath").val(), $("#getGroup").val());
+                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, $("#getGroup").val());
                     $("#message").val('').focus();
                 }
                 if (interval == null && interval2 == null) {
@@ -134,6 +304,38 @@
         }
     }
 
+    s.setProjStatusColor = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Active") {
+            return "label label-info";
+        }
+        else {
+            return "label label-default";
+        }
+    }
+
+    
+    s.showBtns = function () {
+        if (userInfo[0].userId == creatorId) {
+            return true;
+        }
+        else {
+            if (ppArray.some(function (it) {
+                return it.userId == userInfo[0].userId;
+            })) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    s.profile = function (userId) {
+        l.path("/user/profile/userId=" + userId);
+    }
 
     function myFunction(x) {
         if (x.matches) { // If media query matches

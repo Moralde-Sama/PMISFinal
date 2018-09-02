@@ -22,6 +22,11 @@ namespace PMIS
             Clients.Group(group).sendToGroup(name, message, profPath);
         }
 
+        public void notification(string connectionId, string notifContent)
+        {
+            Clients.Client(connectionId).Notify(connectionId, notifContent);
+        }
+
         public void saveConnectionId()
         {
             string connectionId = Context.ConnectionId;

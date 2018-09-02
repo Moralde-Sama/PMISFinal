@@ -111,17 +111,18 @@
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
+                                <span class="label label-warning">1</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
+                                <li class="header">You have 1 notifications</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
+                                    <ul id="notification" class="menu">
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today members joined today 
+                                                <i class="fa fa-tasks text-aqua"></i> Kasumeme assigned you a task in Project Management Information System
                                             </a>
+                                            <p id="" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px;">Kasumeme assigned you a task in Project Management Information System</p>
                                         </li>
                                     </ul>
                                 </li>
@@ -425,7 +426,7 @@
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
     <script src="/signalr/hubs"></script>
     <script src="~/Scripts/Chat/chat.js"></script>
-    <!--Angular-->
+    <!--Angular Controller-->
     <script src="~/Scripts/Angular/Controller/Project.js"></script>
     <script src="~/Scripts/Angular/Controller/ProjDetails.js"></script>
     <script src="~/Scripts/Angular/Controller/WorkSpace.js"></script>
@@ -440,6 +441,8 @@
     <script src="~/Scripts/ModalAnimate.js"></script>
     <!--ProfileJs-->
     @*<script src="~/Scripts/ProfileJS.js"></script>*@
+    <!--Notification-->
+    <script src="~/Scripts/Notification.js"></script>
 
 
 </body>

@@ -19,5 +19,7 @@ namespace PMIS.Models
         public string type { get; set; }
         public string notifcontent { get; set; }
         public System.DateTime date { get; set; }
+        public int id { get; set; }
+        public string status { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿var userInfo = JSON.parse(localStorage.userInfo);
 
+
 function logout() {
     $.post("../Account/Logout", function (data, status) {
         localStorage.removeItem("userInfo");
@@ -25,7 +26,7 @@ window.onbeforeunload = function () {
 }
 
 $(function () {
-
+    var notifCount = 50;
     //chat
 
     var chat = $.connection.chatHub;
@@ -48,8 +49,25 @@ $(function () {
                 userId: userInfo[0].userId
             },
             function (result) {
-
+                localStorage.userInfo = JSON.stringify(result);
             })
+    }
+
+    chat.client.Notify = function (connectionId, notifContent) {
+        $("#notification").prepend(
+            '<li id="notifliN' + notifCount + '">' +
+            '<a href="#">' +
+            '<i class="fa fa-tasks text-aqua"></i> ' + notifContent + ' </a>' +
+            '<p id="notifN' + notifCount + '" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px; display:none;">' + notifContent + '</p></li>');
+
+        $("#notifliN" + notifCount).hover(function () {
+            $("#notifN" + notifCount).css("display", "block");
+            $("#notifN" + notifCount).animateCss("fadeInLeft", function () { });
+        }, function () {
+            $("#notifN" + notifCount).animateCss("fadeOutRight", function () {
+                $("#notifN" + notifCount).css("display", "none");
+            });
+        })
     }
 
 

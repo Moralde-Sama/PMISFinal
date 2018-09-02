@@ -62,7 +62,7 @@
                                                 <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                             </div>
                                         </div>
-                                        <div ng-if="(participants | filter: { projId: data.projId }).length > 5" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                        <div ng-if="(participants | filter: { projId: data.projId }).length > 5" style="display:inline-block; margin-left:5px; margin-top:-10px; width:40px; height: 40px;">
                                             <div class="animated fadeIn" style="border-radius: 50%; width: 40px; height: 40px; text-align:center; background-color:gray;">
 
                                                 <a href="" style="color:white;" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"> {{participantsCount((participants | filter: { projId: data.projId }).length)}}</a>
