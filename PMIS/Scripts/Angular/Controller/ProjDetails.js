@@ -130,8 +130,12 @@
 
                 var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
                 h.post("../Project/updateProject", updateProjParam).then(function (r) {
-                       if (r.data == "Success") {
-                        alert("Update Successfull!");
+                    if (r.data == "Success") {
+                        Snarl.addNotification({
+                            title: 'Update Successfully!',
+                            icon: '<i class="fa fa-check"></i>',
+                            timeout: 3000
+                        });
                         getProjDetails(rp.projId);
                         s.Modal("hide");
                     }

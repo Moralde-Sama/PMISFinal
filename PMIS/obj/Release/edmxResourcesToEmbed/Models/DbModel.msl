@@ -206,6 +206,7 @@
       <EntityTypeMapping TypeName="PMISModel.notification">
         <MappingFragment StoreEntitySet="notification">
           <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="seen" ColumnName="seen" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="notifcontent" ColumnName="notifcontent" />

@@ -37,7 +37,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:15</publishTime>
     </File>
     <File Include="bin/PMIS.dll">
-      <publishTime>09/02/2018 14:23:22</publishTime>
+      <publishTime>09/03/2018 10:20:29</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>08/24/2018 11:11:15</publishTime>
@@ -720,6 +720,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/plugins/slimScroll/jquery.slimscroll.min.js">
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
+    <File Include="Content/plugins/snarl/LICENSE">
+      <publishTime>09/03/2018 09:34:04</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/README.md">
+      <publishTime>09/03/2018 09:34:04</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.css">
+      <publishTime>09/03/2018 09:50:18</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.js">
+      <publishTime>09/03/2018 10:00:02</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.less">
+      <publishTime>09/03/2018 09:34:04</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.min.css">
+      <publishTime>09/03/2018 09:50:18</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.min.js">
+      <publishTime>09/03/2018 10:00:02</publishTime>
+    </File>
+    <File Include="Content/plugins/snarl/snarl.min.js.map">
+      <publishTime>09/03/2018 10:00:02</publishTime>
+    </File>
     <File Include="Content/sweetalert.min.js">
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
@@ -733,7 +757,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Models/DbModel.edmx.diagram">
-      <publishTime>09/02/2018 09:51:58</publishTime>
+      <publishTime>09/03/2018 09:01:34</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -750,6 +774,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/Angular/Controller/Account.js">
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
+    <File Include="Scripts/Angular/Controller/Dashboard.js">
+      <publishTime>09/02/2018 19:21:09</publishTime>
+    </File>
     <File Include="Scripts/Angular/Controller/Profile.js">
       <publishTime>08/31/2018 21:00:27</publishTime>
     </File>
@@ -757,13 +784,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/27/2018 19:49:26</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/ProjDetails.js">
-      <publishTime>09/01/2018 07:57:07</publishTime>
+      <publishTime>09/03/2018 10:13:06</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Project.js">
-      <publishTime>09/01/2018 11:26:14</publishTime>
+      <publishTime>09/03/2018 10:24:07</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/ProjTask.js">
-      <publishTime>09/02/2018 14:13:19</publishTime>
+      <publishTime>09/03/2018 10:25:21</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/UserProfile.js">
       <publishTime>08/28/2018 15:44:57</publishTime>
@@ -778,10 +805,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Scripts/Angular/route.js">
-      <publishTime>08/30/2018 11:57:26</publishTime>
+      <publishTime>09/02/2018 19:22:46</publishTime>
     </File>
     <File Include="Scripts/Chat/chat.js">
-      <publishTime>09/02/2018 14:07:28</publishTime>
+      <publishTime>09/03/2018 10:19:49</publishTime>
     </File>
     <File Include="Scripts/jquery-1.6.4.js">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -799,7 +826,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Scripts/Notification.js">
-      <publishTime>09/02/2018 14:04:09</publishTime>
+      <publishTime>09/03/2018 10:05:55</publishTime>
     </File>
     <File Include="Scripts/ProfileJS.js">
       <publishTime>08/25/2018 10:43:28</publishTime>
@@ -821,6 +848,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>08/24/2018 11:11:14</publishTime>
+    </File>
+    <File Include="Views/PartialViews/Dashboard.cshtml">
+      <publishTime>09/02/2018 19:26:09</publishTime>
     </File>
     <File Include="Views/PartialViews/modal.cshtml">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -853,7 +883,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Views/Shared/_HomeLayout.cshtml">
-      <publishTime>09/02/2018 14:03:59</publishTime>
+      <publishTime>09/03/2018 09:41:44</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>08/24/2018 11:11:14</publishTime>

@@ -97,7 +97,11 @@
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
                             chat.server.notification(r.data.connId, r.data.content);
-                            alert("Save Successfully");
+                            Snarl.addNotification({
+                                title: 'Save Successfully!',
+                                icon: '<i class="fa fa-check"></i>',
+                                timeout: 3000
+                            });
                             s.clear();
                             refreshTask(s.projuserId);
                         }
@@ -115,9 +119,34 @@
             h.post("../Project/updateTask", data).then(function (r) {
                 console.log(r.data);
                 if (r.data == "Success") {
-                    alert("Update Successfully");
-                    s.clear();
-                    refreshTask(s.projuserId);
+
+                    s.nf = {};
+
+                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    s.nf.projTitle = s.projtitle;
+                    if(data.status == "Completed")
+                        s.nf.type = "Task Approve";
+                    else
+                        s.nf.type = "Task Return";
+
+                    s.nf.projId = rp.projId;
+                    s.nf.assignTo = s.data.assignto;;
+
+                    h.post("../Account/notification", s.nf).then(function (r) {
+                        if (r.data != "Error") {
+                            chat.server.notification(r.data.connId, r.data.content);
+                            Snarl.addNotification({
+                                title: 'Update Successfully!',
+                                icon: '<i class="fa fa-check"></i>',
+                                timeout: 3000
+                            });
+                            s.clear();
+                            refreshTask(s.projuserId);
+                        }
+                        else {
+                            alert(r.data);
+                        }
+                    })
                 }
                 else {
                     alert("Error");
@@ -133,10 +162,32 @@
             var updatetuParam = { "taskId": s.data.taskId, "status": "Pending" };
             h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
                 if (r.data == "Success") {
-                    btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
-                    btn.className = "btn btn-warning";
-                    refreshTask();
-                    alert("Updated Successfull!");
+
+                    s.nf = {};
+
+                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    s.nf.projTitle = s.projtitle;
+                    s.nf.type = "Task Submit";
+                    s.nf.projId = rp.projId;
+                    s.nf.assignTo = s.projuserId;
+
+                    h.post("../Account/notification", s.nf).then(function (r) {
+                        if (r.data != "Error") {
+                            chat.server.notification(r.data.connId, r.data.content);
+                            btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
+                            btn.className = "btn btn-warning";
+                            Snarl.addNotification({
+                                title: 'Update Successfully!',
+                                icon: '<i class="fa fa-check"></i>',
+                                timeout: 3000
+                            });
+                            s.clear();
+                            refreshTask(s.projuserId);
+                        }
+                        else {
+                            alert(r.data);
+                        }
+                    })
                 }
                 else {
                     alert("Error!");
@@ -147,10 +198,32 @@
             var updatetuParam = { "taskId": s.data.taskId, "status": "Available" };
             h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
                 if (r.data == "Success") {
-                    btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
-                    btn.className = "btn btn-info";
-                    refreshTask();
-                    alert("Updated Successfull!");
+
+                    s.nf = {};
+
+                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    s.nf.projTitle = s.projtitle;
+                    s.nf.type = "Task Cancel";
+                    s.nf.projId = rp.projId;
+                    s.nf.assignTo = s.projuserId;
+
+                    h.post("../Account/notification", s.nf).then(function (r) {
+                        if (r.data != "Error") {
+                            chat.server.notification(r.data.connId, r.data.content);
+                            btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
+                            btn.className = "btn btn-info";
+                            Snarl.addNotification({
+                                title: 'Update Successfully!',
+                                icon: '<i class="fa fa-check"></i>',
+                                timeout: 3000
+                            });
+                            s.clear();
+                            refreshTask(s.projuserId);
+                        }
+                        else {
+                            alert(r.data);
+                        }
+                    })
                 }
                 else {
                     alert("Error!");

@@ -104,7 +104,11 @@
             var Indata = { 'pj': d, 'array': userarray };
             h.post("../Project/addProject", Indata).then(function (r) {
                 if (r.data == "Success") {
-                    alert("Save Successfully");
+                    Snarl.addNotification({
+                        title: 'Save Successfully!',
+                        icon: '<i class="fa fa-check"></i>',
+                        timeout: 3000
+                    });
                     userarray = [];
                     userarray.push(userInfo[0].userId);
                     getList();

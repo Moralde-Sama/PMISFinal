@@ -20,6 +20,7 @@ namespace PMIS.Models
         public string notifcontent { get; set; }
         public System.DateTime date { get; set; }
         public int id { get; set; }
+        public byte seen { get; set; }
         public string status { get; set; }
     }
 }

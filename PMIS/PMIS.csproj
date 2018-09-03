@@ -304,7 +304,12 @@
     <Content Include="Content\MyCSS.css" />
     <Content Include="Content\MyIcon\icons8_Tasklist.ico" />
     <Content Include="Content\MyIcon\icons8_Tasklist_1.ico" />
+    <Content Include="Content\plugins\snarl\snarl.css" />
+    <Content Include="Content\plugins\snarl\snarl.js" />
+    <Content Include="Content\plugins\snarl\snarl.min.css" />
+    <Content Include="Content\plugins\snarl\snarl.min.js" />
     <Content Include="Content\sweetalert.min.js" />
+    <Content Include="Scripts\Angular\Controller\Dashboard.js" />
     <Content Include="Scripts\Angular\Controller\Profile.js" />
     <Content Include="Scripts\Angular\Controller\UserProfile.js" />
     <Content Include="Scripts\Notification.js" />
@@ -366,6 +371,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DbModel.edmx</DependentUpon>
       <LastGenOutput>DbModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Content\plugins\snarl\LICENSE" />
+    <Content Include="Content\plugins\snarl\README.md" />
+    <Content Include="Content\plugins\snarl\snarl.less" />
+    <Content Include="Content\plugins\snarl\snarl.min.js.map">
+      <DependentUpon>snarl.min.js</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\pmis.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
@@ -493,6 +504,7 @@
     <Content Include="Views\PartialViews\UserTask.cshtml" />
     <Content Include="Views\PartialViews\UserProfile.cshtml" />
     <Content Include="Views\PartialViews\MyProfile.cshtml" />
+    <Content Include="Views\PartialViews\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

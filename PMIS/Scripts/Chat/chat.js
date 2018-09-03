@@ -68,6 +68,17 @@ $(function () {
                 $("#notifN" + notifCount).css("display", "none");
             });
         })
+
+        Snarl.addNotification({
+            title: "New Notification",
+            icon: '<i class="fa fa-bell-o"></i>',
+            timeout: 3000
+        });
+
+        $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (result) {
+            $("#notifCount").text("" + result.countNotif);
+            $("#notifHeader").text("You have " + result.countNotif + " notifications");
+        })
     }
 
 

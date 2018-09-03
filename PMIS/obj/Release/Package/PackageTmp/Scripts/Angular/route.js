@@ -30,5 +30,9 @@
         templateUrl: "../PartialViews/MyProfile",
         controller: "profileCtrl"
     })
+    .when("/user/dashboard", {
+        templateUrl: "../PartialViews/Dashboard",
+        controller: "dashboardCtrl"
+    })
     $locationProvider.html5Mode(true);
 })

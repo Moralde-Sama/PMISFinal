@@ -316,34 +316,84 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult notification(notif nf)
         {
-            try
-            {
+            //try
+            //{
                 notification notif = new notification();
                 notif.date = DateTime.Now;
                 if (nf.type == "Task"){
                     notif.userId = nf.assignTo;
                     notif.type = nf.type;
-                    notif.notifcontent = nf.createdBy+ " assign a task to you in " + nf.projTitle + "Project";
+                    notif.notifcontent = nf.createdBy+ " assign a task to you in " + nf.projTitle + " Project";
                     notif.id = nf.projId;
                     notif.status = "New";
                 }
+                else if (nf.type == "Task Submit")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Task";
+                    notif.notifcontent = nf.createdBy + " finished the task in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+                else if (nf.type == "Task Cancel")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Task";
+                    notif.notifcontent = nf.createdBy + " cancelled the submission of task in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+                else if (nf.type == "Task Approve")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Task";
+                    notif.notifcontent = nf.createdBy + " approved the submission of your task in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+                else if (nf.type == "Task Return")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Task";
+                    notif.notifcontent = nf.createdBy + " returned your task in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+
                 db.notifications.Add(notif);
                 db.SaveChanges();
+                
 
                 var connectionId = db.users.Where(e => e.userId == notif.userId).Select(e => e.connectionid).First();
                 var multipleVal = new { connId = connectionId, content = notif.notifcontent };
                 return Json(multipleVal, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json("Error", JsonRequestBehavior.AllowGet);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Json("Error", JsonRequestBehavior.AllowGet);
+            //}
         }
         [HttpPost]
         public ActionResult getNotifications(int userId)
         {
             var notifications = db.notifications.Where(e => e.userId == userId).ToList();
-            return Json(notifications, JsonRequestBehavior.AllowGet);
+            var count = db.notifications.Where(e => e.userId == userId && e.seen == 0).Count();
+            var multipleVal = new { notification = notifications, countNotif = count };
+            return Json(multipleVal, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updateNotification(int userId)
+        {
+            var notifications = db.notifications.Where(e => e.userId == userId && e.seen == 0).ToList();
+
+            foreach (notification notif in notifications)
+            {
+                notif.seen = 1;
+                db.Entry(notif).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult getConnectionId(int userId)

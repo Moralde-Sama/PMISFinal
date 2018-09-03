@@ -29,7 +29,9 @@
     <script src="~/Scripts/Angular/module.js"></script>
     <script src="~/Scripts/Angular/route.js"></script>
     <!--Collapsable-->
-    <link href="~/Content/Collapsable.css" rel="stylesheet" />
+    <link href="~/Content/Collapsable.css" rel="stylesheet" /> 
+    <!--Snarl Plugin-->
+    <link href="~/Content/plugins/snarl/snarl.css" rel="stylesheet" />
 
 
     
@@ -108,22 +110,22 @@
                             </ul>
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li id="notifMenu" class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">1</span>
+                                <span id="notifCount" class="label label-info"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 1 notifications</li>
+                                <li id="notifHeader" class="header"></li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul id="notification" class="menu">
-                                        <li>
+                                        @*<li>
                                             <a href="#">
                                                 <i class="fa fa-tasks text-aqua"></i> Kasumeme assigned you a task in Project Management Information System
                                             </a>
                                             <p id="" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px;">Kasumeme assigned you a task in Project Management Information System</p>
-                                        </li>
+                                        </li>*@
                                     </ul>
                                 </li>
                             </ul>
@@ -202,7 +204,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="treeview active">
-                        <a href="/Workspace/List">
+                        <a href="/user/dashboard">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
@@ -443,6 +445,9 @@
     @*<script src="~/Scripts/ProfileJS.js"></script>*@
     <!--Notification-->
     <script src="~/Scripts/Notification.js"></script>
+    <!--Snarl Plugin-->
+    <script src="~/Content/plugins/snarl/snarl.js"></script>
+
 
 
 </body>

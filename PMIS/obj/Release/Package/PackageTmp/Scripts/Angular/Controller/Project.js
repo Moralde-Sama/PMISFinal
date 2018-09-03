@@ -5,6 +5,15 @@
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
+    var chat = $.connection.chatHub;
+
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            alert($.connection.hub.state);
+            chat.server.saveConnectionId();
+        })
+    }
+
     s.try = "sdf";
     var userarray = [];
     userarray.push(userInfo[0].userId);
@@ -95,7 +104,11 @@
             var Indata = { 'pj': d, 'array': userarray };
             h.post("../Project/addProject", Indata).then(function (r) {
                 if (r.data == "Success") {
-                    alert("Save Successfully");
+                    Snarl.addNotification({
+                        title: 'Save Successfully!',
+                        icon: '<i class="fa fa-check"></i>',
+                        timeout: 3000
+                    });
                     userarray = [];
                     userarray.push(userInfo[0].userId);
                     getList();

@@ -7,9 +7,10 @@
     <Property Name="notifId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userId" Type="int" Nullable="false" />
     <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="notifcontent" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="notifcontent" Type="varchar(max)" Nullable="false" />
     <Property Name="date" Type="datetime" Nullable="false" />
     <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="seen" Type="tinyint" Nullable="false" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="participant">

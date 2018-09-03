@@ -12,9 +12,10 @@
           <Property Name="notifId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userId" Type="int" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="notifcontent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="notifcontent" Type="varchar(max)" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="seen" Type="tinyint" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="participant">
@@ -350,9 +351,10 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="notifId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="notifcontent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="notifcontent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="seen" Type="Byte" Nullable="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
@@ -566,6 +568,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
             <EntityTypeMapping TypeName="PMISModel.notification">
               <MappingFragment StoreEntitySet="notification">
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="seen" ColumnName="seen" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="notifcontent" ColumnName="notifcontent" />

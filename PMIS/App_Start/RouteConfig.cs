@@ -23,6 +23,11 @@ namespace PMIS
                 defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
                 );
             routes.MapRoute(
+                "dashboard",
+                "user/dashboard",
+                defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
+                );
+            routes.MapRoute(
                 "ProjectTask",
                 "Project/Tasks/projectId={id}",
                 defaults: new { controller = "Project", action = "List", id = UrlParameter.Optional }
