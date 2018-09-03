@@ -90,6 +90,9 @@
     </FunctionImport>
     <EntitySet Name="users" EntityType="PMISModel.user" />
     <EntitySet Name="notifications" EntityType="PMISModel.notification" />
+    <FunctionImport Name="spProjectStatCount" ReturnType="Collection(PMISModel.spProjectStatCount_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -208,4 +211,9 @@
     <Property Name="seen" Type="Byte" Nullable="false" />
     <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <ComplexType Name="spProjectStatCount_Result">
+    <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Active" Nullable="true" />
+    <Property Type="Int32" Name="Cancelled" Nullable="true" />
+  </ComplexType>
 </Schema>

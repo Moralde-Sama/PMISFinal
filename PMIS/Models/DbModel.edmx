@@ -125,6 +125,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projId" Type="int" Mode="In" />
         </Function>
+        <Function Name="spProjectStatCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spUserProjectList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
@@ -239,6 +242,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           </FunctionImport>
           <EntitySet Name="users" EntityType="PMISModel.user" />
           <EntitySet Name="notifications" EntityType="PMISModel.notification" />
+          <FunctionImport Name="spProjectStatCount" ReturnType="Collection(PMISModel.spProjectStatCount_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetProjList_Result">
           <Property Type="Int32" Name="projId" Nullable="false" />
@@ -357,6 +363,11 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="seen" Type="Byte" Nullable="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="spProjectStatCount_Result">
+          <Property Type="Int32" Name="Completed" Nullable="true" />
+          <Property Type="Int32" Name="Active" Nullable="true" />
+          <Property Type="Int32" Name="Cancelled" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -578,6 +589,15 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spProjectStatCount" FunctionName="PMISModel.Store.spProjectStatCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spProjectStatCount_Result">
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

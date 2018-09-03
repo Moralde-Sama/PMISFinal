@@ -355,6 +355,13 @@ namespace PMIS.Controllers
             return Json(activites, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult getProjectStatCount(int userId)
+        {
+            var count = db.spProjectStatCount(userId).First();
+            return Json(count, JsonRequestBehavior.AllowGet);
+        }
+
         private void updateLastActDate(int projId)
         {
             var details = db.projects.Where(e => e.projId == projId).First();

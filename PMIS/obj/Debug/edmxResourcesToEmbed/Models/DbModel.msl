@@ -216,5 +216,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spProjectStatCount" FunctionName="PMISModel.Store.spProjectStatCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spProjectStatCount_Result">
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
