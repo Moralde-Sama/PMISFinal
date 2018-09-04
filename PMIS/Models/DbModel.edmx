@@ -104,6 +104,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="connectionid" Type="varchar" MaxLength="200" />
           <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projId" Type="int" Mode="In" />
@@ -120,6 +123,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         </Function>
         <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projId" Type="int" Mode="In" />
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spgetUserTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
         <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -243,6 +249,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="users" EntityType="PMISModel.user" />
           <EntitySet Name="notifications" EntityType="PMISModel.notification" />
           <FunctionImport Name="spProjectStatCount" ReturnType="Collection(PMISModel.spProjectStatCount_Result)">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spgetUserTaskCount" ReturnType="Collection(PMISModel.spgetUserTaskCount_Result)">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spgetAllUserTask" ReturnType="Collection(PMISModel.spgetAllUserTask_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -367,6 +379,17 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="Int32" Name="Completed" Nullable="true" />
           <Property Type="Int32" Name="Active" Nullable="true" />
           <Property Type="Int32" Name="Cancelled" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spgetUserTaskCount_Result">
+          <Property Type="Int32" Name="Completed" Nullable="true" />
+          <Property Type="Int32" Name="Pending" Nullable="true" />
+          <Property Type="Int32" Name="Available" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spgetAllUserTask_Result">
+          <Property Type="Int32" Name="taskId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Project" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Task" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -595,6 +618,25 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spgetUserTaskCount" FunctionName="PMISModel.Store.spgetUserTaskCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spgetUserTaskCount_Result">
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Pending" ColumnName="Pending" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spgetAllUserTask" FunctionName="PMISModel.Store.spgetAllUserTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spgetAllUserTask_Result">
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

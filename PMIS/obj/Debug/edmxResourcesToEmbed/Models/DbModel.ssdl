@@ -99,6 +99,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="connectionid" Type="varchar" MaxLength="200" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
@@ -115,6 +118,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   </Function>
   <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spgetUserTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
   <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

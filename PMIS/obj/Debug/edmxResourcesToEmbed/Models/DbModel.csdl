@@ -93,6 +93,12 @@
     <FunctionImport Name="spProjectStatCount" ReturnType="Collection(PMISModel.spProjectStatCount_Result)">
       <Parameter Name="userId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spgetUserTaskCount" ReturnType="Collection(PMISModel.spgetUserTaskCount_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spgetAllUserTask" ReturnType="Collection(PMISModel.spgetAllUserTask_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -215,5 +221,16 @@
     <Property Type="Int32" Name="Completed" Nullable="true" />
     <Property Type="Int32" Name="Active" Nullable="true" />
     <Property Type="Int32" Name="Cancelled" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spgetUserTaskCount_Result">
+    <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Pending" Nullable="true" />
+    <Property Type="Int32" Name="Available" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spgetAllUserTask_Result">
+    <Property Type="Int32" Name="taskId" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Project" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Task" Nullable="false" MaxLength="50" />
   </ComplexType>
 </Schema>

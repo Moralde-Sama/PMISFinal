@@ -85,10 +85,15 @@
                     <div class="card-content">
                         <div style="overflow-x:auto;">
                             <table class="table table-hover">
+                                <th style="text-align:center;">Status</th>
+                                <th style="text-align:center;">Project Title</th>
+                                <th style="text-align:center;">Completion</th>
+                                <th style="text-align:center;">Participants</th>
+                                <th style="text-align:center;">Action</th>
                                 <tbody>
                                     <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
                                         <td style=" text-align:center;padding-top:23px; min-width:70px;">
-                                            <span class="label label-info">{{data.status}}</span>
+                                            <span class="{{setStatusColor2(data.status)}}">{{data.status}}</span>
                                         </td>
                                         <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
                                             <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
@@ -151,7 +156,7 @@
                         <i class="glyphicon glyphicon-ok-sign"></i>
                         <div class="mini-count">
                             <div class="label">
-                                Completed: {{statCount.Completed}}
+                                Completed: {{taskCount.Completed}}
                             </div>
                         </div>
                     </div>
@@ -163,7 +168,7 @@
                         <i class="fa fa-clock-o"></i>
                         <div class="mini-count">
                             <div class="label">
-                                Pending: {{statCount.Active}}
+                                Pending: {{taskCount.Pending}}
                             </div>
                         </div>
                     </div>
@@ -175,7 +180,7 @@
                         <i class="fa fa-circle-o" style="color:white;"></i>
                         <div class="mini-count">
                             <div class="label" style="color:white;">
-                                Available: {{statCount.Cancelled}}
+                                Available: {{taskCount.Available}}
                             </div>
                         </div>
                     </div>
@@ -183,4 +188,80 @@
             </div>
         </div>
     </div>
+    <div class="animated fadeIn" style="margin-top:10px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="border-radius:10px;">
+                    <div class="card-title" style="padding:20px 20px 0 20px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="overflow-x:auto; overflow-y: auto; max-height: 400px;">
+                            <table class="table table-hover">
+                                    <th style="text-align:center;">Status</th>
+                                    <th style="text-align:center;">Project Title</th>
+                                    <th style="text-align:center;">Task Title</th>
+                                    <th style="text-align:center;">Action</th>
+                                <tbody>
+                                    <tr class="animated fadeIn" ng-repeat="data in tasks | filter:searchProj">
+                                        <td style=" text-align:center;padding-top:14px;">
+                                            <span class="{{setStatusColor(data.status)}}">{{data.status}}</span>
+                                        </td>
+                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
+                                            <label>{{data.Project}}</label>
+                                        </td>
+                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
+                                            <label>{{data.Task}}</label>
+                                        </td>
+                                        <td style="text-align:center; padding-top:10px;">
+                                            <a ng-click="showData(data.Project, data.taskId)" class="btn btn-info"><i class="fa fa-tasks"> Details</i></a>
+                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal" style="display:none;">
+    <div id="ModalDialog" class="modal-dialog">
+        <div class="modal-content" style="background-color:ActiveBorder;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="closeAssignTo()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" style="font-weight:bold;">Task Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="card" style="border-radius:10px; padding: 10px 20px 0 20px;">
+                    <div class="card-content">
+                        <div class=" row" style="padding: 0 15px 15px 15px;">
+                            <div class="col-md-12" style="text-align: center; border-bottom: 2px solid #EEEEEE; border-top: 2px solid #EEEEEE; padding-bottom:10px;">
+                                <h3 style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <div class="form-group">
+                                    <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
+                                    <p style="border: 2px solid #EEEEEE; padding:15px;" ng-bind="data.description"></p>
+                                </div>
+                            </div>
+                            <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:2px solid #EEEEEE; padding: 5px; overflow-y:auto; display:none;">
+                                <div ng-repeat="(fIndex, log) in tasklogs">
+                                    <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a> - {{convertJsonDate(log.date)}}</p>
+                                </div>
+                            </div>
+                            <div id="showBtn" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
+                                <button id="btnSubmit1" class="btn btn-info" ng-click="submitCancelTask()"><i class="fa fa-send"> Submit</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>

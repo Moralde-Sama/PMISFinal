@@ -225,5 +225,24 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spgetUserTaskCount" FunctionName="PMISModel.Store.spgetUserTaskCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spgetUserTaskCount_Result">
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Pending" ColumnName="Pending" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spgetAllUserTask" FunctionName="PMISModel.Store.spgetAllUserTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spgetAllUserTask_Result">
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="Project" ColumnName="Project" />
+          <ScalarProperty Name="Task" ColumnName="Task" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

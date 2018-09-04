@@ -279,8 +279,9 @@
     }
 
     s.convertJsonDate = function (date) {
-        var date = new Date(parseInt(s.tasklog[0].date.substr(6)));
-        return date;
+        var dateR = new Date(parseInt(date.substr(6)));
+        var Rtime = moment(dateR).fromNow();
+        return Rtime;
     }
     s.showCreatedBy = function (userId, fullname, index, content, userId2, fullname2) {
         if (content == "finished the task" || content == "canceled the submission") {
@@ -425,4 +426,32 @@
             document.getElementById("myModal").style.display = "none";
         });
     }
+
+    //s.timeSince = function(date) {
+
+    //    var seconds = Math.floor((new Date() - date) / 1000);
+
+    //    var interval = Math.floor(seconds / 31536000);
+
+    //    if (interval > 1) {
+    //        return interval + " years ago";
+    //    }
+    //    interval = Math.floor(seconds / 2592000);
+    //    if (interval > 1) {
+    //        return interval + " months ago";
+    //    }
+    //    interval = Math.floor(seconds / 86400);
+    //    if (interval > 1) {
+    //        return interval + " days ago";
+    //    }
+    //    interval = Math.floor(seconds / 3600);
+    //    if (interval > 1) {
+    //        return interval + " hours ago";
+    //    }
+    //    interval = Math.floor(seconds / 60);
+    //    if (interval > 1) {
+    //        return interval + " minutes ago";
+    //    }
+    //    return " Just Now";
+    //}
 }])

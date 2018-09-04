@@ -362,6 +362,13 @@ namespace PMIS.Controllers
             return Json(count, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult getUserTasks(int userId)
+        {
+            var tasks = db.spgetAllUserTask(userId).ToList();
+            return Json(tasks, JsonRequestBehavior.AllowGet);
+        }
+
         private void updateLastActDate(int projId)
         {
             var details = db.projects.Where(e => e.projId == projId).First();

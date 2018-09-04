@@ -401,5 +401,15 @@ namespace PMIS.Controllers
             var connId = db.users.Where(e => e.userId == userId).Select(e => e.connectionid).First();
             return Json(connId, JsonRequestBehavior.AllowGet);
         }
+        
+        [HttpPost]
+        public ActionResult getUserTaskCount(int userId)
+        {
+            spgetUserTaskCount_Result taskCount = new spgetUserTaskCount_Result();
+            taskCount.Completed = db.tasks.Where(e => e.assignto == userId && e.status == "Completed").Count();
+            taskCount.Pending = db.tasks.Where(e => e.assignto == userId && e.status == "Pending").Count();
+            taskCount.Available = db.tasks.Where(e => e.assignto == userId && e.status == "Available").Count();
+            return Json(taskCount, JsonRequestBehavior.AllowGet);
+        }
     }
 }

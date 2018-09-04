@@ -121,5 +121,23 @@ namespace PMIS.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectStatCount_Result>("spProjectStatCount", userIdParameter);
         }
+    
+        public virtual ObjectResult<spgetUserTaskCount_Result> spgetUserTaskCount(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetUserTaskCount_Result>("spgetUserTaskCount", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spgetAllUserTask_Result> spgetAllUserTask(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetAllUserTask_Result>("spgetAllUserTask", userIdParameter);
+        }
     }
 }

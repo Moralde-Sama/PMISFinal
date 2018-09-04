@@ -62,18 +62,18 @@
             <div class="card" style="border-top: 2px solid blue; padding: 10px 20px 0 20px;">
                 <div class="card-content">
                     <div class=" row" style="padding: 0 15px 15px 15px;">
-                        <div class="col-md-12" style="text-align: center; border-bottom: 2px solid gray; border-top: 2px solid gray; padding-bottom:10px;">
+                        <div class="col-md-12" style="text-align: center; border-bottom: 2px solid #EEEEEE; border-top: 2px solid #EEEEEE; padding-bottom:10px;">
                             <h3 style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
                         </div>
                         <div class="col-md-12" style="margin-top:10px;">
                             <div class="form-group">
                                 <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
-                                <p style="border: 2px solid gray; padding:15px;" ng-bind="data.description"></p>
+                                <p style="border: 2px solid #EEEEEE; padding:15px;" ng-bind="data.description"></p>
                             </div>
                         </div>
-                        <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
+                        <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:2px solid #EEEEEE; padding: 5px; overflow-y:auto; display:none;">
                             <div ng-repeat="(fIndex, log) in tasklogs">
-                                <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a></p>
+                                <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a> - {{convertJsonDate(log.date)}}</p>
                             </div>
                         </div>
                         <div id="showBtn" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
@@ -124,7 +124,7 @@
                         </div>
                         <div id="tasklog2" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:1px solid gray; padding: 5px; overflow-y:auto; display:none;">
                             <div ng-repeat="(lIndex, log) in tasklogs">
-                                <p style="font-size: 12px; cursor:default;"><a id="{{lIndex + 'log3'}}">{{showCreatedBy(log.userId, log.fullname, lIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{lIndex + 'log4'}}"> {{showAssignTo(log.userId2, log.logcontent, lIndex, log.fullname2)}} </a></p>
+                                <p style="font-size: 12px; cursor:default;"><a id="{{lIndex + 'log3'}}">{{showCreatedBy(log.userId, log.fullname, lIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{lIndex + 'log4'}}"> {{showAssignTo(log.userId2, log.logcontent, lIndex, log.fullname2)}} </a> - {{convertJsonDate(log.date)}}</p>
                             </div>
                         </div>
                         <div class="col-md-12" style="margin-top:10px; text-align:center;">
