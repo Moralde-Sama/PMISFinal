@@ -177,6 +177,7 @@ namespace PMIS.Controllers
                         participant pp = new participant();
                         pp.projId = project.projId;
                         pp.userId = users[i];
+                        pp.status = "Active";
                         db.participants.Add(pp);
                         db.SaveChanges();
                     }

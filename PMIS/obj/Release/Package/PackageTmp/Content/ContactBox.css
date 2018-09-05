@@ -75,3 +75,32 @@
     0%   { transform: translate(0, 0); }
     100% { transform: translate(-100%, 0); }
 }
+
+.mini-card{
+    margin-top: 10px;
+    border-radius:5px;
+    background-color: #3780A9;
+    width:100%;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
+}
+
+.mini-card .mini-icon .mini-count{
+    position:absolute;
+    margin-top:8px;
+    display:inline-block;
+    font-weight:bold;
+    color:white;
+}
+
+.mini-card .mini-icon .mini-count .label {
+    font-size:25px;
+}
+
+.mini-card .mini-icon{
+    padding:20px;
+}
+
+.mini-card .mini-icon i{
+    font-size:40px;
+    color:white;
+}

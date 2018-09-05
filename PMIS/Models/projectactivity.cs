@@ -19,7 +19,7 @@ namespace PMIS.Models
         public int taskId { get; set; }
         public string logContent { get; set; }
         public System.DateTime datetime { get; set; }
-        public string status { get; set; }
         public int assignto { get; set; }
+        public string status { get; set; }
     }
 }

@@ -27,14 +27,14 @@ namespace PMIS.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<participant> participants { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
         public virtual DbSet<project> projects { get; set; }
+        public virtual DbSet<projectactivity> projectactivities { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<tasklog> tasklogs { get; set; }
-        public virtual DbSet<projecmessage> projecmessages { get; set; }
-        public virtual DbSet<projectactivity> projectactivities { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<notification> notifications { get; set; }
+        public virtual DbSet<projecmessage> projecmessages { get; set; }
+        public virtual DbSet<participant> participants { get; set; }
     
         public virtual ObjectResult<spGetProjList_Result> spGetProjList()
         {
@@ -86,15 +86,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserTask_Result>("spGetUserTask", projIdParameter, userIdParameter);
         }
     
-        public virtual ObjectResult<spGetParticipantsByProj_Result> spGetParticipantsByProj(Nullable<int> projId)
-        {
-            var projIdParameter = projId.HasValue ?
-                new ObjectParameter("projId", projId) :
-                new ObjectParameter("projId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipantsByProj_Result>("spGetParticipantsByProj", projIdParameter);
-        }
-    
         public virtual ObjectResult<spGetProjTask_Result> spGetProjTask(Nullable<int> projId)
         {
             var projIdParameter = projId.HasValue ?
@@ -138,6 +129,15 @@ namespace PMIS.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetAllUserTask_Result>("spgetAllUserTask", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetParticipantsByProj_Result> spGetParticipantsByProj(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipantsByProj_Result>("spGetParticipantsByProj", projIdParameter);
         }
     }
 }

@@ -8,7 +8,6 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
     $("#notifHeader").text("You have "+result.countNotif+" notifications");
 
     $.each(result.notification, function (i, item) {
-        console.log(result.notification[i].notifcontent);
         $("#notification").prepend(
             '<li id="notifli' + i + '">' +
             '<a href="#">'+
@@ -35,3 +34,4 @@ $("#notifMenu").click(function () {
         $("#notifHeader").text("You have " + 0 + " notifications");
     }
 })
+

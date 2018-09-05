@@ -37,7 +37,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:15</publishTime>
     </File>
     <File Include="bin/PMIS.dll">
-      <publishTime>09/03/2018 10:20:29</publishTime>
+      <publishTime>09/04/2018 16:29:05</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>08/24/2018 11:11:15</publishTime>
@@ -103,7 +103,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Content/ContactBox.css">
-      <publishTime>09/02/2018 09:08:44</publishTime>
+      <publishTime>09/03/2018 16:14:52</publishTime>
     </File>
     <File Include="Content/dist/css/AdminLTE.css">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -757,7 +757,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Models/DbModel.edmx.diagram">
-      <publishTime>09/03/2018 09:01:34</publishTime>
+      <publishTime>09/04/2018 15:06:41</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -772,10 +772,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Account.js">
-      <publishTime>08/24/2018 11:11:14</publishTime>
+      <publishTime>09/04/2018 07:57:51</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Dashboard.js">
-      <publishTime>09/02/2018 19:21:09</publishTime>
+      <publishTime>09/04/2018 14:51:46</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Profile.js">
       <publishTime>08/31/2018 21:00:27</publishTime>
@@ -784,13 +784,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/27/2018 19:49:26</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/ProjDetails.js">
-      <publishTime>09/03/2018 10:13:06</publishTime>
+      <publishTime>09/04/2018 15:01:24</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Project.js">
       <publishTime>09/03/2018 10:24:07</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/ProjTask.js">
-      <publishTime>09/03/2018 10:25:21</publishTime>
+      <publishTime>09/04/2018 10:43:49</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/UserProfile.js">
       <publishTime>08/28/2018 15:44:57</publishTime>
@@ -825,8 +825,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/ModalAnimate.js">
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
+    <File Include="Scripts/moment.js">
+      <publishTime>09/04/2018 10:32:15</publishTime>
+    </File>
     <File Include="Scripts/Notification.js">
-      <publishTime>09/03/2018 10:05:55</publishTime>
+      <publishTime>09/04/2018 10:34:28</publishTime>
     </File>
     <File Include="Scripts/ProfileJS.js">
       <publishTime>08/25/2018 10:43:28</publishTime>
@@ -850,7 +853,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Views/PartialViews/Dashboard.cshtml">
-      <publishTime>09/02/2018 19:26:09</publishTime>
+      <publishTime>09/04/2018 12:16:33</publishTime>
     </File>
     <File Include="Views/PartialViews/modal.cshtml">
       <publishTime>08/24/2018 11:11:14</publishTime>
@@ -862,13 +865,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Views/PartialViews/ProjDetails.cshtml">
-      <publishTime>09/01/2018 07:56:50</publishTime>
+      <publishTime>09/04/2018 15:00:10</publishTime>
     </File>
     <File Include="Views/PartialViews/ProjList.cshtml">
       <publishTime>09/02/2018 08:46:45</publishTime>
     </File>
     <File Include="Views/PartialViews/ProjTask.cshtml">
-      <publishTime>08/31/2018 10:30:16</publishTime>
+      <publishTime>09/04/2018 10:55:38</publishTime>
     </File>
     <File Include="Views/PartialViews/UserProfile.cshtml">
       <publishTime>08/28/2018 15:44:57</publishTime>
@@ -883,7 +886,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2018 11:11:14</publishTime>
     </File>
     <File Include="Views/Shared/_HomeLayout.cshtml">
-      <publishTime>09/03/2018 09:41:44</publishTime>
+      <publishTime>09/04/2018 10:32:39</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>08/24/2018 11:11:14</publishTime>

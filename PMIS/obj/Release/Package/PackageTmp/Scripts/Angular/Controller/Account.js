@@ -10,7 +10,7 @@ module.controller("UserMgmt", ["$scope", "$http", function (s, h) {
             }
             else {
                 localStorage.userInfo = JSON.stringify(r.data);
-                location.href = "../Project/List";
+                location.href = "../user/dashboard";
             }
         })
 

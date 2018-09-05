@@ -20,6 +20,7 @@
     <Property Name="partId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="projId" Type="int" Nullable="false" />
     <Property Name="userId" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -99,6 +100,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="connectionid" Type="varchar" MaxLength="200" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
@@ -117,8 +121,14 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Parameter Name="projId" Type="int" Mode="In" />
     <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
+  <Function Name="spgetUserTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spProjectStatCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
   <Function Name="spUserProjectList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userId" Type="int" Mode="In" />

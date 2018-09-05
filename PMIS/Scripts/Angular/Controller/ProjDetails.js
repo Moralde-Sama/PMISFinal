@@ -32,7 +32,6 @@
     //    getProjDetails(rp.projId);
     //    refreshTask();
     //}
-
     getProjDetails(rp.projId);
     refreshTask();
 
@@ -187,6 +186,9 @@
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
 
             s.projParticipants = r.data;
+            console.log(r.data);
+            ppArray = r.data;
+
             console.log("projParticipants");
             for (i = 0; Object.keys(r.data).length; i++) {
                 userarray.push(s.projParticipants[i].userId);
@@ -199,7 +201,6 @@
                     })
                 }
             }
-            ppArray = r.data;
         })
 
         h.post("../Project/getProjectActivity?projId=" + rp.projId).then(function (r) {
@@ -220,6 +221,7 @@
         if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of" || content == "assigned task to") {
             $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
             $("#anchor2" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
+            
             return content;
         }
         else if (content == "finished the task.") {
@@ -227,7 +229,7 @@
             return content;
         }
         else if (content == "canceled the submission.") {
-            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId);
             return content;
         }
     }
@@ -321,18 +323,29 @@
     }
 
     
-    s.showBtns = function () {
-        if (userInfo[0].userId == creatorId) {
-            return true;
-        }
-        else {
-            if (ppArray.some(function (it) {
-                return it.userId == userInfo[0].userId;
-            })) {
+    s.showBtns = function (btn) {
+
+        if (btn == "edit") {
+            if (userInfo[0].userId == creatorId) {
                 return true;
             }
             else {
                 return false;
+            }
+        }
+        else if (btn == "task") {
+            if (userInfo[0].userId == creatorId) {
+                return true;
+            }
+            else {
+                if (ppArray.some(function (it) {
+                    return it.userId == userInfo[0].userId;
+                })) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
     }

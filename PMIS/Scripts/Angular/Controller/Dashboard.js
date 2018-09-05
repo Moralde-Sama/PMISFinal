@@ -30,7 +30,7 @@
             return "labelPrimary";
         }
         else if (status == "Active") {
-            return "label label-Info";
+            return "label label-info";
         }
         else {
             return "label label-default";

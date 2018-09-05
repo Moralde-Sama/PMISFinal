@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PMISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="participant">
-    <Key>
-      <PropertyRef Name="partId" />
-    </Key>
-    <Property Name="partId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="projId" Type="Int32" Nullable="false" />
-    <Property Name="userId" Type="Int32" Nullable="false" />
-  </EntityType>
   <EntityType Name="project">
     <Key>
       <PropertyRef Name="projId" />
@@ -58,7 +50,6 @@
     <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <EntityContainer Name="PMISEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="participants" EntityType="Self.participant" />
     <EntitySet Name="projects" EntityType="Self.project" />
     <EntitySet Name="tasks" EntityType="Self.task" />
     <EntitySet Name="tasklogs" EntityType="Self.tasklog" />
@@ -78,9 +69,6 @@
       <Parameter Name="projId" Mode="In" Type="Int32" />
       <Parameter Name="userId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
-      <Parameter Name="projId" Mode="In" Type="Int32" />
-    </FunctionImport>
     <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
     <FunctionImport Name="spGetProjTask" ReturnType="Collection(PMISModel.spGetProjTask_Result)">
       <Parameter Name="projId" Mode="In" Type="Int32" />
@@ -90,6 +78,19 @@
     </FunctionImport>
     <EntitySet Name="users" EntityType="PMISModel.user" />
     <EntitySet Name="notifications" EntityType="PMISModel.notification" />
+    <FunctionImport Name="spProjectStatCount" ReturnType="Collection(PMISModel.spProjectStatCount_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spgetUserTaskCount" ReturnType="Collection(PMISModel.spgetUserTaskCount_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spgetAllUserTask" ReturnType="Collection(PMISModel.spgetAllUserTask_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="participants" EntityType="PMISModel.participant" />
+    <FunctionImport Name="spGetParticipantsByProj" ReturnType="Collection(PMISModel.spGetParticipantsByProj_Result)">
+      <Parameter Name="projId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetProjList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
@@ -140,14 +141,6 @@
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
     <Property Type="String" Name="profpath" Nullable="false" />
     <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
-  </ComplexType>
-  <ComplexType Name="spGetParticipantsByProj_Result">
-    <Property Type="Int32" Name="userId" Nullable="false" />
-    <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
-    <Property Type="String" Name="profpath" Nullable="false" />
-    <Property Type="String" Name="coverpath" Nullable="true" />
-    <Property Type="Int32" Name="creator" Nullable="true" />
-    <Property Type="String" Name="position" Nullable="false" MaxLength="50" />
   </ComplexType>
   <EntityType Name="projectactivity">
     <Key>
@@ -208,4 +201,37 @@
     <Property Name="seen" Type="Byte" Nullable="false" />
     <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <ComplexType Name="spProjectStatCount_Result">
+    <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Active" Nullable="true" />
+    <Property Type="Int32" Name="Cancelled" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spgetUserTaskCount_Result">
+    <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Pending" Nullable="true" />
+    <Property Type="Int32" Name="Available" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spgetAllUserTask_Result">
+    <Property Type="Int32" Name="taskId" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Project" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Task" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="participant">
+    <Key>
+      <PropertyRef Name="partId" />
+    </Key>
+    <Property Name="partId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="spGetParticipantsByProj_Result">
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="104" />
+    <Property Type="String" Name="profpath" Nullable="false" />
+    <Property Type="String" Name="coverpath" Nullable="false" />
+    <Property Type="Int32" Name="creator" Nullable="true" />
+    <Property Type="String" Name="position" Nullable="false" MaxLength="50" />
+  </ComplexType>
 </Schema>

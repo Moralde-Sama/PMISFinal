@@ -54,7 +54,7 @@
         <div class="navbar-collapse collapse" id="navbar-filter">
             <ul class="nav navbar-nav">
                 <li style="cursor:pointer;" id="tab1" class="active" ng-click="tabcontrol('tab_project')"><a data-toggle="tab" class="legitRipple" aria-expanded="true"><i class="fa  fa-folder-open position-left"></i>Project</a></li>
-                <li style="cursor:pointer;" id="tab2" class="" ng-click="tabcontrol('tab_task')"><a data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Task <span class="badge badge-success badge-inline position-right">32</span></a></li>
+                <li style="cursor:pointer;" id="tab2" class="" ng-click="tabcontrol('tab_task')"><a data-toggle="tab" class="lightSpeedIn" aria-expanded="false"><i class="glyphicon glyphicon-tasks position-left"></i> Tasks</a></li>
                 
             </ul>
 
@@ -66,46 +66,66 @@
 
 
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane fade active in" id="tab-project">
 
                         <!-- Timeline -->
-                        <div class="panel panel-flat">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card" style="border-radius:10px;">
+                                    <div class="card-content">
+                                        <div style="overflow-x:auto;">
+                                            <table class="table table-hover">
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Project Title</th>
+                                                <th style="text-align:center;">Completion</th>
+                                                <th style="text-align:center;">Participants</th>
+                                                <th style="text-align:center;">Action</th>
+                                                <tbody>
+                                                    <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
+                                                        <td style=" text-align:center;padding-top:23px; min-width:70px;">
+                                                            <span class="{{setStatusColor2(data.status)}}">{{data.status}}</span>
+                                                        </td>
+                                                        <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
+                                                            <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
+                                                        </td>
+                                                        <td style="min-width: 150px; text-align:center; padding-top:15px;">
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
 
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Project</th>
-                                        <th>Progress</th>
-                                        <th style="width: 40px">Label</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Project Management Information System</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-red">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Odong na Lame</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-yellow">70%</span></td>
-                                    </tr>
+                                                            </div>
+                                                            <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
 
-                                </tbody>
-                            </table>
+                                                        </td>
 
+                                                        <td style="text-align:center; padding-top:15px; min-width: 250px;">
+                                                            <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                                                <div class="animated fadeIn">
+
+                                                                    <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                                                </div>
+                                                            </div>
+                                                            <div ng-if="(participants | filter: { projId: data.projId }).length > 5" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                                                <div class="animated fadeIn">
+
+                                                                    <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="/uploads/Kasumeme.jpg" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td style="text-align:center; padding-top:17px; min-width:180px;">
+                                                            <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
+                                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /timeline -->
 
@@ -113,38 +133,33 @@
 
                     <div class="tab-pane fade" id="tab-task">
                         <!-- Task -->
-                        <div class="panel panel-flat">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Project</th>
-                                        <th>Progress</th>
-                                        <th style="width: 40px">Label</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Project Management Information SystemSystem</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-red">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Oding na Lame</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-yellow">70%</span></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card" style="border-radius:10px;">
+                                    <div class="card-content">
+                                        <div style="overflow-x:auto; overflow-y: auto; max-height: 400px;">
+                                            <table class="table table-hover">
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Project Title</th>
+                                                <th style="text-align:center;">Task Title</th>
+                                                <tbody>
+                                                    <tr class="animated fadeIn" ng-repeat="data in tasks | filter:searchProj">
+                                                        <td style=" text-align:center;padding-top:14px;">
+                                                            <span class="{{setStatusColor(data.status)}}">{{data.status}}</span>
+                                                        </td>
+                                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
+                                                            <label>{{data.Project}}</label>
+                                                        </td>
+                                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
+                                                            <label>{{data.Task}}</label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /Task -->
 

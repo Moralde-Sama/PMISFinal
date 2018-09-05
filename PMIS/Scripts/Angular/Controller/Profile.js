@@ -15,6 +15,21 @@
     userInfo = JSON.parse(localStorage.userInfo);
     $("#ProfilePictureModal").css("display", "none");
 
+
+    r.post("../User/getParticipants").then(function (r) {
+        s.participants = r.data;
+    })
+
+    var userplParam = { "userId": userInfo[0].userId };
+    r.post("../Project/getUserProjectList", userplParam).then(function (r) {
+        s.projlist = r.data;
+    })
+
+    r.post("../Project/getUserTasks", { userId: userInfo[0].userId }).then(function (r) {
+        s.tasks = r.data;
+    })
+
+
     $(document).ready(function () {
         $("#file").attr("src", userInfo[0].profpath);
     })
@@ -234,6 +249,32 @@
             FileUploadService.changecover(s.SelectedFileForUpload, s.USERNAME, s.USERID);
         }
     }
+
+    s.setStatusColor2 = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Active") {
+            return "label label-info";
+        }
+        else {
+            return "label label-default";
+        }
+    }
+
+    s.setStatusColor = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Pending") {
+            return "label label-warning";
+        }
+        else {
+            return "label label-info";
+        }
+    }
+
+
 }]).factory('FileUploadService', function ($http, $q) {
     var fac = {};
     fac.UploadFile = function (file, username, userid) {

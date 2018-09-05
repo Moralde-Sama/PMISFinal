@@ -17,5 +17,6 @@ namespace PMIS.Models
         public int partId { get; set; }
         public int projId { get; set; }
         public int userId { get; set; }
+        public string status { get; set; }
     }
 }

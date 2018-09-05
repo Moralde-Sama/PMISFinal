@@ -40,10 +40,15 @@
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
         s.projuserId = r.data.userId;
         s.projtitle = r.data.title;
-        if (r.data.userId != userInfo[0].userId)
+        if (r.data.userId != userInfo[0].userId) {
+            s.taskTable = false;
             $("#tab1").css("display", "block");
-        else
+            s.data.title = "Select a Task";
+        }
+        else {
+            s.taskTable = true;
             $("#tab2").css("display", "block");
+        }
 
         refreshTask(r.data.userId);
         getParticipants();

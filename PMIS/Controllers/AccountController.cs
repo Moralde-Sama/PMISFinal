@@ -323,7 +323,7 @@ namespace PMIS.Controllers
                 if (nf.type == "Task"){
                     notif.userId = nf.assignTo;
                     notif.type = nf.type;
-                    notif.notifcontent = nf.createdBy+ " assign a task to you in " + nf.projTitle + " Project";
+                    notif.notifcontent = nf.createdBy+ " assigned you a task in " + nf.projTitle + " Project";
                     notif.id = nf.projId;
                     notif.status = "New";
                 }
