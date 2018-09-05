@@ -147,6 +147,7 @@ namespace PMIS.Controllers
                     
                     pp.projId = projId;
                     pp.userId = array[i];
+                    pp.status = "Active";
                     db.participants.Add(pp);
                     db.SaveChanges();
                 }

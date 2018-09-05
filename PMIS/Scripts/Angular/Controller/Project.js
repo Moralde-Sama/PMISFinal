@@ -105,13 +105,15 @@
             h.post("../Project/addProject", Indata).then(function (r) {
                 if (r.data == "Success") {
                     Snarl.addNotification({
-                        title: 'Save Successfully!',
+                        title: 'Saved Successfully!',
                         icon: '<i class="fa fa-check"></i>',
                         timeout: 3000
                     });
                     userarray = [];
                     userarray.push(userInfo[0].userId);
                     getList();
+                    s.data = "";
+                    s.Modal('close');
                 }
                 else {
                     alert("Check your connection.");
@@ -129,6 +131,5 @@
     }
 
     //Modal End
-
 
 }])

@@ -131,7 +131,7 @@
                 h.post("../Project/updateProject", updateProjParam).then(function (r) {
                     if (r.data == "Success") {
                         Snarl.addNotification({
-                            title: 'Update Successfully!',
+                            title: 'Updated Successfully!',
                             icon: '<i class="fa fa-check"></i>',
                             timeout: 3000
                         });

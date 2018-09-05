@@ -103,7 +103,7 @@
                         if (r.data != "Error") {
                             chat.server.notification(r.data.connId, r.data.content);
                             Snarl.addNotification({
-                                title: 'Save Successfully!',
+                                title: 'Saved Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -141,7 +141,7 @@
                         if (r.data != "Error") {
                             chat.server.notification(r.data.connId, r.data.content);
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -182,7 +182,7 @@
                             btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                             btn.className = "btn btn-warning";
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -218,7 +218,7 @@
                             btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                             btn.className = "btn btn-info";
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });

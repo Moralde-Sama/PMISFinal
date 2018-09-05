@@ -55,7 +55,7 @@
 
                                     </td>
 
-                                    <td style="text-align:end; padding-top:15px; max-width: 250px;">
+                                    <td style="text-align:end; padding-top:15px; min-width: 280px;">
                                         <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
                                             <div class="animated fadeIn">
 
@@ -63,9 +63,9 @@
                                             </div>
                                         </div>
                                         <div ng-if="(participants | filter: { projId: data.projId }).length > 5" style="display:inline-block; margin-left:5px; margin-top:-10px; width:40px; height: 40px;">
-                                            <div class="animated fadeIn" style="border-radius: 50%; width: 40px; height: 40px; text-align:center; background-color:gray;">
+                                            <div class="animated fadeIn">
 
-                                                <a href="" style="color:white;" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"> {{participantsCount((participants | filter: { projId: data.projId }).length)}}</a>
+                                                <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="~/uploads/3dots.png" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                             </div>
                                         </div>
                                     </td>

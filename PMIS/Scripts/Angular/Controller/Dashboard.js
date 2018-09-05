@@ -147,7 +147,7 @@
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -224,5 +224,9 @@
         $('#ModalDialog').animateCss('zoomOut', function () {
             document.getElementById("myModal").style.display = "none";
         });
+    }
+
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
     }
 }])

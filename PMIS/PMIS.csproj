@@ -314,6 +314,7 @@
     <Content Include="Scripts\Angular\Controller\UserProfile.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\Notification.js" />
+    <Content Include="uploads\3dots.png" />
     <Content Include="uploads\Kasumeme.jpg" />
     <Content Include="uploads\userimage.png" />
     <Content Include="Content\plugins\fastclick\fastclick.js" />

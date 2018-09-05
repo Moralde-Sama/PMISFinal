@@ -64,5 +64,8 @@ module.controller("urprofCtrl", ["$scope", "$http", "$routeParams", function (s,
         }
     }
 
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
+    }
 
 }])

@@ -274,6 +274,10 @@
         }
     }
 
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
+    }
+
 
 }]).factory('FileUploadService', function ($http, $q) {
     var fac = {};
