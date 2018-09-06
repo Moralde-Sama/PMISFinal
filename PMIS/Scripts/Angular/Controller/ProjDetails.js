@@ -144,7 +144,7 @@
                                 s.nf.assignTo = userarray[o];
 
                                 h.post("../Account/notification", s.nf).then(function (r) {
-                                    chat.server.notification(r.data.connId, r.data.content);
+                                    chat.server.notification(r.data.connId, r.data.content, r.data.type);
                                 })
 
                                 if (userarray.length - 1 == o) {
@@ -157,6 +157,42 @@
                                     s.Modal("hide");
                                 }
                             }
+                        }
+                        else if (removeuser.length > 0) {
+                            for (o = 0; o < removeuser.length; o++) {
+
+                                console.log("count " + o);
+                                s.nf = {};
+
+                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                s.nf.projTitle = data.title;
+                                s.nf.type = "Project Remove";
+                                s.nf.projId = rp.projId;
+                                s.nf.assignTo = removeuser[o];
+
+                                h.post("../Account/notification", s.nf).then(function (r) {
+                                    chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                                })
+
+                                if (removeuser.length - 1 == o) {
+                                    Snarl.addNotification({
+                                        title: 'Updated Successfully!',
+                                        icon: '<i class="fa fa-check"></i>',
+                                        timeout: 3000
+                                    });
+                                    getProjDetails(rp.projId);
+                                    s.Modal("hide");
+                                }
+                            }
+                        }
+                        else {
+                            Snarl.addNotification({
+                                title: 'Updated Successfully!',
+                                icon: '<i class="fa fa-check"></i>',
+                                timeout: 3000
+                            });
+                            getProjDetails(rp.projId);
+                            s.Modal("hide");
                         }
                     }
                     else {

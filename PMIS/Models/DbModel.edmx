@@ -167,10 +167,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
           <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
-          <Parameter Name="userId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
           <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
             <Parameter Name="projId" Mode="In" Type="Int32" />
             <Parameter Name="userId" Mode="In" Type="Int32" />
@@ -201,6 +197,10 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="users" EntityType="PMISModel.user" />
           <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
           <EntitySet Name="participants" EntityType="PMISModel.participant" />
+          <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
+          <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetProjList_Result">
           <Property Type="Int32" Name="projId" Nullable="false" />
@@ -228,19 +228,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="lastupdated" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="createddate" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Percentage" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="spUserProjectList_Result">
-          <Property Type="Int32" Name="projId" Nullable="false" />
-          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
-          <Property Type="Int32" Name="Completed" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="spGetParticipants_Result">
-          <Property Type="Int32" Name="projId" Nullable="false" />
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
-          <Property Type="String" Name="profpath" Nullable="false" />
         </ComplexType>
         <ComplexType Name="spGetUserTask_Result">
           <Property Type="Int32" Name="taskId" Nullable="false" />
@@ -393,6 +380,20 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="spGetParticipants_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="profpath" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spUserProjectList_Result">
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+          <Property Type="Int32" Name="Completed" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -435,27 +436,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
                 <ScalarProperty Name="createddate" ColumnName="createddate" />
                 <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spUserProjectList" FunctionName="PMISModel.Store.spUserProjectList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spUserProjectList_Result">
-                <ScalarProperty Name="projId" ColumnName="projId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="creator" ColumnName="creator" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
-                <ScalarProperty Name="projId" ColumnName="projId" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="profpath" ColumnName="profpath" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -643,6 +623,28 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spUserProjectList" FunctionName="PMISModel.Store.spUserProjectList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spUserProjectList_Result">
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

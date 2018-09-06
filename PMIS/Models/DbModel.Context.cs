@@ -59,20 +59,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectDetails_Result>("spProjectDetails", projIdParameter);
         }
     
-        public virtual ObjectResult<spUserProjectList_Result> spUserProjectList(Nullable<int> userId)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
-        }
-    
-        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
-        }
-    
         public virtual ObjectResult<spGetUserTask_Result> spGetUserTask(Nullable<int> projId, Nullable<int> userId)
         {
             var projIdParameter = projId.HasValue ?
@@ -138,6 +124,20 @@ namespace PMIS.Models
                 new ObjectParameter("projId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipantsByProj_Result>("spGetParticipantsByProj", projIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetParticipants_Result> spGetParticipants()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
+        }
+    
+        public virtual ObjectResult<spUserProjectList_Result> spUserProjectList(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
         }
     }
 }

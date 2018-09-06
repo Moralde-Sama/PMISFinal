@@ -18,13 +18,7 @@ namespace PMIS.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (Session["userInfo"] != null)
-            {
-                return Redirect("../Project/List");
-            }
-            else { 
-                return View();
-            }
+            return View();
         }
         [HttpPost]
         public ActionResult Login(string username, string password)
@@ -33,7 +27,7 @@ namespace PMIS.Controllers
             var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
             if (userInfo.Count() == 1)
             {
-                Session["userInfo"] = userInfo[0];
+                //Session["userInfo"] = userInfo[0];
                 return Json(userInfo, JsonRequestBehavior.AllowGet);
             }
             return Json("notfound", JsonRequestBehavior.AllowGet);
@@ -364,6 +358,14 @@ namespace PMIS.Controllers
                     notif.userId = nf.assignTo;
                     notif.type = "Project";
                     notif.notifcontent = nf.createdBy + " added you in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
+                else if (nf.type == "Project Remove")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Project";
+                    notif.notifcontent = nf.createdBy + " removed you in " + nf.projTitle + " Project";
                     notif.id = nf.projId;
                     notif.status = "New";
                 }

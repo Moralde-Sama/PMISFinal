@@ -176,12 +176,24 @@ namespace PMIS.Controllers
                 {
                     for (int i = 0; i < users.Length; i++)
                     {
-                        participant pp = new participant();
-                        pp.projId = project.projId;
-                        pp.userId = users[i];
-                        pp.status = "Active";
-                        db.participants.Add(pp);
-                        db.SaveChanges();
+                        int userId = users[i];
+                        var pps = db.participants.Where(e => e.projId == project.projId && e.userId == userId).ToList();
+                        if (pps.Count() == 1)
+                        {
+                            participant pp = pps[0];
+                            pp.status = "Active";
+                            db.Entry(pp).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            participant pp = new participant();
+                            pp.projId = project.projId;
+                            pp.userId = users[i];
+                            pp.status = "Active";
+                            db.participants.Add(pp);
+                            db.SaveChanges();
+                        }
                     }
                 }
 
@@ -191,9 +203,9 @@ namespace PMIS.Controllers
                     for (int i = 0; i < Rusers.Length; i++)
                     {
                         var userId = Rusers[i];
-                        var partId = new participant { partId = db.participants.Where(e => e.projId == project.projId && e.userId == userId).Select(s => s.partId).First() };
-                        db.participants.Attach(partId);
-                        db.participants.Remove(partId);
+                        var participant = db.participants.Where(e => e.projId == project.projId && e.userId == userId).First();
+                        participant.status = "Removed";
+                        db.Entry(participant).State = EntityState.Modified;
                         db.SaveChanges();
                     }
                 }

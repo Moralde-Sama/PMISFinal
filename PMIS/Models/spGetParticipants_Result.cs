@@ -17,5 +17,6 @@ namespace PMIS.Models
         public int userId { get; set; }
         public string fullname { get; set; }
         public string profpath { get; set; }
+        public string status { get; set; }
     }
 }

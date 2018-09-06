@@ -40,27 +40,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spUserProjectList" FunctionName="PMISModel.Store.spUserProjectList">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spUserProjectList_Result">
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="creator" ColumnName="creator" />
-          <ScalarProperty Name="Completed" ColumnName="Completed" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="fullname" ColumnName="fullname" />
-          <ScalarProperty Name="profpath" ColumnName="profpath" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetUserTask" FunctionName="PMISModel.Store.spGetUserTask">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spGetUserTask_Result">
@@ -245,5 +224,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spGetParticipants" FunctionName="PMISModel.Store.spGetParticipants">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spGetParticipants_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spUserProjectList" FunctionName="PMISModel.Store.spUserProjectList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spUserProjectList_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
