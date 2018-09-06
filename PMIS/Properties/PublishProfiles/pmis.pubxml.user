@@ -787,10 +787,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2018 09:24:21</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/Project.js">
-      <publishTime>09/06/2018 09:21:48</publishTime>
+      <publishTime>09/06/2018 10:22:11</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/ProjTask.js">
-      <publishTime>09/06/2018 09:22:55</publishTime>
+      <publishTime>09/06/2018 10:14:48</publishTime>
     </File>
     <File Include="Scripts/Angular/Controller/UserProfile.js">
       <publishTime>09/05/2018 11:03:55</publishTime>
@@ -829,7 +829,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/04/2018 10:32:15</publishTime>
     </File>
     <File Include="Scripts/Notification.js">
-      <publishTime>09/06/2018 08:18:21</publishTime>
+      <publishTime>09/06/2018 10:32:22</publishTime>
     </File>
     <File Include="Scripts/ProfileJS.js">
       <publishTime>08/25/2018 10:43:28</publishTime>
@@ -871,7 +871,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2018 10:05:30</publishTime>
     </File>
     <File Include="Views/PartialViews/ProjList.cshtml">
-      <publishTime>09/06/2018 08:37:23</publishTime>
+      <publishTime>09/06/2018 10:21:34</publishTime>
     </File>
     <File Include="Views/PartialViews/ProjTask.cshtml">
       <publishTime>09/06/2018 07:52:13</publishTime>

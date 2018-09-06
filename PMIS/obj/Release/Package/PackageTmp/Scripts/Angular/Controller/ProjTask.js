@@ -269,6 +269,10 @@
         $("#tasklog2").animateCss("fadeOut", function () {
             $("#tasklog2").css("display", "none");
         })
+        $("#btnSubmit1").animateCss("fadeOut", function () {
+            $("#btnSubmit1").css("display", "none");
+        })
+
     }
 
     s.setStatusColor = function (status) {

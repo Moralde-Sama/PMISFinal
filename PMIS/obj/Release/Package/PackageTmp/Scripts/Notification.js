@@ -10,7 +10,7 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
     $.each(result.notification, function (i, item) {
         $("#notification").prepend(
             '<li id="notifli' + i + '">' +
-            '<a href="#">'+
+            '<a href="' + notifAddress(result.notification[i].type, result.notification[i].id) + '">' +
             '<i class="' + notifIcon(result.notification[i].type) + '"></i> ' + result.notification[i].notifcontent + ' </a>' +
             '<p id="notif' + i + '" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px; display:none;">' + result.notification[i].notifcontent + '</p></li>');
 
@@ -24,6 +24,15 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
         })
     })
 })
+
+function notifAddress(type, id) {
+    if (type == "Task") {
+        return "/Project/Tasks/projectId=" + id;
+    }
+    else {
+        return "/Project/Details/projectId=" + id;
+    }
+}
 
 function notifIcon(type) {
     if (type == "Task") {
