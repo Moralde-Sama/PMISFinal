@@ -25,7 +25,6 @@
         $.connection.hub.start().done(function () {
             alert($.connection.hub.state);
             chat.server.saveConnectionId();
-            chat.server.join(s.projDetails.projId);
         })
     }
     //else {
@@ -130,13 +129,35 @@
                 var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
                 h.post("../Project/updateProject", updateProjParam).then(function (r) {
                     if (r.data == "Success") {
-                        Snarl.addNotification({
-                            title: 'Updated Successfully!',
-                            icon: '<i class="fa fa-check"></i>',
-                            timeout: 3000
-                        });
-                        getProjDetails(rp.projId);
-                        s.Modal("hide");
+
+                        console.log("arraycount " + userarray.length);
+                        if(userarray.length > 0){
+                            for (o = 0; o < userarray.length; o++) {
+
+                                console.log("count " + o);
+                                s.nf = {};
+
+                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                s.nf.projTitle = data.title;
+                                s.nf.type = "Project";
+                                s.nf.projId = rp.projId;
+                                s.nf.assignTo = userarray[o];
+
+                                h.post("../Account/notification", s.nf).then(function (r) {
+                                    chat.server.notification(r.data.connId, r.data.content);
+                                })
+
+                                if (userarray.length - 1 == o) {
+                                    Snarl.addNotification({
+                                        title: 'Updated Successfully!',
+                                        icon: '<i class="fa fa-check"></i>',
+                                        timeout: 3000
+                                    });
+                                    getProjDetails(rp.projId);
+                                    s.Modal("hide");
+                                }
+                            }
+                        }
                     }
                     else {
                         alert(r.data);

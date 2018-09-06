@@ -151,7 +151,8 @@ namespace PMIS.Controllers
                     db.participants.Add(pp);
                     db.SaveChanges();
                 }
-                    return Json("Success", JsonRequestBehavior.AllowGet);
+                var data = new { status= "Success", projId = pj.projId };
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

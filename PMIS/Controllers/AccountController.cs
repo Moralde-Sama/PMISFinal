@@ -359,13 +359,21 @@ namespace PMIS.Controllers
                     notif.id = nf.projId;
                     notif.status = "New";
                 }
+                else if (nf.type == "Project")
+                {
+                    notif.userId = nf.assignTo;
+                    notif.type = "Project";
+                    notif.notifcontent = nf.createdBy + " added you in " + nf.projTitle + " Project";
+                    notif.id = nf.projId;
+                    notif.status = "New";
+                }
 
                 db.notifications.Add(notif);
                 db.SaveChanges();
                 
 
                 var connectionId = db.users.Where(e => e.userId == notif.userId).Select(e => e.connectionid).First();
-                var multipleVal = new { connId = connectionId, content = notif.notifcontent };
+                var multipleVal = new { connId = connectionId, content = notif.notifcontent, type = notif.type };
                 return Json(multipleVal, JsonRequestBehavior.AllowGet);
             //}
             //catch (Exception e)

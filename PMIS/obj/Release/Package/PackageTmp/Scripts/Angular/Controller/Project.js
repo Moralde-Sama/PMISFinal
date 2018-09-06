@@ -103,15 +103,41 @@
         if (d.title && d.version != "") {
             var Indata = { 'pj': d, 'array': userarray };
             h.post("../Project/addProject", Indata).then(function (r) {
-                if (r.data == "Success") {
-                    Snarl.addNotification({
-                        title: 'Save Successfully!',
-                        icon: '<i class="fa fa-check"></i>',
-                        timeout: 3000
-                    });
-                    userarray = [];
-                    userarray.push(userInfo[0].userId);
-                    getList();
+                if (r.data.status == "Success") {
+
+                    console.log("arraycount " + userarray.length);
+                    if (userarray.length > 0) {
+                        for (o = 0; o < userarray.length; o++) {
+
+                            if (userarray[o] != userInfo[0].userId){
+                                console.log("count " + o);
+                                s.nf = {};
+
+                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                s.nf.projTitle = d.title;
+                                s.nf.type = "Project";
+                                s.nf.projId = r.data.projId;
+                                s.nf.assignTo = userarray[o];
+
+                                h.post("../Account/notification", s.nf).then(function (r) {
+                                    chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                                })
+
+                                if (userarray.length - 1 == o) {
+                                    Snarl.addNotification({
+                                        title: 'Saved Successfully!',
+                                        icon: '<i class="fa fa-check"></i>',
+                                        timeout: 3000
+                                    });
+                                    userarray = [];
+                                    userarray.push(userInfo[0].userId);
+                                    getList();
+                                    s.data = "";
+                                    s.Modal('close');
+                                }
+                            }
+                        }
+                    }
                 }
                 else {
                     alert("Check your connection.");
@@ -129,6 +155,5 @@
     }
 
     //Modal End
-
 
 }])

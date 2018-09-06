@@ -101,7 +101,7 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             Snarl.addNotification({
                                 title: 'Saved Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
@@ -139,7 +139,7 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             Snarl.addNotification({
                                 title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
@@ -178,7 +178,7 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                             btn.className = "btn btn-warning";
                             Snarl.addNotification({
@@ -214,7 +214,7 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                             btn.className = "btn btn-info";
                             Snarl.addNotification({
@@ -269,6 +269,10 @@
         $("#tasklog2").animateCss("fadeOut", function () {
             $("#tasklog2").css("display", "none");
         })
+        $("#btnSubmit1").animateCss("fadeOut", function () {
+            $("#btnSubmit1").css("display", "none");
+        })
+
     }
 
     s.setStatusColor = function (status) {

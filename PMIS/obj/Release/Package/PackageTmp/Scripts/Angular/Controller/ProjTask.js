@@ -40,10 +40,15 @@
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
         s.projuserId = r.data.userId;
         s.projtitle = r.data.title;
-        if (r.data.userId != userInfo[0].userId)
+        if (r.data.userId != userInfo[0].userId) {
+            s.taskTable = false;
             $("#tab1").css("display", "block");
-        else
+            s.data.title = "Select a Task";
+        }
+        else {
+            s.taskTable = true;
             $("#tab2").css("display", "block");
+        }
 
         refreshTask(r.data.userId);
         getParticipants();
@@ -96,9 +101,9 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             Snarl.addNotification({
-                                title: 'Save Successfully!',
+                                title: 'Saved Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -134,9 +139,9 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -173,11 +178,11 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                             btn.className = "btn btn-warning";
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });
@@ -209,11 +214,11 @@
 
                     h.post("../Account/notification", s.nf).then(function (r) {
                         if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                             btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                             btn.className = "btn btn-info";
                             Snarl.addNotification({
-                                title: 'Update Successfully!',
+                                title: 'Updated Successfully!',
                                 icon: '<i class="fa fa-check"></i>',
                                 timeout: 3000
                             });

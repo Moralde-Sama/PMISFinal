@@ -13,6 +13,44 @@ module.controller("urprofCtrl", ["$scope", "$http", "$routeParams", function (s,
         })
     }
 
+    h.post("../User/getParticipants").then(function (r) {
+        s.participants = r.data;
+
+        var userplParam = { "userId": userInfo[0].userId };
+        h.post("../Project/getUserProjectList", userplParam).then(function (r) {
+            s.projlist = r.data;
+        })
+    })
+
+
+    h.post("../Project/getUserTasks", { userId: userInfo[0].userId }).then(function (r) {
+        s.tasks = r.data;
+    })
+
+    s.setStatusColor2 = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Active") {
+            return "label label-info";
+        }
+        else {
+            return "label label-default";
+        }
+    }
+
+    s.setStatusColor = function (status) {
+        if (status == "Completed") {
+            return "labelPrimary";
+        }
+        else if (status == "Pending") {
+            return "label label-warning";
+        }
+        else {
+            return "label label-info";
+        }
+    }
+
     s.tabcontrol = function (tab) {
         if (tab == "tab_project") {
 
@@ -26,5 +64,8 @@ module.controller("urprofCtrl", ["$scope", "$http", "$routeParams", function (s,
         }
     }
 
+    s.participantsCount = function (length) {
+        return "+" + (length - 4);
+    }
 
 }])

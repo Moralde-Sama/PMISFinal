@@ -4,6 +4,15 @@
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
+    var chat = $.connection.chatHub;
+
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            alert($.connection.hub.state);
+            chat.server.saveConnectionId();
+        })
+    }
+
     getList();
 
     function getList() {
@@ -119,7 +128,7 @@
                             });
                             btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                             btn.className = "btn btn-warning";
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                         }
                         else {
                             alert(r.data);
@@ -153,7 +162,7 @@
                             });
                             btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                             btn.className = "btn btn-info";
-                            chat.server.notification(r.data.connId, r.data.content);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
                         }
                         else {
                             alert(r.data);

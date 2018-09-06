@@ -22,9 +22,9 @@ namespace PMIS
             Clients.Group(group).sendToGroup(name, message, profPath);
         }
 
-        public void notification(string connectionId, string notifContent)
+        public void notification(string connectionId, string notifContent, string type)
         {
-            Clients.Client(connectionId).Notify(connectionId, notifContent);
+            Clients.Client(connectionId).Notify(connectionId, notifContent, type);
         }
 
         public void saveConnectionId()

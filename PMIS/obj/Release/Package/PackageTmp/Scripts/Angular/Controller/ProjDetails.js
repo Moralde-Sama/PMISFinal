@@ -25,14 +25,12 @@
         $.connection.hub.start().done(function () {
             alert($.connection.hub.state);
             chat.server.saveConnectionId();
-            chat.server.join(s.projDetails.projId);
         })
     }
     //else {
     //    getProjDetails(rp.projId);
     //    refreshTask();
     //}
-
     getProjDetails(rp.projId);
     refreshTask();
 
@@ -131,13 +129,35 @@
                 var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
                 h.post("../Project/updateProject", updateProjParam).then(function (r) {
                     if (r.data == "Success") {
-                        Snarl.addNotification({
-                            title: 'Update Successfully!',
-                            icon: '<i class="fa fa-check"></i>',
-                            timeout: 3000
-                        });
-                        getProjDetails(rp.projId);
-                        s.Modal("hide");
+
+                        console.log("arraycount " + userarray.length);
+                        if(userarray.length > 0){
+                            for (o = 0; o < userarray.length; o++) {
+
+                                console.log("count " + o);
+                                s.nf = {};
+
+                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                s.nf.projTitle = data.title;
+                                s.nf.type = "Project";
+                                s.nf.projId = rp.projId;
+                                s.nf.assignTo = userarray[o];
+
+                                h.post("../Account/notification", s.nf).then(function (r) {
+                                    chat.server.notification(r.data.connId, r.data.content);
+                                })
+
+                                if (userarray.length - 1 == o) {
+                                    Snarl.addNotification({
+                                        title: 'Updated Successfully!',
+                                        icon: '<i class="fa fa-check"></i>',
+                                        timeout: 3000
+                                    });
+                                    getProjDetails(rp.projId);
+                                    s.Modal("hide");
+                                }
+                            }
+                        }
                     }
                     else {
                         alert(r.data);
@@ -187,6 +207,9 @@
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
 
             s.projParticipants = r.data;
+            console.log(r.data);
+            ppArray = r.data;
+
             console.log("projParticipants");
             for (i = 0; Object.keys(r.data).length; i++) {
                 userarray.push(s.projParticipants[i].userId);
@@ -199,7 +222,6 @@
                     })
                 }
             }
-            ppArray = r.data;
         })
 
         h.post("../Project/getProjectActivity?projId=" + rp.projId).then(function (r) {
@@ -220,6 +242,7 @@
         if (content == "created a task and assign to" || content == "approved the submission of" || content == "returned the task of" || content == "assigned task to") {
             $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
             $("#anchor2" + index).text(fullname2).attr("href", "user/profile/userId=" + userId2);
+            
             return content;
         }
         else if (content == "finished the task.") {
@@ -227,7 +250,7 @@
             return content;
         }
         else if (content == "canceled the submission.") {
-            $("#anchor" + index).text(fullname).attr("href", "user/profile/userId=" + userId);
+            $("#anchor" + index).text(fullname2).attr("href", "user/profile/userId=" + userId);
             return content;
         }
     }

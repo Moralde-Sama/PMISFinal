@@ -11,7 +11,7 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
         $("#notification").prepend(
             '<li id="notifli' + i + '">' +
             '<a href="#">'+
-            '<i class="fa fa-tasks text-aqua"></i> ' + result.notification[i].notifcontent + ' </a>' +
+            '<i class="' + notifIcon(result.notification[i].type) + '"></i> ' + result.notification[i].notifcontent + ' </a>' +
             '<p id="notif' + i + '" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px; display:none;">' + result.notification[i].notifcontent + '</p></li>');
 
         $("#notifli" + i).hover(function () {
@@ -24,6 +24,15 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
         })
     })
 })
+
+function notifIcon(type) {
+    if (type == "Task") {
+        return "fa fa-tasks text-aqua";
+    }
+    else {
+        return "fa fa-folder text-aqua";
+    }
+}
 
 $("#notifMenu").click(function () {
     if($("#notifCount").text() != 0){
