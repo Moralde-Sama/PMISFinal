@@ -1,6 +1,12 @@
-﻿var module = angular.module("myApp", []);
+﻿
+var module = angular.module("myApp", []);
 
 module.controller("UserMgmt", ["$scope", "$http", function (s, h) {
+
+    //if (JSON.parse(localStorage.userInfo) != null) {
+    //    location.href = "../user/dashboard";
+    //}
+
     s.Login = function (data) {
         h.post("../Account/Login?username=" + data.username + "&password=" + data.password)
         .then(function (r) {

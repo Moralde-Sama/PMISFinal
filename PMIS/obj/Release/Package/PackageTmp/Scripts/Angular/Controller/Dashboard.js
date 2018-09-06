@@ -18,6 +18,7 @@
     function getList() {
         h.post("../User/getParticipants").then(function (r) {
             s.participants = r.data;
+            console.log(s.participants);
 
             var userplParam = { "userId": userInfo[0].userId };
             h.post("../Project/getUserProjectList", userplParam).then(function (r) {
