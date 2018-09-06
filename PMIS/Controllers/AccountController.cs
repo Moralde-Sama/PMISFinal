@@ -375,7 +375,7 @@ namespace PMIS.Controllers
                 
 
                 var connectionId = db.users.Where(e => e.userId == notif.userId).Select(e => e.connectionid).First();
-                var multipleVal = new { connId = connectionId, content = notif.notifcontent, type = notif.type };
+                var multipleVal = new { connId = connectionId, content = notif.notifcontent, type = notif.type, id = notif.id };
                 return Json(multipleVal, JsonRequestBehavior.AllowGet);
             //}
             //catch (Exception e)
