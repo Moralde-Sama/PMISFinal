@@ -18,5 +18,7 @@ namespace PMIS.Models
         public string title { get; set; }
         public string creator { get; set; }
         public Nullable<int> Completed { get; set; }
+        public Nullable<int> Pending { get; set; }
+        public Nullable<int> Available { get; set; }
     }
 }

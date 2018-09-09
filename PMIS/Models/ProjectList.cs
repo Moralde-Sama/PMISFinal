@@ -12,5 +12,7 @@ namespace PMIS.Models
         public string title { get; set; }
         public string creator { get; set; }
         public int percentage { get; set; }
+        public int percentage2 { get; set; }
+        public int percentage3 { get; set; }
     }
 }

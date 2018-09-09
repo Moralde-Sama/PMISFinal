@@ -22,5 +22,7 @@ namespace PMIS.Models
         public string lastupdated { get; set; }
         public string createddate { get; set; }
         public int Percentage { get; set; }
+        public int Percentage2 { get; set; }
+        public int Percentage3 { get; set; }
     }
 }

@@ -23,6 +23,7 @@
             var userplParam = { "userId": userInfo[0].userId };
             h.post("../Project/getUserProjectList", userplParam).then(function (r) {
                 s.projlist = r.data;
+                console.log(s.projlist);
             })
         })
 

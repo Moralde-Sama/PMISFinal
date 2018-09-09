@@ -40,23 +40,25 @@
                     <div style="overflow-x:auto;">
                         <table class="table table-hover">
                             <tbody>
-                                <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
+                                <tr class="animated fadeIn" ng-repeat="proj in projlist | filter:searchProj">
                                     <td style=" text-align:center;padding-top:23px; min-width:70px;">
-                                        <span class="{{setProjStatusColor(data.status)}}">{{data.status}}</span></td>
+                                        <span class="{{setProjStatusColor(proj.status)}}">{{proj.status}}</span></td>
                                     <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
-                                        <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
+                                        <label style="display: inline-block;position: relative; cursor:pointer;"> {{proj.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{proj.creator}}</label></label>
                                     </td>
                                     <td style="min-width: 150px; text-align:center; padding-top:15px;">
                                         <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
+                                            <div style="width: {{proj.percentage}}%; background-color: #039B57;" class="progress-bar"></div>
+                                            <div style="width: {{proj.percentage2}}%; background-color: #F39C14;" class="progress-bar"></div>
+                                            <div style="width: {{proj.percentage3}}%; background-color: #3F8DBC;" class="progress-bar"></div>
 
                                         </div>
-                                        <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
+                                        <label style="font-size:10px; margin-top:10px;">Completion with: {{proj.percentage}}%</label>
 
                                     </td>
 
                                     <td style="text-align:end; padding-top:15px; min-width: 280px;">
-                                        <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId, status: 'Active' } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
+                                        <div class="repeat" ng-repeat="pp in participants | filter: { projId: proj.projId, status: 'Active' } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
                                             <div class="animated fadeIn">
 
                                                 <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
@@ -65,13 +67,13 @@
                                         <div ng-if="(participants | filter: { projId: data.projId, status: 'Active' }).length > 5" style="display:inline-block; margin-left:5px; margin-top:-10px; width:40px; height: 40px;">
                                             <div class="animated fadeIn">
 
-                                                <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="~/uploads/3dots.png" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                                <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: proj.projId }).length)}}"><img src="~/uploads/3dots.png" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                             </div>
                                         </div>
                                     </td>
 
                                     <td style="text-align:center; padding-top:17px; min-width:180px;">
-                                        <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
+                                        <a href="/Project/Details/projectId={{proj.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
                                         @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
                                     </td>
                                 </tr>

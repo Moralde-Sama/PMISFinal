@@ -27,17 +27,36 @@ namespace PMIS.Controllers
                 int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
                 ProjectList store = new ProjectList();
                 store.projId = getlist.projId;
-                store.status = getlist.status;
                 store.title = getlist.title;
                 store.creator = getlist.creator;
                 if (countAll == 0)
                 {
                     store.percentage = 0;
+                    store.percentage2 = 0;
+                    store.percentage3 = 0;
+                    store.status = "Active";
                 }
                 else
                 {
                     double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
                     store.percentage = (int)Math.Round(percentage, 0);
+                    double percentage2 = (Convert.ToDouble(getlist.Pending) / Convert.ToDouble(countAll)) * 100;
+                    store.percentage2 = (int)Math.Round(percentage2, 0);
+                    double percentage3 = (Convert.ToDouble(getlist.Available) / Convert.ToDouble(countAll)) * 100;
+                    store.percentage3 = (int)Math.Round(percentage3, 0);
+
+                    if (store.status == "Cancelled")
+                    {
+                        store.status = "Cancelled";
+                    }
+                    if (store.percentage == 100)
+                    {
+                        store.status = "Completed";
+                    }
+                    else
+                    {
+                        store.status = "Active";
+                    }
                 }
                 listFinal.Add(store);
             }
@@ -53,17 +72,36 @@ namespace PMIS.Controllers
                 int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
                 ProjectList store = new ProjectList();
                 store.projId = getlist.projId;
-                store.status = getlist.status;
                 store.title = getlist.title;
                 store.creator = getlist.creator;
                 if (countAll == 0)
                 {
                     store.percentage = 0;
+                    store.percentage2 = 0;
+                    store.percentage3 = 0;
+                    store.status = "Active";
                 }
                 else
                 {
                     double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
                     store.percentage = (int)Math.Round(percentage, 0);
+                    double percentage2 = (Convert.ToDouble(getlist.Pending) / Convert.ToDouble(countAll)) * 100;
+                    store.percentage2 = (int)Math.Round(percentage2, 0);
+                    double percentage3 = (Convert.ToDouble(getlist.Available) / Convert.ToDouble(countAll)) * 100;
+                    store.percentage3 = (int)Math.Round(percentage3, 0);
+
+                    if (store.status == "Cancelled")
+                    {
+                        store.status = "Cancelled";
+                    }
+                    if (store.percentage == 100)
+                    {
+                        store.status = "Completed";
+                    }
+                    else
+                    {
+                        store.status = "Active";
+                    }
                 }
                 listFinal.Add(store);
             }
@@ -79,11 +117,30 @@ namespace PMIS.Controllers
             if (countAll == 0)
             {
                 Details.Percentage = 0;
+                Details.Percentage2 = 0;
+                Details.Percentage3 = 0;
+                Details.status = "Active";
             }
             else
             {
                 double percentage = (Convert.ToDouble(projList.Completed) / Convert.ToDouble(countAll)) * 100;
                 Details.Percentage = (int)Math.Round(percentage, 0);
+                double percentage2 = (Convert.ToDouble(projList.Pending) / Convert.ToDouble(countAll)) * 100;
+                Details.Percentage2 = (int)Math.Round(percentage2, 0);
+                double percentage3 = (Convert.ToDouble(projList.Available) / Convert.ToDouble(countAll)) * 100;
+                Details.Percentage3 = (int)Math.Round(percentage3, 0);
+            }
+
+            if (Details.status == "Cancelled"){ 
+            
+            }
+            else if (Details.Percentage == 100)
+            {
+                Details.status = "Completed";
+            }
+            else
+            {
+                Details.status = "Active";
             }
 
             return Json(Details, JsonRequestBehavior.AllowGet);
@@ -373,8 +430,34 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult getProjectStatCount(int userId)
         {
-            var count = db.spProjectStatCount(userId).First();
-            return Json(count, JsonRequestBehavior.AllowGet);
+            int Completed = 0;
+            int Active = 0;
+            int Cancelled = 0;
+            List<spUserProjectList_Result> list = db.spUserProjectList(userId).ToList();
+            List<ProjectList> listFinal = new List<ProjectList>();
+            foreach (spUserProjectList_Result getlist in list)
+            {
+                int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
+             
+                    double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
+                    int percentageF = (int)Math.Round(percentage, 0);
+
+                    if (getlist.status == "Cancelled")
+                    {
+                        Cancelled++;
+                    }
+                    if (percentageF == 100)
+                    {
+                        Completed++;
+                    }
+                    else
+                    {
+                        Active++;
+                    }
+            }
+
+            var multiVal = new { Completed = Completed, Active = Active, Cancelled = Cancelled };
+            return Json(multiVal, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
