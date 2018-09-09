@@ -129,7 +129,7 @@
                             });
                             btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
                             btn.className = "btn btn-warning";
-                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
                         }
                         else {
                             alert(r.data);
@@ -163,7 +163,7 @@
                             });
                             btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
                             btn.className = "btn btn-info";
-                            chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                            chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
                         }
                         else {
                             alert(r.data);

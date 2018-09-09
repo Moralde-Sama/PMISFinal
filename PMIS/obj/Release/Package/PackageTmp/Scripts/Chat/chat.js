@@ -53,10 +53,10 @@ $(function () {
             })
     }
 
-    chat.client.Notify = function (connectionId, notifContent, type) {
+    chat.client.Notify = function (connectionId, notifContent, type, id) {
         $("#notification").prepend(
             '<li id="notifliN' + notifCount + '">' +
-            '<a href="#">' +
+            '<a href="' + notifAddress(type, id) + '">' +
             '<i class="' + notifIcon(type) + '"></i> ' + notifContent + ' </a>' +
             '<p id="notifN' + notifCount + '" style="text-align:center; border-bottom:1px solid #EEEEEE; padding: 5px; display:none;">' + notifContent + '</p></li>');
 
@@ -79,6 +79,15 @@ $(function () {
             $("#notifCount").text("" + result.countNotif);
             $("#notifHeader").text("You have " + result.countNotif + " notifications");
         })
+    }
+
+    function notifAddress(type, id) {
+        if (type == "Task") {
+            return "/Project/Tasks/projectId=" + id;
+        }
+        else {
+            return "/Project/Details/projectId=" + id;
+        }
     }
 
     function notifIcon(type) {

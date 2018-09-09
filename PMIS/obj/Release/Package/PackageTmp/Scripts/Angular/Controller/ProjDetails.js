@@ -144,7 +144,7 @@
                                 s.nf.assignTo = userarray[o];
 
                                 h.post("../Account/notification", s.nf).then(function (r) {
-                                    chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                                    chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
                                 })
 
                                 if (userarray.length - 1 == o) {
@@ -171,7 +171,7 @@
                                 s.nf.assignTo = removeuser[o];
 
                                 h.post("../Account/notification", s.nf).then(function (r) {
-                                    chat.server.notification(r.data.connId, r.data.content, r.data.type);
+                                    chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
                                 })
 
                                 if (removeuser.length - 1 == o) {

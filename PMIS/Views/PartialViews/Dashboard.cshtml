@@ -72,70 +72,6 @@
         </div>
     </div>
 
-    <div class="animated fadeIn" style="margin-top:10px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="border-radius:10px;">
-                    <div class="card-title" style="padding:20px 20px 0 20px;">
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="overflow-x:auto;">
-                            <table class="table table-hover">
-                                <th style="text-align:center;">Status</th>
-                                <th style="text-align:center;">Project Title</th>
-                                <th style="text-align:center;">Completion</th>
-                                <th style="text-align:center;">Participants</th>
-                                <th style="text-align:center;">Action</th>
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
-                                        <td style=" text-align:center;padding-top:23px; min-width:70px;">
-                                            <span class="{{setStatusColor2(data.status)}}">{{data.status}}</span>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
-                                            <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
-                                        </td>
-                                        <td style="min-width: 150px; text-align:center; padding-top:15px;">
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
-
-                                            </div>
-                                            <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
-
-                                        </td>
-
-                                        <td style="text-align:end; padding-top:15px; min-width: 280px;">
-                                            <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId, status: 'Active' } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
-                                                <div class="animated fadeIn">
-
-                                                    <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
-                                                </div>
-                                            </div>
-                                            <div ng-if="(participants | filter: { projId: data.projId, status: 'Active' }).length > 5" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
-                                                <div class="animated fadeIn">
-
-                                                    <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="~/uploads/3dots.png" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td style="text-align:center; padding-top:17px; min-width:180px;">
-                                            <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
-                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row" style="margin: 10px 0 10px 0;">
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
@@ -188,80 +124,115 @@
             </div>
         </div>
     </div>
-    <div class="animated fadeIn" style="margin-top:10px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="border-radius:10px;">
-                    <div class="card-title" style="padding:20px 20px 0 20px;">
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="overflow-x:auto; overflow-y: auto; max-height: 400px;">
-                            <table class="table table-hover">
-                                    <th style="text-align:center;">Status</th>
-                                    <th style="text-align:center;">Project Title</th>
-                                    <th style="text-align:center;">Task Title</th>
-                                    <th style="text-align:center;">Action</th>
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="data in tasks | filter:searchProj">
-                                        <td style=" text-align:center;padding-top:14px;">
-                                            <span class="{{setStatusColor(data.status)}}">{{data.status}}</span>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
-                                            <label>{{data.Project}}</label>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
-                                            <label>{{data.Task}}</label>
-                                        </td>
-                                        <td style="text-align:center; padding-top:10px;">
-                                            <a ng-click="showData(data.Project, data.taskId)" class="btn btn-info"><i class="fa fa-tasks"> Details</i></a>
-                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+    <div class="row" style="margin: 10px 0 10px 0;">
+        <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
+
+        </div>
+        <div class="col-md-2" style="font-weight:bold; font-size:25px; text-align:center;">
+            My Activities
+        </div>
+        <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
+
         </div>
     </div>
-</div>
-<div class="modal" id="myModal" style="display:none;">
-    <div id="ModalDialog" class="modal-dialog" style="border-radius:10px;">
-        <div class="modal-content" style="background-color:ActiveBorder;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" ng-click="closeAssignTo()" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" style="font-weight:bold;">Task Details</h4>
-            </div>
-            <div class="modal-body">
-                <div class="card" style="border-radius:10px; padding: 10px 20px 0 20px;">
-                    <div class="card-content">
-                        <div class=" row" style="padding: 0 15px 15px 15px;">
-                            <div class="col-md-12" style="text-align: center; border-bottom: 2px solid #EEEEEE; border-top: 2px solid #EEEEEE; padding-bottom:10px;">
-                                <h3 style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
-                            </div>
-                            <div class="col-md-12" style="margin-top:10px;">
-                                <div class="form-group">
-                                    <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
-                                    <p style="border: 2px solid #EEEEEE; padding:15px;" ng-bind="data.description"></p>
-                                </div>
-                            </div>
-                            <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:2px solid #EEEEEE; padding: 5px; overflow-y:auto; display:none;">
-                                <div ng-repeat="(fIndex, log) in tasklogs">
-                                    <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a> - {{convertJsonDate(log.date)}}</p>
-                                </div>
-                            </div>
-                            <div id="showBtn" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
-                                <button id="btnSubmit1" class="btn btn-info" ng-click="submitCancelTask()"><i class="fa fa-send"> Submit</i></button>
-                            </div>
-                        </div>
+
+    <div class="animated fadeIn">
+        <ul class="timeline">
+            <!-- timeline time label -->
+            <li class="time-label">
+                <span class="bg-red" style="color:white;">
+                    10 Feb. 2014
+                </span>
+            </li>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-tasks bg-blue" style="color:white;"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                    <div class="timeline-body">
+                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                        quora plaxo ideeli hulu weebly balihoo...
+                    </div>
+                    <div class="timeline-footer">
+                        <a class="btn btn-primary btn-xs">Read more</a>
+                        <a class="btn btn-danger btn-xs">Delete</a>
                     </div>
                 </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-user bg-aqua" style="color:white;"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-comments bg-yellow" style="color:white;"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                    <div class="timeline-body">
+                        Take me to your leader!
+                        Switzerland is small and neutral!
+                        We are more like Germany, ambitious and misunderstood!
+                    </div>
+                    <div class="timeline-footer">
+                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                    </div>
+                </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline time label -->
+            <li class="time-label">
+                <span class="bg-green" style="color:white;">
+                    3 Jan. 2014
+                </span>
+            </li>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-camera bg-purple" style="color:white;"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                    <div class="timeline-body">
+                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    </div>
+                </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-video-camera bg-maroon" style="color:white;"></i>
+                <div class="timeline-item">
+                    <span class="time" style="color:white;"><i class="fa fa-clock-o"></i> 5 days ago</span>
+                    <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+                    <div class="timeline-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                    <div class="timeline-footer">
+                        <a href="#" class="btn btn-xs bg-maroon">See comments</a>
+                    </div>
+                </div>
+            </li>
+            <!-- END timeline item -->
+            <li>
+                <i class="fa fa-clock-o bg-gray"></i>
+            </li>
+        </ul>
+    </div>
 </div>
