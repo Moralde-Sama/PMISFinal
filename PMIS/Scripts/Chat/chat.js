@@ -24,6 +24,16 @@ window.onbeforeunload = function () {
         }
     )
 }
+window.onload = function () {
+    if (userInfo[0].role == "Super Admin") {
+        $("#sadmin").css("display", "block");
+        $("#user").css("display", "none");
+    }
+    else {
+        $("#user").css("display", "block");
+        $("#sadmin").css("display", "none");
+    }
+}
 
 $(function () {
     var notifCount = 50;

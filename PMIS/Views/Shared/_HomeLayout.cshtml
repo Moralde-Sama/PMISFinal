@@ -208,14 +208,15 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-folder"></i> <span>Projects</span> <i class="fa fa-angle-left pull-right"></i>
+                    <li id="sadmin" class="treeview" style="display:none;">
+                        <a href="/Project/List">
+                            <i class="fa fa-folder-open"></i> <span>Project List</span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/Project/List"><i class="fa fa-list"></i>Project List</a></li>
-                            <li><a href="/project/myprojects"><i class="fa fa-tasks"></i>My Projects</a></li>
-                        </ul>
+                    </li>
+                    <li id="user" class="treeview" style="display:none;">
+                        <a href="/project/myprojects">
+                            <i class="fa fa-folder-open"></i> <span>My Projects</span>
+                        </a>
                     </li>
                 </ul>
             </section>

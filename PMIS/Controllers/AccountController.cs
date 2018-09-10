@@ -24,7 +24,7 @@ namespace PMIS.Controllers
         public ActionResult Login(string username, string password)
         {
             string EncryptPass = EncryptMeth(password);
-            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+            var userInfo = db.users.Where(x => x.username == username && x.password == EncryptPass).Select(e => new {e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
             if (userInfo.Count() == 1)
             {
                 //Session["userInfo"] = userInfo[0];
@@ -113,7 +113,7 @@ namespace PMIS.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
 
-                var userInfo = db.users.Where(x => x.userId == userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+                var userInfo = db.users.Where(x => x.userId == userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
                 return Json(userInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -172,7 +172,7 @@ namespace PMIS.Controllers
             f.coverpath = filename_cover;
             db.SaveChanges();
 
-            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
 
             return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
@@ -186,7 +186,7 @@ namespace PMIS.Controllers
             f.profpath = data.profpath;
             f.coverpath = data.coverpath;
             db.SaveChanges();
-            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+            var userInfo = db.users.Where(x => x.userId == data.userId).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
             return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
         public ActionResult checkpassword(string oldpassword, int userid)
@@ -242,7 +242,7 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.profpath = filepath;
                     db.SaveChanges();
-                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
 
                     return Json(userInfo, JsonRequestBehavior.AllowGet);
 
@@ -288,7 +288,7 @@ namespace PMIS.Controllers
                     user f = db.users.FirstOrDefault(x => x.userId == userid);
                     f.coverpath = filepath;
                     db.SaveChanges();
-                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid }).ToList();
+                    var userInfo = db.users.Where(x => x.userId == userid).Select(e => new { e.userId, e.firstname, e.middlename, e.lastname, e.profpath, e.coverpath, e.status, e.username, e.connectionid, e.role }).ToList();
 
                     return Json(userInfo, JsonRequestBehavior.AllowGet);
 

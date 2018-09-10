@@ -24,5 +24,6 @@ namespace PMIS.Models
         public string coverpath { get; set; }
         public string connectionid { get; set; }
         public string status { get; set; }
+        public string role { get; set; }
     }
 }

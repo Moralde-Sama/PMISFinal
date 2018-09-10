@@ -14,9 +14,9 @@
         })
     }
 
-    var x = window.matchMedia("(max-width: 764px)")
-    myFunction(x)
-    x.addListener(myFunction)
+    //var x = window.matchMedia("(max-width: 764px)")
+    //myFunction(x)
+    //x.addListener(myFunction)
 
     s.try = "sdf";
     var userarray = [];
@@ -160,12 +160,12 @@
 
     //Modal End
 
-    function myFunction(x) {
-        if (x.matches) { // If media query matches
-            document.getElementById("breadcrumbs").style.textAlign = "center";
-        } else {
-            document.getElementById("breadcrumbs").style.textAlign = "end";
-        }
-    }
+    //function myFunction(x) {
+    //    if (x.matches) { // If media query matches
+    //        document.getElementById("breadcrumbs").style.textAlign = "center";
+    //    } else {
+    //        document.getElementById("breadcrumbs").style.textAlign = "end";
+    //    }
+    //}
 
 }])

@@ -32,9 +32,9 @@ namespace PMIS.Models
         public virtual DbSet<projectactivity> projectactivities { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<tasklog> tasklogs { get; set; }
-        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<projecmessage> projecmessages { get; set; }
         public virtual DbSet<participant> participants { get; set; }
+        public virtual DbSet<user> users { get; set; }
     
         public virtual ObjectResult<spgetTaskLog_Result> spgetTaskLog(Nullable<int> taskId)
         {
