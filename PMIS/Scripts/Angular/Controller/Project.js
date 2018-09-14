@@ -33,6 +33,7 @@
 
                 h.post("../Project/getProjectList").then(function (r) {
                     s.projlist = r.data;
+                    console.log(s.projlist);
                 })
             })
         })

@@ -1,14 +1,24 @@
-﻿module.controller("dashboardCtrl", ["$scope", "$http", "$routeParams", function (s, h, rp) {
+﻿module.controller("dashboardCtrl", ["$scope", "$http", "$routeParams", "$location", function (s, h, rp, l) {
 
     document.title = "PMIS | Dashboard"
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
+    if (userInfo[0].role == "User") {
+        s.myprojects = "My Projects";
+        $("#mytasks").css("display", "block");
+        $("#mytaskcontent").css("display", "block");
+        $("#myactivites").css("display", "block");
+        $("#myactivitescont").css("display", "block");
+    }
+    else {
+        s.myprojects = "Projects";
+    }
+
     var chat = $.connection.chatHub;
 
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
             chat.server.saveConnectionId();
         })
     }
@@ -25,15 +35,67 @@
         //        s.projlist = r.data;
         //    })
         //})
-        h.post("../Project/getProjectStatCount", { userId: userInfo[0].userId }).then(function (r) {
-            s.statCount = r.data;
-        })
-        h.post("../Account/getUserTaskCount", { userId: userInfo[0].userId }).then(function (r) {
-            s.taskCount = r.data;
-        })
+        if(userInfo[0].role == "User"){
+            h.post("../Project/getProjectStatCount", { userId: userInfo[0].userId, role: userInfo[0].role }).then(function (r) {
+                s.statCount = r.data;
+            })
+            h.post("../Account/getUserTaskCount", { userId: userInfo[0].userId }).then(function (r) {
+                s.taskCount = r.data;
+            })
+            h.post("../User/getuserActivities", { userId: userInfo[0].userId }).then(function (r) {
+                s.activities = r.data;
+                console.log(s.activities);
+                //for (i = 0; i < Object.keys(s.activities).length; i++) {
+                //    var type;
+                //    if (s.activities[i].type == "Project")
+                //        type = "fa fa-folder bg-aqua"
+
+                //    $("#ultimeline").prepend('<li id="activity' + i + '" style="cursor:pointer;"> <i class="' + type + '" style="color:white;"></i>' +
+                //        '<div class="timeline-item"> <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>' +
+                //        '<h3 class="timeline-header no-border"><a href="#"></a> ' + s.activities[i].actcontent + ' </h3> </div> </li>');
+                //    $("#activity" + i).click(function () {
+
+                //    })
+                //}
+            })
+        }
+        else {
+            h.post("../Project/getProjectStatCount", { userId: 0, role: userInfo[0].role }).then(function (r) {
+                s.statCount = r.data;
+            })
+        }
         //h.post("../Project/getUserTasks", { userId: userInfo[0].userId }).then(function (r) {
         //    s.tasks = r.data;
         //})
+    }
+
+    s.timelabel = function (date) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        $("#ultimeline").prepend('<li class="time-label"><span class="bg-red" style="color:white;">' +
+            moment(dateR).format('LL') + '</span></li>');
+        
+    }
+
+    s.changeURL = function (id) {
+        l.path("/Project/Details/projectId=" + id);
+    }
+
+    s.timelineIcon = function (type) {
+        if (type == "Project")
+            return type = "fa fa-folder bg-aqua";
+    }
+
+    s.convertJsonDate = function (date) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        var Rtime = moment(dateR).fromNow();
+        return Rtime;
+    }
+
+    
+    s.activityClick = function (id, type) {
+        alert(type);
+        //if (type == "Project")
+        //    $location.path = "../Project/Details/projectId=" + id;
     }
     //s.setStatusColor2 = function (status) {
     //    if (status == "Completed") {

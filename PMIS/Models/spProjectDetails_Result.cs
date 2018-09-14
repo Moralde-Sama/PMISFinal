@@ -24,5 +24,8 @@ namespace PMIS.Models
         public int Percentage { get; set; }
         public int Percentage2 { get; set; }
         public int Percentage3 { get; set; }
+        public int Completed { get; set; }
+        public int Pending { get; set; }
+        public int Available { get; set; }
     }
 }

@@ -75,9 +75,9 @@
                                 <dt>Completed:</dt>
                                 <dd>
                                     <div class="progress progress-striped active" id="progressDetails">
-                                        <div style="width: {{projDetails.Percentage}}%; background-color: #039B57;" class="progress-bar"></div>
-                                        <div style="width: {{projDetails.Percentage2}}%; background-color: #F39C14;" class="progress-bar"></div>
-                                        <div style="width: {{projDetails.Percentage3}}%; background-color: #3F8DBC;" class="progress-bar"></div>
+                                        <div style="width: {{projDetails.Percentage}}%; background-color: #039B57;" class="progress-bar">Completed: {{projDetails.Completed}}</div>
+                                        <div style="width: {{projDetails.Percentage2}}%; background-color: #F39C14;" class="progress-bar">Pending: {{projDetails.Pending}}</div>
+                                        <div style="width: {{projDetails.Percentage3}}%; background-color: #3F8DBC;" class="progress-bar">Available: {{projDetails.Available}}</div>
                                     </div>
                                     <small>Project completed <strong>{{projDetails.Percentage}}%</strong></small>
                                 </dd>
@@ -355,16 +355,6 @@
                                                 </div>
                                                 <div class="col-md-10" style="padding:0;">
                                                     <input type="text" class="form-control" id="Version" placeholder="" ng-model="data.version" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12" style="margin-top:10px;">
-                                                <div class="col-md-2" style="padding:0;">
-                                                    <label class="control-label">Status:</label>
-                                                </div>
-                                                <div class="col-md-10" style="padding:0;">
-                                                    <button id="btnActive" ng-click="btnStatus('Active')" class="btn btn-primary" style="display:inline-block;"><i class="fa fa-check"></i> Active</button>
-                                                    <button id="btnSuccess" ng-click="btnStatus('Completed')" class="btn btn-success" style="display:inline-block;">Completed</button>
-                                                    <button id="btnDefault" ng-click="btnStatus('Cancelled')" class="btn btn-default" style="display:inline-block;">Cancelled</button>
                                                 </div>
                                             </div>
                                         </div>

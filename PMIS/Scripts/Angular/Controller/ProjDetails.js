@@ -97,28 +97,29 @@
         }
     }
 
-    s.btnStatus = function (status) {
-        if (status == "Active") {
-            $("#btnActive").html('<i class="fa fa-check"></i> Active');
-            $("#btnSuccess").text("Completed");
-            $("#btnDefault").text("Cancelled");
-            s.data.status = "Active";
-        }
-        else if (status == "Completed") {
-            $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
-            $("#btnActive").text("Active");
-            $("#btnDefault").text("Cancelled");
-            s.data.status = "Completed";
-        }
-        else {
-            $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
-            $("#btnActive").text("Active");
-            $("#btnSuccess").text("Completed");
-            s.data.status = "Cancelled";
-        }
-    }
+    //s.btnStatus = function (status) {
+    //    if (status == "Active") {
+    //        $("#btnActive").html('<i class="fa fa-check"></i> Active');
+    //        $("#btnSuccess").text("Completed");
+    //        $("#btnDefault").text("Cancelled");
+    //        s.data.status = "Active";
+    //    }
+    //    else if (status == "Completed") {
+    //        $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
+    //        $("#btnActive").text("Active");
+    //        $("#btnDefault").text("Cancelled");
+    //        s.data.status = "Completed";
+    //    }
+    //    else {
+    //        $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
+    //        $("#btnActive").text("Active");
+    //        $("#btnSuccess").text("Completed");
+    //        s.data.status = "Cancelled";
+    //    }
+    //}
 
     s.updateProject = function (data) {
+        data.status = "Active";
         for (i = 0; i < olduserarray.length; i++) {
             s.remUsers(olduserarray[i]);
 
@@ -236,7 +237,6 @@
         h.post("../project/getProjDetails?projId=" + projId).then(function (r) {
             s.projDetails = r.data;
             s.data = r.data;
-            s.btnStatus(r.data.status);
             creatorId = s.projDetails.userId;
         })
         

@@ -25,6 +25,9 @@ namespace PMIS.Controllers
             foreach (spGetProjList_Result getlist in list)
             {
                 int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
+                getlist.Completed = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Completed").Count();
+                getlist.Pending = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Pending").Count();
+                getlist.Available = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Available").Count();
                 ProjectList store = new ProjectList();
                 store.projId = getlist.projId;
                 store.title = getlist.title;
@@ -70,6 +73,9 @@ namespace PMIS.Controllers
             foreach (spUserProjectList_Result getlist in list)
             {
                 int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
+                getlist.Completed = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Completed").Count();
+                getlist.Pending = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Pending").Count();
+                getlist.Available = db.tasks.Where(e => e.projId == getlist.projId && e.status == "Available").Count();
                 ProjectList store = new ProjectList();
                 store.projId = getlist.projId;
                 store.title = getlist.title;
@@ -111,8 +117,14 @@ namespace PMIS.Controllers
         public ActionResult getProjDetails(int projId)
         {
             var projList = db.spGetProjList().Where(e => e.projId == projId).FirstOrDefault();
+            projList.Completed = db.tasks.Where(e => e.projId == projId && e.status == "Completed").Count();
+            projList.Pending = db.tasks.Where(e => e.projId == projId && e.status == "Pending").Count();
+            projList.Available = db.tasks.Where(e => e.projId == projId && e.status == "Available").Count();
             var Details = db.spProjectDetails(projId).FirstOrDefault();
             int countAll = db.tasks.Where(e => e.projId == projId).Count();
+            Details.Completed = Convert.ToInt32(projList.Completed);
+            Details.Pending = Convert.ToInt32(projList.Pending);
+            Details.Available = Convert.ToInt32(projList.Available);
             
             if (countAll == 0)
             {
@@ -190,7 +202,7 @@ namespace PMIS.Controllers
         {
             int projId = 0;
             participant pp = new participant();
-            try {
+            //try {
                 pj.userId = array[0];
                 pj.lastupdated = DateTime.Now.ToString("dddd, dd MMMM yyyy hh:mm tt");
                 pj.createddate = DateTime.Now.ToString("dddd, dd MMMM yyyy hh:mm tt");
@@ -199,6 +211,16 @@ namespace PMIS.Controllers
                 db.SaveChanges();
 
                 projId = pj.projId;
+
+                useractivity activity = new useractivity();
+                activity.userId = pj.userId;
+                activity.type = "Project";
+                activity.actcontent = "You created a project named " + pj.title;
+                activity.date = DateTime.Now;
+                activity.id = projId;
+                db.useractivities.Add(activity);
+                db.SaveChanges();
+
                 for (int i = 0; i < array.Length; i++)
                 {
                     
@@ -208,13 +230,14 @@ namespace PMIS.Controllers
                     db.participants.Add(pp);
                     db.SaveChanges();
                 }
+
                 var data = new { status= "Success", projId = pj.projId };
                 return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(projId, JsonRequestBehavior.AllowGet);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Json(projId, JsonRequestBehavior.AllowGet);
+            //}
 
         }
 
@@ -279,7 +302,7 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult addTask(task task)
         {
-            try { 
+        //    try { 
                 DateTime date = DateTime.Now;
                 task.status = "Available";
                 task.startdate = date;
@@ -314,11 +337,11 @@ namespace PMIS.Controllers
                 updateLastActDate(task.projId);
 
                 return Json("Success", JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Json("Failed", JsonRequestBehavior.AllowGet);
+            //}
         }
         [HttpPost]
         public ActionResult updateTask(task task)
@@ -428,36 +451,66 @@ namespace PMIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult getProjectStatCount(int userId)
+        public ActionResult getProjectStatCount(int userId, string role)
         {
             int Completed = 0;
             int Active = 0;
             int Cancelled = 0;
-            List<spUserProjectList_Result> list = db.spUserProjectList(userId).ToList();
-            List<ProjectList> listFinal = new List<ProjectList>();
-            foreach (spUserProjectList_Result getlist in list)
-            {
-                int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
-             
-                    double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
-                    int percentageF = (int)Math.Round(percentage, 0);
+            if (role == "User"){
+                 List<spUserProjectList_Result> list = db.spUserProjectList(userId).ToList();
+                 List<ProjectList> listFinal = new List<ProjectList>();
+                 foreach (spUserProjectList_Result getlist in list)
+                 {
+                     int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
 
-                    if (getlist.status == "Cancelled")
-                    {
-                        Cancelled++;
-                    }
-                    if (percentageF == 100)
-                    {
-                        Completed++;
-                    }
-                    else
-                    {
-                        Active++;
-                    }
+                     double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
+                     int percentageF = (int)Math.Round(percentage, 0);
+
+                     if (getlist.status == "Cancelled")
+                     {
+                         Cancelled++;
+                     }
+                     if (percentageF == 100)
+                     {
+                         Completed++;
+                     }
+                     else
+                     {
+                         Active++;
+                     }
+                 }
+
+                 var multiVal = new { Completed = Completed, Active = Active, Cancelled = Cancelled };
+                 return Json(multiVal, JsonRequestBehavior.AllowGet);
             }
+            else { 
+               List<spGetProjList_Result> list = db.spGetProjList().ToList();
+               List<ProjectList> listFinal = new List<ProjectList>();
+               foreach (spGetProjList_Result getlist in list)
+               {
+                   int countAll = db.tasks.Where(e => e.projId == getlist.projId).Count();
 
-            var multiVal = new { Completed = Completed, Active = Active, Cancelled = Cancelled };
-            return Json(multiVal, JsonRequestBehavior.AllowGet);
+                   double percentage = (Convert.ToDouble(getlist.Completed) / Convert.ToDouble(countAll)) * 100;
+                   int percentageF = (int)Math.Round(percentage, 0);
+
+                   if (getlist.status == "Cancelled")
+                   {
+                       Cancelled++;
+                   }
+                   if (percentageF == 100)
+                   {
+                       Completed++;
+                   }
+                   else
+                   {
+                       Active++;
+                   }
+               }
+
+               var multiVal = new { Completed = Completed, Active = Active, Cancelled = Cancelled };
+               return Json(multiVal, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         [HttpPost]

@@ -35,6 +35,7 @@ namespace PMIS.Models
         public virtual DbSet<projecmessage> projecmessages { get; set; }
         public virtual DbSet<participant> participants { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<useractivity> useractivities { get; set; }
     
         public virtual ObjectResult<spgetTaskLog_Result> spgetTaskLog(Nullable<int> taskId)
         {
@@ -117,15 +118,6 @@ namespace PMIS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetParticipants_Result>("spGetParticipants");
         }
     
-        public virtual ObjectResult<spProjectDetails_Result> spProjectDetails(Nullable<int> projId)
-        {
-            var projIdParameter = projId.HasValue ?
-                new ObjectParameter("projId", projId) :
-                new ObjectParameter("projId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectDetails_Result>("spProjectDetails", projIdParameter);
-        }
-    
         public virtual ObjectResult<spGetProjList_Result> spGetProjList()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProjList_Result>("spGetProjList");
@@ -138,6 +130,15 @@ namespace PMIS.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserProjectList_Result>("spUserProjectList", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spProjectDetails_Result> spProjectDetails(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProjectDetails_Result>("spProjectDetails", projIdParameter);
         }
     }
 }

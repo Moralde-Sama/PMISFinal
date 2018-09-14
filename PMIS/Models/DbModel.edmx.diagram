@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="PMISModel.projecmessage" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="PMISModel.participant" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="PMISModel.user" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PMISModel.useractivity" Width="1.5" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

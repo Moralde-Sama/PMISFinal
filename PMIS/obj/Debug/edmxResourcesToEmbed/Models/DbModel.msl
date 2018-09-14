@@ -193,23 +193,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="creator" ColumnName="creator" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
-          <ScalarProperty Name="createddate" ColumnName="createddate" />
-          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-          <ScalarProperty Name="Percentage2" ColumnName="Percentage2" />
-          <ScalarProperty Name="Percentage3" ColumnName="Percentage3" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetProjList" FunctionName="PMISModel.Store.spGetProjList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PMISModel.spGetProjList_Result">
@@ -250,6 +233,38 @@
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spProjectDetails" FunctionName="PMISModel.Store.spProjectDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spProjectDetails_Result">
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Percentage2" ColumnName="Percentage2" />
+          <ScalarProperty Name="Percentage3" ColumnName="Percentage3" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Pending" ColumnName="Pending" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="useractivities">
+      <EntityTypeMapping TypeName="PMISModel.useractivity">
+        <MappingFragment StoreEntitySet="useractivities">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="actcontent" ColumnName="actcontent" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="activityId" ColumnName="activityId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

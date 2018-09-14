@@ -1,4 +1,4 @@
-﻿module.controller("userTask", ["$scope", "$http", "$routeParams", function (s, h, rp) {
+﻿module.controller("myprojects", ["$scope", "$http", "$routeParams", function (s, h, rp) {
 
     var userInfo = JSON.parse(localStorage.userInfo);
 
@@ -45,141 +45,141 @@
     //    })
     //}
 
-    s.submitCancelTask = function (Index, taskId) {
-        var btn = document.getElementById("btnSubmit" + Index);
-        var text = $("#btnSubmit" + Index).text();
-        if (text == " Submit") {
-            var updatetuParam = { "taskId": s.data.taskId, "status": "Pending" };
-            h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
-                if (r.data == "Success") {
-                    btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
-                    btn.className = "btn btn-warning";
-                    refreshTask();
-                    alert("Updated Successfull!");
-                }
-                else {
-                    alert("Error!");
-                }
-            })
-        }
-        else {
-            var updatetuParam = { "taskId": s.data.taskId, "status": "Available" };
-            h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
-                if (r.data == "Success") {
-                    btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
-                    btn.className = "btn btn-info";
-                    refreshTask();
-                    alert("Updated Successfull!");
-                }
-                else {
-                    alert("Error!");
-                }
-            })
-        }
-        s.showData(Index, taskId);
-    }
+    //s.submitCancelTask = function (Index, taskId) {
+    //    var btn = document.getElementById("btnSubmit" + Index);
+    //    var text = $("#btnSubmit" + Index).text();
+    //    if (text == " Submit") {
+    //        var updatetuParam = { "taskId": s.data.taskId, "status": "Pending" };
+    //        h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
+    //            if (r.data == "Success") {
+    //                btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
+    //                btn.className = "btn btn-warning";
+    //                refreshTask();
+    //                alert("Updated Successfull!");
+    //            }
+    //            else {
+    //                alert("Error!");
+    //            }
+    //        })
+    //    }
+    //    else {
+    //        var updatetuParam = { "taskId": s.data.taskId, "status": "Available" };
+    //        h.post("../Project/updateTaskUser", updatetuParam).then(function (r) {
+    //            if (r.data == "Success") {
+    //                btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
+    //                btn.className = "btn btn-info";
+    //                refreshTask();
+    //                alert("Updated Successfull!");
+    //            }
+    //            else {
+    //                alert("Error!");
+    //            }
+    //        })
+    //    }
+    //    s.showData(Index, taskId);
+    //}
 
-    s.showCreatedBy = function (userId, fullname, fullname2, content, index, index2) {
-        if (content == "submitted the task") {
-            if (userId == userInfo[0].userId) {
-                return fullname;
-            }
-            else {
-                $("#" + index + 'log' + index2).css("color", "black");
-                return "You";
-            }
-        }
-        else if (content == "canceled the submission") {
-            if (userId == userInfo[0].userId) {
-                return fullname;
-            }
-            else {
-                $("#" + index + 'log' + index2).css("color", "black");
-                return "You";
-            }
-        }
-        else if (userId == userInfo[0].userId) {
-            $("#" + index + "log").css("color", "black");
-            return "You";
-        }
-        else {
-            console.log("here");
-            $("#" + index + "log" + index2).attr("href", "sdf");
-            return fullname;
-        }
-    }
-    s.showAssignTo = function (userId, log, fullname, index, index2) {
-        if (log != "assigned task to")
-            return "";
-        else if (userId == userInfo[0].userId){
-            $("#assign" + index + index2).css("color", "black");
-            return "you"
-        }
-        else {
-            return fullname;
-        }
-    }
+    //s.showCreatedBy = function (userId, fullname, fullname2, content, index, index2) {
+    //    if (content == "submitted the task") {
+    //        if (userId == userInfo[0].userId) {
+    //            return fullname;
+    //        }
+    //        else {
+    //            $("#" + index + 'log' + index2).css("color", "black");
+    //            return "You";
+    //        }
+    //    }
+    //    else if (content == "canceled the submission") {
+    //        if (userId == userInfo[0].userId) {
+    //            return fullname;
+    //        }
+    //        else {
+    //            $("#" + index + 'log' + index2).css("color", "black");
+    //            return "You";
+    //        }
+    //    }
+    //    else if (userId == userInfo[0].userId) {
+    //        $("#" + index + "log").css("color", "black");
+    //        return "You";
+    //    }
+    //    else {
+    //        console.log("here");
+    //        $("#" + index + "log" + index2).attr("href", "sdf");
+    //        return fullname;
+    //    }
+    //}
+    //s.showAssignTo = function (userId, log, fullname, index, index2) {
+    //    if (log != "assigned task to")
+    //        return "";
+    //    else if (userId == userInfo[0].userId){
+    //        $("#assign" + index + index2).css("color", "black");
+    //        return "you"
+    //    }
+    //    else {
+    //        return fullname;
+    //    }
+    //}
 
-    s.showData = function (index, taskId) {
-        var btn = document.getElementById("btnSubmit" + index);
-            var taskparam = { "taskId": taskId };
-            h.post("../Project/getTaskDetails", taskparam).then(function (r) {
-                s.task = r.data;
-                s.data.taskId = s.task.taskId;
-                $("#title" + index).text(s.task.title);
-                $("#comment" + index).text(s.task.description);
+    //s.showData = function (index, taskId) {
+    //    var btn = document.getElementById("btnSubmit" + index);
+    //        var taskparam = { "taskId": taskId };
+    //        h.post("../Project/getTaskDetails", taskparam).then(function (r) {
+    //            s.task = r.data;
+    //            s.data.taskId = s.task.taskId;
+    //            $("#title" + index).text(s.task.title);
+    //            $("#comment" + index).text(s.task.description);
 
-                if (s.task.status == "Completed")
-                    $("#btn" + index).css("display", "none");
-                else
-                    $("#btn" + index).css("display", "block");
+    //            if (s.task.status == "Completed")
+    //                $("#btn" + index).css("display", "none");
+    //            else
+    //                $("#btn" + index).css("display", "block");
 
 
-                if (s.task.status == "Pending") {
-                    btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
-                    btn.className = "btn btn-warning";
-                }
-                else {
-                    btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
-                    btn.className = "btn btn-info";
-                }
+    //            if (s.task.status == "Pending") {
+    //                btn.innerHTML = '<i class="fa fa-remove"> Cancel</i>';
+    //                btn.className = "btn btn-warning";
+    //            }
+    //            else {
+    //                btn.innerHTML = '<i class="fa fa-send"> Submit</i>';
+    //                btn.className = "btn btn-info";
+    //            }
 
-                var logparam = { "taskId": taskId };
-                h.post("../Project/getTaskLog", logparam).then(function (r) {
-                    s.tasklogs = r.data;
-                    if (s.tasklogs.length > 0) {
-                        var id = "tasklog" + index;
-                        $("#tasklog" + index).css("display", "block");
-                        $('#tasklog' + index).animateCss("fadeIn", function () {
-                        })
-                    }
-                })
-            })
-    }
+    //            var logparam = { "taskId": taskId };
+    //            h.post("../Project/getTaskLog", logparam).then(function (r) {
+    //                s.tasklogs = r.data;
+    //                if (s.tasklogs.length > 0) {
+    //                    var id = "tasklog" + index;
+    //                    $("#tasklog" + index).css("display", "block");
+    //                    $('#tasklog' + index).animateCss("fadeIn", function () {
+    //                    })
+    //                }
+    //            })
+    //        })
+    //}
 
-    s.showhideTask = function (index) {
-        var coll = document.getElementsByClassName("mycollapsible");
-        var interval2;
-        var content = coll[index].nextElementSibling;
-                content.style.overflow = "hidden";
-                coll[index].classList.toggle("myactive");
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    interval2 = setInterval(function () {
-                        content.style.overflow = "visible";
-                        clearInterval(interval2);
-                    }, 800);
-                }
+    //s.showhideTask = function (index) {
+    //    var coll = document.getElementsByClassName("mycollapsible");
+    //    var interval2;
+    //    var content = coll[index].nextElementSibling;
+    //            content.style.overflow = "hidden";
+    //            coll[index].classList.toggle("myactive");
+    //            if (content.style.maxHeight) {
+    //                content.style.maxHeight = null;
+    //            } else {
+    //                content.style.maxHeight = content.scrollHeight + "px";
+    //                interval2 = setInterval(function () {
+    //                    content.style.overflow = "visible";
+    //                    clearInterval(interval2);
+    //                }, 800);
+    //            }
 
-        if ($("#tasklist" + index).text() == " Show Tasks") {
-            $("#tasklist" + index).text(" Hide Tasks");
-        }
-        else {
-            $("#tasklist" + index).text(" Show Tasks");
-        }
-    }
+    //    if ($("#tasklist" + index).text() == " Show Tasks") {
+    //        $("#tasklist" + index).text(" Hide Tasks");
+    //    }
+    //    else {
+    //        $("#tasklist" + index).text(" Show Tasks");
+    //    }
+    //}
 
     s.setStatusColor = function (status) {
         if (status == "Completed") {

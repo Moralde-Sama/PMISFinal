@@ -24,7 +24,7 @@
 
         </div>
         <div class="col-md-2" style="font-weight:bold; font-size:25px; text-align:center;">
-            My Projects
+            {{myprojects}}
         </div>
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="row" style="margin: 10px 0 10px 0;">
+    <div id="mytasks" class="row" style="margin: 10px 0 10px 0; display:none;">
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
         </div>
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <div class="animated fadeIn">
+    <div id="mytaskcontent" class="animated fadeIn" style="display:none;">
         <div class="row">
             <div class="col-md-4">
                 <div class="mini-card" style="background-color:#018D4D">
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <div class="row" style="margin: 10px 0 10px 0;">
+    <div id="myactivites" class="row" style="margin: 10px 0 10px 0; display:none;" >
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
         </div>
@@ -137,9 +137,16 @@
         </div>
     </div>
 
-    <div class="animated fadeIn">
-        <ul class="timeline">
+    <div id="myactivitescont" class="animated fadeIn" style="display:none;">
+        <ul id="ultimeline" class="timeline">
             <!-- timeline time label -->
+            <li class="" ng-repeat="activity in activities" ng-init="timelabel(activity.date)" ng-click="changeURL(activity.id)" style="cursor:pointer;">
+                <i ng-if="true" class="{{timelineIcon(activity.type)}}" style="color:white;"></i>
+                <div ng-if="true" class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> {{convertJsonDate(activity.date)}}</span>
+                    <h3 class="timeline-header no-border"><a href="#"></a> {{activity.actcontent}}</h3>
+                </div>
+            </li>
             <li class="time-label">
                 <span class="bg-red" style="color:white;">
                     10 Feb. 2014

@@ -101,6 +101,17 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="role" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="useractivities">
+    <Key>
+      <PropertyRef Name="activityId" />
+    </Key>
+    <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="actcontent" Type="varchar(max)" />
+    <Property Name="date" Type="datetime" />
+    <Property Name="id" Type="int" />
+  </EntityType>
   <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
@@ -142,6 +153,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="useractivities" EntityType="Self.useractivities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="projecmessage" EntityType="Self.projecmessage" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [projecmessage].[messId] AS [messId], 
