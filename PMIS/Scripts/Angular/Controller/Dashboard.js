@@ -69,26 +69,60 @@
         //})
     }
 
-    s.timelabel = function (date) {
+    var timelinedate;
+    s.timelabel = function (date, index) {
         var dateR = new Date(parseInt(date.substr(6)));
-        $("#ultimeline").prepend('<li class="time-label"><span class="bg-red" style="color:white;">' +
-            moment(dateR).format('LL') + '</span></li>');
+        if (timelinedate == null) {
+            timelinedate = dateR;
+        }
+        else {
+
+        }
+
+        console.log(dateR.getDay());
+
+        if (timelinedate.getMonth() == dateR.getMonth() && timelinedate.getDay() == dateR.getDay() && timelinedate.getFullYear() == dateR.getFullYear()) {
+
+            console.log(timelinedate.getDay() + "==" + dateR.getDay());
+        }
+        else {
+            console.log("asd");
+            $(".tline").eq(index - (Object.keys(s.activities).length - 1)).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
+            timelinedate = dateR;
+        }
         
+        if (Object.keys(s.activities).length - 1 == index) {
+            console.log("KLSJDF");
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(dateR).format('LL') + '</span></li>'));
+        }
     }
 
-    s.changeURL = function (id) {
-        l.path("/Project/Details/projectId=" + id);
+    s.timelineType = function (Ttype, type) {
+        if (Ttype == type)
+            return true;
+        else
+            return false
+    }
+
+    s.changeURL = function (id, type) {
+        if(type == "Project")
+            l.path("/Project/Details/projectId=" + id);
+        else if(type == "Task")
+            l.path("/Project/Tasks/projectId=" + id);
     }
 
     s.timelineIcon = function (type) {
         if (type == "Project")
             return type = "fa fa-folder bg-aqua";
+        else if (type == "Task")
+            return type = "fa fa-tasks bg-aqua";
     }
 
-    s.convertJsonDate = function (date) {
+    s.timelineTime = function (date) {
         var dateR = new Date(parseInt(date.substr(6)));
-        var Rtime = moment(dateR).fromNow();
-        return Rtime;
+        return moment(dateR).format('LT');
     }
 
     

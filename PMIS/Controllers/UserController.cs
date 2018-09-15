@@ -45,7 +45,8 @@ namespace PMIS.Controllers
         [HttpPost]
         public ActionResult getuserActivities(int userId)
         {
-            var activities = db.useractivities.Where(e => e.userId == userId).ToList();
+            
+            var activities = db.spgetuseractivites(userId).ToList();
             return Json(activities, JsonRequestBehavior.AllowGet);
         }
     }

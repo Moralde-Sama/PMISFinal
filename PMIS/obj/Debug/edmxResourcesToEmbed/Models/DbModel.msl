@@ -259,6 +259,7 @@
     <EntitySetMapping Name="useractivities">
       <EntityTypeMapping TypeName="PMISModel.useractivity">
         <MappingFragment StoreEntitySet="useractivities">
+          <ScalarProperty Name="assignto" ColumnName="assignto" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="actcontent" ColumnName="actcontent" />
@@ -268,5 +269,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spgetuseractivites" FunctionName="PMISModel.Store.spgetuseractivites">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spgetuseractivites_Result">
+          <ScalarProperty Name="activityId" ColumnName="activityId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="actcontent" ColumnName="actcontent" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="assignto" ColumnName="assignto" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="projTitle" ColumnName="projTitle" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

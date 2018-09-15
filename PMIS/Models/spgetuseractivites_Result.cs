@@ -10,9 +10,8 @@
 namespace PMIS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class useractivity
+    public partial class spgetuseractivites_Result
     {
         public int activityId { get; set; }
         public int userId { get; set; }
@@ -21,5 +20,7 @@ namespace PMIS.Models
         public System.DateTime date { get; set; }
         public int id { get; set; }
         public Nullable<int> assignto { get; set; }
+        public string Fullname { get; set; }
+        public string projTitle { get; set; }
     }
 }

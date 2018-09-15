@@ -111,11 +111,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
             <PropertyRef Name="activityId" />
           </Key>
           <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userId" Type="int" />
-          <Property Name="type" Type="varchar" MaxLength="50" />
-          <Property Name="actcontent" Type="varchar(max)" />
-          <Property Name="date" Type="datetime" />
-          <Property Name="id" Type="int" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="actcontent" Type="varchar(max)" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="assignto" Type="int" />
         </EntityType>
         <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
@@ -133,6 +134,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         </Function>
         <Function Name="spgetTaskLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spgetuseractivites" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
         <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projId" Type="int" Mode="In" />
@@ -215,6 +219,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="useractivities" EntityType="PMISModel.useractivity" />
+          <FunctionImport Name="spgetuseractivites" ReturnType="Collection(PMISModel.spgetuseractivites_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spgetTaskLog_Result">
           <Property Type="Int32" Name="taskId" Nullable="false" />
@@ -423,12 +430,24 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
             <PropertyRef Name="activityId" />
           </Key>
           <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="Int32" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="actcontent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="date" Type="DateTime" Precision="3" />
-          <Property Name="id" Type="Int32" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="actcontent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="assignto" Type="Int32" />
         </EntityType>
+        <ComplexType Name="spgetuseractivites_Result">
+          <Property Type="Int32" Name="activityId" Nullable="false" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="actcontent" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="assignto" Nullable="true" />
+          <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -693,6 +712,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySetMapping Name="useractivities">
             <EntityTypeMapping TypeName="PMISModel.useractivity">
               <MappingFragment StoreEntitySet="useractivities">
+                <ScalarProperty Name="assignto" ColumnName="assignto" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="actcontent" ColumnName="actcontent" />
@@ -702,6 +722,21 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spgetuseractivites" FunctionName="PMISModel.Store.spgetuseractivites">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spgetuseractivites_Result">
+                <ScalarProperty Name="activityId" ColumnName="activityId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="actcontent" ColumnName="actcontent" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="assignto" ColumnName="assignto" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="projTitle" ColumnName="projTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -106,11 +106,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
       <PropertyRef Name="activityId" />
     </Key>
     <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="userId" Type="int" />
-    <Property Name="type" Type="varchar" MaxLength="50" />
-    <Property Name="actcontent" Type="varchar(max)" />
-    <Property Name="date" Type="datetime" />
-    <Property Name="id" Type="int" />
+    <Property Name="userId" Type="int" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="actcontent" Type="varchar(max)" Nullable="false" />
+    <Property Name="date" Type="datetime" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="assignto" Type="int" />
   </EntityType>
   <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userId" Type="int" Mode="In" />
@@ -128,6 +129,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   </Function>
   <Function Name="spgetTaskLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="taskId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spgetuseractivites" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
   <Function Name="spGetUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />

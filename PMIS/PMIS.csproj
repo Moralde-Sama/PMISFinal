@@ -458,6 +458,9 @@
     <Compile Include="Models\spGetProjectActivity_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spgetuseractivites_Result.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spgetUserTaskCount_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

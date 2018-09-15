@@ -324,6 +324,16 @@ namespace PMIS.Controllers
                     db.SaveChanges();
                 }
 
+                useractivity activity = new useractivity();
+                activity.userId = task.createdby;
+                activity.type = "Task";
+                activity.actcontent = "You created a task and assign to";
+                activity.date = DateTime.Now;
+                activity.id = task.projId;
+                activity.assignto = task.assignto;
+                db.useractivities.Add(activity);
+                db.SaveChanges();
+
                 projectactivity pact = new projectactivity();
                 pact.projId = task.projId;
                 pact.taskId = task.taskId;
@@ -374,9 +384,16 @@ namespace PMIS.Controllers
             bool finished;
             try { 
                 var task = db.tasks.Where(e => e.taskId == taskId).First();
+                var projdetails = db.projects.Where(e => e.projId == task.projId).First();
                 task.status = status;
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
+
+                useractivity activity = new useractivity();
+                activity.userId = task.assignto;
+                activity.type = "Task";
+                activity.date = DateTime.Now;
+                activity.id = task.projId;
 
                 tasklog log = new tasklog();
                 log.taskId = task.taskId;
@@ -384,10 +401,12 @@ namespace PMIS.Controllers
 
                 if (task.status != "Pending"){
                     log.logcontent = "canceled the submission";
+                    activity.actcontent = "You canceled the submission of " + task.title;
                     finished = false;
                 }
                 else {
                     log.logcontent = "finished the task";
+                    activity.actcontent = "You finished the task named " + task.title;
                     finished = true;
                 }
 
@@ -406,7 +425,10 @@ namespace PMIS.Controllers
                     pact.logContent = "finished the task.";
                 else
                     pact.logContent = "canceled the submission.";
-               
+
+
+                db.useractivities.Add(activity);
+                db.SaveChanges();
                 db.projectactivities.Add(pact);
                 db.SaveChanges();
 
@@ -533,6 +555,13 @@ namespace PMIS.Controllers
             var oldtask = db.tasks.Where(e => e.taskId == task.taskId).First();
             tasklog log = new tasklog();
 
+            useractivity activity = new useractivity();
+            activity.userId = task.createdby;
+            activity.type = "Task";
+            activity.date = DateTime.Now;
+            activity.id = task.projId;
+            activity.assignto = task.assignto;
+
             projectactivity pact = new projectactivity();
             pact.projId = oldtask.projId;
             pact.taskId = oldtask.taskId;
@@ -543,6 +572,7 @@ namespace PMIS.Controllers
                 {
                     log.logcontent = "approved the submission";
                     pact.logContent = "approved the submission of";
+                    activity.actcontent = "You approved the submission of ";
                     pact.status = task.status;
                 }
                 else if (task.status == "Return")
@@ -550,23 +580,28 @@ namespace PMIS.Controllers
                     task.status = "Available";
                     log.logcontent = "returned your task";
                     pact.logContent = "returned the task of";
+                    activity.actcontent = "You returned the task of ";
                     pact.status = task.status;
                 }
                 else if (task.assignto != oldtask.assignto)
                 {
                     log.logcontent = "assigned task to";
                     pact.logContent = "assigned task to";
+                    activity.actcontent = "You assigned task to";
                     pact.status = task.status;
                 }
                 else
                 {
                     log.logcontent = "assigned task to";
                     pact.logContent = "assigned task to";
+                    activity.actcontent = "You assigned task to";
                     pact.status = task.status;
                 }
 
+            db.useractivities.Add(activity);
+            db.SaveChanges();
             db.projectactivities.Add(pact);
-            db.SaveChanges();    
+            db.SaveChanges();
 
             return log;
         }
