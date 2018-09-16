@@ -1,7 +1,11 @@
 ﻿
 module.controller("urprofCtrl", ["$scope", "$http", "$routeParams", function (s, h, rp) {
    
-  
+
+    user.className = "treeview";
+    admin.className = "treeview";
+    dashboard.className = "treeview";
+    $("#breadcrumbsM").hide();
     initialize();
 
     function initialize() {
