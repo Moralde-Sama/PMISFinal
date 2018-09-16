@@ -95,7 +95,7 @@ namespace PMIS.Controllers
             Session["userInfo"] = null;
             return RedirectToAction("../Account/Login");
         }
-        private string EncryptMeth(string pw)
+        public string EncryptMeth(string pw)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(pw));

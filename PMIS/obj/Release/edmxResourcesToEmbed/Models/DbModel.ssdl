@@ -22,19 +22,15 @@
     <Property Name="userId" Type="int" Nullable="false" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="projecmessage">
     <Key>
       <PropertyRef Name="messId" />
-      <PropertyRef Name="projId" />
-      <PropertyRef Name="message" />
-      <PropertyRef Name="date" />
     </Key>
-    <Property Name="messId" Type="int" Nullable="false" />
+    <Property Name="messId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="projId" Type="int" Nullable="false" />
     <Property Name="message" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date" Type="datetime" Nullable="false" />
+    <Property Name="userId" Type="int" />
   </EntityType>
   <EntityType Name="project">
     <Key>
@@ -117,6 +113,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userId" Type="int" Mode="In" />
   </Function>
+  <Function Name="spgetMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="projId" Type="int" Mode="In" />
@@ -153,19 +152,12 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
   <EntityContainer Name="PMISModelStoreContainer">
     <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="projecmessage" EntityType="Self.projecmessage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="projectactivity" EntityType="Self.projectactivity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="useractivities" EntityType="Self.useractivities" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="projecmessage" EntityType="Self.projecmessage" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [projecmessage].[messId] AS [messId], 
-    [projecmessage].[projId] AS [projId], 
-    [projecmessage].[message] AS [message], 
-    [projecmessage].[date] AS [date]
-    FROM [dbo].[projecmessage] AS [projecmessage]</DefiningQuery>
-    </EntitySet>
   </EntityContainer>
 </Schema>

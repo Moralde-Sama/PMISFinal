@@ -3,6 +3,8 @@
     document.title = "PMIS | Dashboard"
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    localStorage.Prev = "Dashboard";
+    localStorage.Current = "Dashboard";
 
     if (userInfo[0].role == "User") {
         s.myprojects = "My Projects";
@@ -338,4 +340,35 @@
     //s.participantsCount = function (length) {
     //    return "+" + (length - 4);
     //}
+
+    s.clickActivity = function (title, id) {
+        user.className = "treeview";
+        dashboard.className = "treeview active";
+        $("#breadTitle").text(title + " Tasks");
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/user/dashboard">Dashboard</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + id + '">' + title + '</a></li><li class="active"><strong>Task</strong></li>');
+
+        $("#myproject").click(function () {
+            $("#editProj").hide();
+            $("#projTask").hide();
+            $("#addProject").hide();
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("Dashboard");
+            $(".breadcrumb").append('<li><strong>Dashboard</strong></li><li id="second" class="active"></li>');
+        })
+        $("#projectTitle").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><a id="myproject" href="/user/dashboard">Dashboard</a></li><li class="active"><strong>' + title + '</strong></li>');
+
+            $("#myproject").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                $("#addProject").hide();
+                $(".breadcrumb").empty();
+                $("#breadTitle").text("Dashboard");
+                $(".breadcrumb").append('<li><strong>Dashboard</strong></li><li id="second" class="active"></li>');
+            })
+        })
+    }
 }])

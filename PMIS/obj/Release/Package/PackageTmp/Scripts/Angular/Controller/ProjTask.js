@@ -3,6 +3,11 @@
     document.title = "PMIS | Project Tasks"
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    if (localStorage.Current != "Task") {
+        localStorage.Prev = localStorage.Current;
+        localStorage.Current = "Task";
+    }
+    localStorage.projId = rp.projId;
 
     //Chat
 
@@ -10,7 +15,6 @@
 
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
             chat.server.saveConnectionId();
         })
     }
@@ -35,7 +39,8 @@
     })
 
     s.projId = rp.projId;
-    s.data.title = "Write a task name";
+    s.data.title = "";
+    s.titleList = "Click here to create a new task";
     var projDetailsParam = {'ProjId': rp.projId};
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
         s.projuserId = r.data.userId;
@@ -237,27 +242,31 @@
         }
     }
 
-    s.keyDown = function (input, id) {
-        if(input == "New"){
-            if ($("#inputSuccess").val() == "") {
-                $("#title2").text("Write a task name");
-            }
-            else{
-                s.data.title = $("#inputSuccess").val();
-            }
-        }
-        else {
-            if ($("#"+id).val() == "") {
-                $("#title2").text("Write a task name");
-            }
-            else {
-                s.data.title = $("#" + id).val();
-            }
-        }
+    s.keyDown = function (input, id, element) {
+
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+
+        //if(input == "New"){
+        //    if ($("#inputSuccess").val() == "") {
+        //        $("#title2").text("Write a task name");
+        //    }
+        //    else{
+        //        s.data.title = $("#inputSuccess").val();
+        //    }
+        //}
+        //else {
+        //    if ($("#"+id).val() == "") {
+        //        $("#title2").text("Write a task name");
+        //    }
+        //    else {
+        //        s.data.title = $("#" + id).val();
+        //    }
+        //}
     }
 
     s.clear = function () {
-        s.data.title = "Write a task name";
+        s.data.title = "";
         s.data.description = "";
         s.markAs("Available");
         $("#inputSuccess").val("");
@@ -421,18 +430,18 @@
         $("#MySelectImg").attr("src", profPath);
         $("#MySelectName").text(fullname);
         s.data.assignto = userId;
-        $('#myModal').animateCss('zoomOut', function () {
+        $('.modal-content').animateCss('zoomOut', function () {
             document.getElementById("myModal").style.display = "none";
         });
     }
 
     s.clickAssignTo = function () {
         document.getElementById("myModal").style.display = "block";
-        $('#myModal').animateCss('zoomIn', function () {
+        $('.modal-content').animateCss('zoomIn', function () {
         });
     }
     s.closeAssignTo = function () {
-        $('#myModal').animateCss('zoomOut', function () {
+        $('.modal-content').animateCss('zoomOut', function () {
             document.getElementById("myModal").style.display = "none";
         });
     }

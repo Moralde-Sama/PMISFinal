@@ -4,6 +4,10 @@
 function logout() {
     $.post("../Account/Logout", function (data, status) {
         localStorage.removeItem("userInfo");
+        localStorage.removeItem("Current");
+        localStorage.removeItem("Prev");
+        localStorage.removeItem("Title");
+        localStorage.removeItem("projId");
         location.href = "../Account/Login";
     });
 }
@@ -114,12 +118,12 @@ $(function () {
         alert(name + ": " + message);
     }
 
-    chat.client.sendToGroup = function (name, message, profPath) {
-        if(name == userInfo[0].username){
+    chat.client.sendToGroup = function (name, message, profPath, id, date) {
+        if(id == userInfo[0].userId){
             $('#messageContainer').append('<div class="direct-chat-msg right">' +
                 '<div class="direct-chat-info clearfix">' +
                 '<span class="direct-chat-name pull-right">' + name + '</span>' +
-                '<span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span></div>' +
+                '<span class="direct-chat-timestamp pull-left">' + convertJsonDate(date) + '</span></div>' +
                 '<img class="direct-chat-img" src="' + profPath + '" alt="message user image">' +
                 '<div class="direct-chat-text" style="background-color:#3E8DBC; color:white; word-break:break-all;">' +
                 message + '</div></div>');
@@ -128,7 +132,7 @@ $(function () {
             $('#messageContainer').append('<div class="direct-chat-msg">' +
                                '<div class="direct-chat-info clearfix">' +
                                '<span class="direct-chat-name pull-left">' + name + '</span>' +
-                               '<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>' +
+                               '<span class="direct-chat-timestamp pull-right">' + convertJsonDate(date) + '</span>' +
                                '</div><!-- /.direct-chat-info -->' +
                                '<img class="direct-chat-img" style="margin-right:-33px;" src="' + profPath + '" alt="message user image"><!-- /.direct-chat-img -->' +
                                '<div class="direct-chat-text" style="color:white; background-color:#3E8DBC; word-break:break-all;"> '
@@ -139,5 +143,10 @@ $(function () {
         $("#messageContainer").val('').focus();
         $("#messageContainer").scrollTop($("#messageContainer")[0].scrollHeight);
         $(document).scrollTop($(document)[0].scrollHeight);
+    }
+
+    function convertJsonDate(date) {
+        var date2 = new Date(parseInt(date.substr(6)));
+        return moment().format('DD MMM h:mm a');
     }
 })

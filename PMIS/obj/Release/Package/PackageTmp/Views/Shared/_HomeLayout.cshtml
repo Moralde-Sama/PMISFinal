@@ -160,7 +160,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="/user/profile/myprofile" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="/user/profile/myprofile" onclick="myprofile()" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="" onclick="logout()" class="btn btn-default btn-flat">Sign out</a>
@@ -233,7 +233,7 @@
             <section class="content">
 
                 @RenderBody()
-                <div class="animated fadeIn">
+                <div id="breadcrumbsM" class="animated fadeIn">
                     <div class="card" style="border-radius: 10px;">
                         <div class="card-content" style="padding:0 20px 0 20px;">
                             <div class=" row">

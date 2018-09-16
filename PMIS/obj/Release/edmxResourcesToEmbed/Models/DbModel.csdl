@@ -31,7 +31,6 @@
     <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
     <EntitySet Name="tasks" EntityType="PMISModel.task" />
     <EntitySet Name="tasklogs" EntityType="PMISModel.tasklog" />
-    <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
     <EntitySet Name="participants" EntityType="PMISModel.participant" />
     <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
     <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
@@ -45,6 +44,10 @@
     <EntitySet Name="useractivities" EntityType="PMISModel.useractivity" />
     <FunctionImport Name="spgetuseractivites" ReturnType="Collection(PMISModel.spgetuseractivites_Result)">
       <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
+    <FunctionImport Name="spgetMessages" ReturnType="Collection(PMISModel.spgetMessages_Result)">
+      <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spgetTaskLog_Result">
@@ -171,18 +174,6 @@
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="assignto" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="projecmessage">
-    <Key>
-      <PropertyRef Name="messId" />
-      <PropertyRef Name="projId" />
-      <PropertyRef Name="message" />
-      <PropertyRef Name="date" />
-    </Key>
-    <Property Name="messId" Type="Int32" Nullable="false" />
-    <Property Name="projId" Type="Int32" Nullable="false" />
-    <Property Name="message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="participant">
     <Key>
       <PropertyRef Name="partId" />
@@ -274,5 +265,24 @@
     <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
     <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="taskTitle" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="projecmessage">
+    <Key>
+      <PropertyRef Name="messId" />
+    </Key>
+    <Property Name="messId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projId" Type="Int32" Nullable="false" />
+    <Property Name="message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="userId" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="spgetMessages_Result">
+    <Property Type="Int32" Name="messId" Nullable="false" />
+    <Property Type="Int32" Name="projId" Nullable="false" />
+    <Property Type="String" Name="message" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="userId" Nullable="true" />
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+    <Property Type="String" Name="profpath" Nullable="false" />
   </ComplexType>
 </Schema>

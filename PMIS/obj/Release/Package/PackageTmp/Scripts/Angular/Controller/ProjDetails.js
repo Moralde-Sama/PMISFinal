@@ -3,6 +3,11 @@
     document.title = "PMIS | Project Details"
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    if(localStorage.Current != "Details"){
+        localStorage.Prev = localStorage.Current;
+        localStorage.Current = "Details";
+    }
+    localStorage.projId = rp.projId;
 
     var spamCount = 0;
     var spamLimit = 3;
@@ -22,6 +27,8 @@
     x.addListener(myFunction)
 
     var chat = $.connection.chatHub;
+    var message = [];
+    var messageCount = 0;
 
     //else {
     //    getProjDetails(rp.projId);
@@ -33,7 +40,6 @@
     function initializeSR() {
         if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
             $.connection.hub.start().done(function () {
-                alert($.connection.hub.state);
                 chat.server.saveConnectionId();
                 chat.server.join(s.projDetails.projId);
             })
@@ -43,19 +49,55 @@
         }
     }
 
-    $(document).ready(function () {
-        $("#message").emojioneArea({
-            events: {
-                keydown: function (editor, event) {
-                    if (event.keyCode == 13) {
-                        console.log(this.getText());
-                        chat.server.sendToGroup(userInfo[0].username, this.getText(), userInfo[0].profpath, $("#getGroup").val());
-                        this.setText("");
-                    }
+    //$(document).ready(function () {
+    //    $("#message").emojioneArea({
+    //        events: {
+    //            keydown: function (editor, event) {
+    //                if (event.keyCode == 13) {
+
+                        
+
+    //                }
+    //            }
+    //        }
+    //    });
+    //});
+
+    s.saveMessages = function (event, action) {
+        if(event.keyCode == 13 || action == "send"){
+        if (message.length == 0) {
+            message.push({
+                "messId": null,
+                "projId": rp.projId,
+                "message": $("#message").val(),
+                "date": null,
+                "userId": userInfo[0].userId
+            })
+        }
+        if (message.length != 0) {
+
+            console.log(message);
+            h.post("../User/saveMessages", { message: message[0] }).then(function (r) {
+
+                console.log(r.data.status);
+                if (r.data.status == "Success") {
+                    message.splice(0, 1);
+                    console.log(message.length);
+                    var fullname = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    chat.server.sendToGroup(fullname, $("#message").val(), userInfo[0].profpath, userInfo[0].userId, r.data.date, rp.projId);
+                    $("#message").val("");
                 }
-            }
-        });
-    });
+            })
+        }
+      }
+    }
+
+    s.setScrollMessage = function (index) {
+        if(Object.keys(s.projMessages).length - 1 == index){
+            $("#messageContainer").scrollTop($("#messageContainer")[0].scrollHeight);
+            $(document).scrollTop($(document)[0].scrollHeight);
+        }
+    }
 
     //Modal
 
@@ -263,6 +305,10 @@
 
             initializeSR();
         })
+
+        h.post("../Project/getMessages", { projId: rp.projId }).then(function (r) {
+            s.projMessages = r.data;
+        })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
 
@@ -291,13 +337,34 @@
         })
     }
 
+    s.messageClassT = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-msg right";
+        }
+        else {
+            return "direct-chat-msg";
+        }
+    }
+    s.messageClassN = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-name pull-right";
+        }
+        else {
+            return "direct-chat-name pull-left";
+        }
+    }
+    s.messageClassTM = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-timestamp pull-left";
+        }
+        else {
+            return "direct-chat-timestamp pull-right";
+        }
+    }
+
     s.convertJsonDate = function (date) {
         var date2 = new Date(parseInt(date.substr(6)));
-        let options = {
-            weekday: "long", year: "numeric", month: "short",
-            day: "numeric", hour: "2-digit", minute: "2-digit"
-        };
-        return date2.toLocaleTimeString("en-us", options);
+        return moment().format('DD MMM h:mm a');
     }
 
     s.logcontent = function (content, userId, fullname, userId2, fullname2, index) {
@@ -466,7 +533,10 @@
     }
 
     function btnActions() {
-        $("#breadTitle").text("" + s.projDetails.title);
+        localStorage.projId = s.projDetails.projId;
+        localStorage.Title = s.projDetails.title;
+
+        $("#breadTitle").text(s.projDetails.title + "Tasks");
         $(".breadcrumb").empty();
         $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + s.projDetails.projId + '">' + s.projDetails.title + '</a></li><li class="active"><strong>Task</strong></li>');
 
@@ -480,7 +550,7 @@
         })
         $("#projectTitle").click(function () {
             $(".breadcrumb").empty();
-            $("#breadTitle").text("My Projects");
+            $("#breadTitle").text("Project Details");
             $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + s.projDetails.title + '</strong></li>');
 
             $("#myproject").click(function () {

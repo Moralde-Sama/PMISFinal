@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PMIS.Models;
 using System.Data.Entity;
+using PMIS.Controllers;
 
 namespace PMIS.Controllers
 {
@@ -85,7 +86,13 @@ namespace PMIS.Controllers
                     store.percentage = 0;
                     store.percentage2 = 0;
                     store.percentage3 = 0;
-                    store.status = "Active";
+                    if (getlist.status == "Cancelled")
+                    {
+                        store.status = "Cancelled";
+                    }
+                    else { 
+                        store.status = "Active";
+                    }
                 }
                 else
                 {
@@ -96,11 +103,11 @@ namespace PMIS.Controllers
                     double percentage3 = (Convert.ToDouble(getlist.Available) / Convert.ToDouble(countAll)) * 100;
                     store.percentage3 = (int)Math.Round(percentage3, 0);
 
-                    if (store.status == "Cancelled")
+                    if (getlist.status == "Cancelled")
                     {
                         store.status = "Cancelled";
                     }
-                    if (store.percentage == 100)
+                    else if (store.percentage == 100)
                     {
                         store.status = "Completed";
                     }
@@ -239,6 +246,18 @@ namespace PMIS.Controllers
             //    return Json(projId, JsonRequestBehavior.AllowGet);
             //}
 
+
+
+        }
+
+        [HttpPost]
+        public ActionResult cancelProject(int cId, string password)
+        {
+            AccountController acc = new AccountController();
+
+            string pass = acc.EncryptMeth(password);
+            int count = db.users.Where(e => e.userId == cId && e.password == pass).Count();
+            return Json(count, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

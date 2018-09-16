@@ -75,9 +75,9 @@
                                 <dt>Completed:</dt>
                                 <dd>
                                     <div class="progress progress-striped active" id="progressDetails">
-                                        <div style="width: {{projDetails.Percentage}}%; background-color: #039B57;" class="progress-bar">Completed: {{projDetails.Completed}}</div>
-                                        <div style="width: {{projDetails.Percentage2}}%; background-color: #F39C14;" class="progress-bar">Pending: {{projDetails.Pending}}</div>
-                                        <div style="width: {{projDetails.Percentage3}}%; background-color: #3F8DBC;" class="progress-bar">Available: {{projDetails.Available}}</div>
+                                        <div ng-if="projDetails.Percentage != 0" style="width: {{projDetails.Percentage}}%; background-color: #039B57;" class="progress-bar">Completed: {{projDetails.Completed}}</div>
+                                        <div ng-if="projDetails.Percentage != 0" style="width: {{projDetails.Percentage2}}%; background-color: #F39C14;" class="progress-bar">Pending: {{projDetails.Pending}}</div>
+                                        <div ng-if="projDetails.Percentage != 0" style="width: {{projDetails.Percentage3}}%; background-color: #3F8DBC;" class="progress-bar">Available: {{projDetails.Available}}</div>
                                     </div>
                                     <small>Project completed <strong>{{projDetails.Percentage}}%</strong></small>
                                 </dd>
@@ -343,6 +343,13 @@
                                                 <div class="col-md-10" style="padding:0;">
                                                     <input type="text" class="form-control" id="Version" placeholder="" ng-model="data.version" required>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top:10px; padding:0;">
+                                                    <h3 style="font-weight:bold; text-align:center;">Cancel Project:</h3>
+                                            </div>
+                                            <div class="col-md-12" style="text-align:center; padding: 0 90px 0 90px;">
+                                                <h2 style="font-weight:bold; color:red">Note: You cannot use this project if its cancelled</h2>
+                                                <input type="password" style="text-align:center;" class="form-control" id="password" placeholder="Type your password to cancel the project" ng-model="creatorPass">
                                             </div>
                                         </div>
                                     </form>

@@ -1,6 +1,8 @@
 ﻿module.controller("myprojects", ["$scope", "$http", "$routeParams", function (s, h, rp) {
 
     var userInfo = JSON.parse(localStorage.userInfo);
+        localStorage.Prev = "List";
+        localStorage.Current = "List";
 
     s.data = {};
     var userarray = [];
@@ -17,6 +19,15 @@
     //}
 
     document.title = "PMIS | My Projects"
+
+    var chat = $.connection.chatHub;
+
+    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+        $.connection.hub.start().done(function () {
+            chat.server.saveConnectionId();
+        })
+    }
+
     getList();
 
     function getList() {
@@ -267,6 +278,7 @@
                                 s.nf.assignTo = userarray[o];
 
                                 h.post("../Account/notification", s.nf).then(function (r) {
+                                    console.log(r.data);
                                     chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
                                 })
 
@@ -304,6 +316,7 @@
     //Modal End
 
     s.projectDetails = function (title) {
+        localStorage.Title = title;
 
         $("#addProject").hide();
         $("#breadTitle").text("Project Details");
@@ -320,6 +333,7 @@
         })
     }
     s.projectTask = function (title, id) {
+        localStorage.Title = title;
         $("#addProject").hide();
         $("#editProj").hide();
         $("#projTask").hide();
