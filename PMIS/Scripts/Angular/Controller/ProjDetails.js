@@ -591,7 +591,11 @@
 
     function showBtns() {
         $("#addProject").hide();
-        if (userInfo[0].userId == creatorId) {
+        if (s.projDetails.status == "Cancelled") {
+            $("#editProj").hide();
+            $("#projTask").hide();
+        }
+        else if (userInfo[0].userId == creatorId) {
             $("#editProj").show();
             $("#projTask").show();
             $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);

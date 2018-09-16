@@ -86,7 +86,7 @@
 
                                     <td style="text-align:center; padding-top:17px; min-width:250px;">
                                         <a href="/Project/Details/projectId={{data.projId}}" ng-click="projectDetails(data.title)" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
-                                        <a href="/Project/Tasks/projectId={{data.projId}}" ng-click="projectTask(data.title, data.projId)" class="btn btn-info"><i class="fa fa-tasks"> Tasks</i></a>
+                                        <a ng-if="data.status != 'Cancelled'" href="/Project/Tasks/projectId={{data.projId}}" ng-click="projectTask(data.title, data.projId)" class="btn btn-info"><i class="fa fa-tasks"> Tasks</i></a>
                                         @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
                                     </td>
                                 </tr>

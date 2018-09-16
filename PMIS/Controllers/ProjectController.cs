@@ -138,7 +138,13 @@ namespace PMIS.Controllers
                 Details.Percentage = 0;
                 Details.Percentage2 = 0;
                 Details.Percentage3 = 0;
-                Details.status = "Active";
+                if (projList.status == "Cancelled")
+                {
+                    Details.status = "Cancelled";
+                }
+                else { 
+                    Details.status = "Active";
+                }
             }
             else
             {
@@ -150,8 +156,9 @@ namespace PMIS.Controllers
                 Details.Percentage3 = (int)Math.Round(percentage3, 0);
             }
 
-            if (Details.status == "Cancelled"){ 
-            
+            if (projList.status == "Cancelled")
+            {
+                Details.status = "Cancelled";
             }
             else if (Details.Percentage == 100)
             {
