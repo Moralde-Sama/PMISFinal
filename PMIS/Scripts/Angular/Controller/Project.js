@@ -169,4 +169,17 @@
     //    }
     //}
 
+    s.projectTitle = function (title) {
+
+        $("#addProject").hide();
+        $("#breadTitle").text("Project Details");
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/Project/List">Project List</a></li><li class="active"><strong>' + title + '</strong></li>');
+
+        $("#myproject").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><strong>Project List</strong></li><li id="second" class="active"></li>');
+        })
+    }
 }])

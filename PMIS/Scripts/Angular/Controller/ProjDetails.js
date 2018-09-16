@@ -12,6 +12,8 @@
     var userarray = [];
     var olduserarray = [];
     var removeuser = [];
+    var showbtnEdit;
+    var showbtnTask;
 
     s.data = {};
 
@@ -255,6 +257,8 @@
                     h.post("../User/getUsers?userid=" + userInfo[0].userId).then(function (r) {
                         s.users = r.data;
                         console.log("users");
+
+                        showBtns();
                     })
                 }
             }
@@ -380,31 +384,86 @@
     }
 
     
-    s.showBtns = function (btn) {
+    //s.showBtns = function (btn) {
 
-        if (btn == "edit") {
-            if (userInfo[0].userId == creatorId) {
-                return true;
-            }
-            else {
-                return false;
-            }
+    //    if (btn == "edit") {
+    //        if (userInfo[0].userId == creatorId) {
+    //            return true;
+    //        }
+    //        else {
+    //            return false;
+    //        }
+    //    }
+    //    else if (btn == "task") {
+    //        if (userInfo[0].userId == creatorId) {
+    //            return true;
+    //        }
+    //        else {
+    //            if (ppArray.some(function (it) {
+    //                return it.userId == userInfo[0].userId;
+    //            })) {
+    //                return true;
+    //            }
+    //            else {
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //}
+
+    function showBtns() {
+        $("#addProject").hide();
+        if (userInfo[0].userId == creatorId) {
+            $("#editProj").show();
+            $("#projTask").show();
+            $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);
+            $("#projTask").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                btnActions();
+            })
         }
-        else if (btn == "task") {
-            if (userInfo[0].userId == creatorId) {
-                return true;
-            }
-            else {
-                if (ppArray.some(function (it) {
+        else
+        {
+            $("#editProj").hide();
+            if (ppArray.some(function (it) {
                     return it.userId == userInfo[0].userId;
-                })) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+            })) {
+                $("#projTask").show();
+                $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);
+                $("#projTask").click(function () {
+                    $("#editProj").hide();
+                    $("#projTask").hide();
+                    btnActions();
+                })
+            }
+            else {
+                $("#projTask").hide();
             }
         }
+    }
+
+    function btnActions() {
+        $("#breadTitle").text("" + s.projDetails.title);
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + s.projDetails.projId + '">' + s.projDetails.title + '</a></li><li class="active"><strong>Task</strong></li>');
+
+        $("#myproject").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+        })
+        $("#projectTitle").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + s.projDetails.title + '</strong></li>');
+
+            $("#myproject").click(function () {
+                $(".breadcrumb").empty();
+                $("#breadTitle").text("My Projects");
+                $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+            })
+        })
     }
 
     s.profile = function (userId) {

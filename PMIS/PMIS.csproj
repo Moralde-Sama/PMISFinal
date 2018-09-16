@@ -308,6 +308,7 @@
     <Content Include="Content\plugins\snarl\snarl.js" />
     <Content Include="Content\plugins\snarl\snarl.min.css" />
     <Content Include="Content\plugins\snarl\snarl.min.js" />
+    <Content Include="Content\preloader.css" />
     <Content Include="Content\sweetalert.min.js" />
     <Content Include="Scripts\Angular\Controller\Dashboard.js" />
     <Content Include="Scripts\Angular\Controller\Profile.js" />
