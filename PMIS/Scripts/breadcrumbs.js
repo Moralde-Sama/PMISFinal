@@ -10,6 +10,7 @@ $("#editProj").hide();
 $("#projTask").hide();
 
 dashboard.addEventListener("click", function () {
+    $("#breadcrumbsM").show();
     dashboard.className = "treeview active";
     user.className = "treeview";
     admin.className = "treeview";
@@ -27,6 +28,7 @@ dashboard.addEventListener("click", function () {
 });
 
 admin.addEventListener("click", function () {
+    $("#breadcrumbsM").show();
     admin.className = "treeview active";
     dashboard.className = "treeview";
     user.className = "treeview";
@@ -36,6 +38,7 @@ admin.addEventListener("click", function () {
 });
 
 user.addEventListener("click", function () {
+    $("#breadcrumbsM").show();
     user.className = "treeview active";
     admin.className = "treeview";
     dashboard.className = "treeview";
@@ -56,4 +59,11 @@ function Modal() {
         document.getElementById("tab2").className = "";
         $("#editmodal2").animateCss("zoomIn", function () {
         })
+}
+
+function myprofile() {
+    dashboard.className = "treeview";
+    user.className = "treeview";
+    admin.className = "treeview";
+    $("#breadcrumbsM").hide();
 }
