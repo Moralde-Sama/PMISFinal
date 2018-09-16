@@ -17,9 +17,9 @@ namespace PMIS
             Clients.All.sendToAll(name, message);
         }
 
-        public void sendToGroup(string name, string message, string profPath, string group)
+        public void sendToGroup(string name, string message, string profPath, int id, DateTime date, string group)
         {
-            Clients.Group(group).sendToGroup(name, message, profPath);
+            Clients.Group(group).sendToGroup(name, message, profPath, id, date);
         }
 
         public void notification(string connectionId, string notifContent, string type, int id)

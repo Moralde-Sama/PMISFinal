@@ -481,6 +481,9 @@
     <Compile Include="Models\spgetAllUserTask_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spgetMessages_Result.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spGetProjectActivity_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

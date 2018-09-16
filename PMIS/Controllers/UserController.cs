@@ -49,5 +49,15 @@ namespace PMIS.Controllers
             var activities = db.spgetuseractivites(userId).ToList();
             return Json(activities, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult saveMessages(projecmessage message)
+        {
+                message.date = DateTime.Now;
+                db.projecmessages.Add(message);
+                db.SaveChanges();
+                var multiVal = new { status = "Success", date = message.date };
+                return Json(multiVal, JsonRequestBehavior.AllowGet);
+        }
     }
 }

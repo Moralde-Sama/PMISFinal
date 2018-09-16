@@ -35,7 +35,8 @@
     })
 
     s.projId = rp.projId;
-    s.data.title = "Write a task name";
+    s.data.title = "";
+    s.titleList = "Click here to create a new task";
     var projDetailsParam = {'ProjId': rp.projId};
     h.post("../Project/getProjDetails", projDetailsParam).then(function (r) {
         s.projuserId = r.data.userId;
@@ -237,27 +238,31 @@
         }
     }
 
-    s.keyDown = function (input, id) {
-        if(input == "New"){
-            if ($("#inputSuccess").val() == "") {
-                $("#title2").text("Write a task name");
-            }
-            else{
-                s.data.title = $("#inputSuccess").val();
-            }
-        }
-        else {
-            if ($("#"+id).val() == "") {
-                $("#title2").text("Write a task name");
-            }
-            else {
-                s.data.title = $("#" + id).val();
-            }
-        }
+    s.keyDown = function (input, id, element) {
+
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+
+        //if(input == "New"){
+        //    if ($("#inputSuccess").val() == "") {
+        //        $("#title2").text("Write a task name");
+        //    }
+        //    else{
+        //        s.data.title = $("#inputSuccess").val();
+        //    }
+        //}
+        //else {
+        //    if ($("#"+id).val() == "") {
+        //        $("#title2").text("Write a task name");
+        //    }
+        //    else {
+        //        s.data.title = $("#" + id).val();
+        //    }
+        //}
     }
 
     s.clear = function () {
-        s.data.title = "Write a task name";
+        s.data.title = "";
         s.data.description = "";
         s.markAs("Available");
         $("#inputSuccess").val("");

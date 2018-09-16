@@ -22,6 +22,8 @@
     x.addListener(myFunction)
 
     var chat = $.connection.chatHub;
+    var message = [];
+    var messageCount = 0;
 
     //else {
     //    getProjDetails(rp.projId);
@@ -43,19 +45,55 @@
         }
     }
 
-    $(document).ready(function () {
-        $("#message").emojioneArea({
-            events: {
-                keydown: function (editor, event) {
-                    if (event.keyCode == 13) {
-                        console.log(this.getText());
-                        chat.server.sendToGroup(userInfo[0].username, this.getText(), userInfo[0].profpath, $("#getGroup").val());
-                        this.setText("");
-                    }
+    //$(document).ready(function () {
+    //    $("#message").emojioneArea({
+    //        events: {
+    //            keydown: function (editor, event) {
+    //                if (event.keyCode == 13) {
+
+                        
+
+    //                }
+    //            }
+    //        }
+    //    });
+    //});
+
+    s.saveMessages = function (event, action) {
+        if(event.keyCode == 13 || action == "send"){
+        if (message.length == 0) {
+            message.push({
+                "messId": null,
+                "projId": rp.projId,
+                "message": $("#message").val(),
+                "date": null,
+                "userId": userInfo[0].userId
+            })
+        }
+        if (message.length != 0) {
+
+            console.log(message);
+            h.post("../User/saveMessages", { message: message[0] }).then(function (r) {
+
+                console.log(r.data.status);
+                if (r.data.status == "Success") {
+                    message.splice(0, 1);
+                    console.log(message.length);
+                    var fullname = userInfo[0].firstname + " " + userInfo[0].lastname;
+                    chat.server.sendToGroup(fullname, $("#message").val(), userInfo[0].profpath, userInfo[0].userId, r.data.date, rp.projId);
+                    $("#message").val("");
                 }
-            }
-        });
-    });
+            })
+        }
+      }
+    }
+
+    s.setScrollMessage = function (index) {
+        if(Object.keys(s.projMessages).length - 1 == index){
+            $("#messageContainer").scrollTop($("#messageContainer")[0].scrollHeight);
+            $(document).scrollTop($(document)[0].scrollHeight);
+        }
+    }
 
     //Modal
 
@@ -263,6 +301,10 @@
 
             initializeSR();
         })
+
+        h.post("../Project/getMessages", { projId: rp.projId }).then(function (r) {
+            s.projMessages = r.data;
+        })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
 
@@ -291,13 +333,34 @@
         })
     }
 
+    s.messageClassT = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-msg right";
+        }
+        else {
+            return "direct-chat-msg";
+        }
+    }
+    s.messageClassN = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-name pull-right";
+        }
+        else {
+            return "direct-chat-name pull-left";
+        }
+    }
+    s.messageClassTM = function (id) {
+        if (id == userInfo[0].userId) {
+            return "direct-chat-timestamp pull-left";
+        }
+        else {
+            return "direct-chat-timestamp pull-right";
+        }
+    }
+
     s.convertJsonDate = function (date) {
         var date2 = new Date(parseInt(date.substr(6)));
-        let options = {
-            weekday: "long", year: "numeric", month: "short",
-            day: "numeric", hour: "2-digit", minute: "2-digit"
-        };
-        return date2.toLocaleTimeString("en-us", options);
+        return moment().format('DD MMM h:mm a');
     }
 
     s.logcontent = function (content, userId, fullname, userId2, fullname2, index) {

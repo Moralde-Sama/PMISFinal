@@ -162,16 +162,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="projecmessages">
-      <EntityTypeMapping TypeName="PMISModel.projecmessage">
-        <MappingFragment StoreEntitySet="projecmessage">
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="message" ColumnName="message" />
-          <ScalarProperty Name="projId" ColumnName="projId" />
-          <ScalarProperty Name="messId" ColumnName="messId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="participants">
       <EntityTypeMapping TypeName="PMISModel.participant">
         <MappingFragment StoreEntitySet="participant">
@@ -284,6 +274,30 @@
           <ScalarProperty Name="Fullname" ColumnName="Fullname" />
           <ScalarProperty Name="projTitle" ColumnName="projTitle" />
           <ScalarProperty Name="taskTitle" ColumnName="taskTitle" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="projecmessages">
+      <EntityTypeMapping TypeName="PMISModel.projecmessage">
+        <MappingFragment StoreEntitySet="projecmessage">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="messId" ColumnName="messId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spgetMessages" FunctionName="PMISModel.Store.spgetMessages">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PMISModel.spgetMessages_Result">
+          <ScalarProperty Name="messId" ColumnName="messId" />
+          <ScalarProperty Name="projId" ColumnName="projId" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="profpath" ColumnName="profpath" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

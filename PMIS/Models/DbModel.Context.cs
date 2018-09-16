@@ -32,10 +32,10 @@ namespace PMIS.Models
         public virtual DbSet<projectactivity> projectactivities { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<tasklog> tasklogs { get; set; }
-        public virtual DbSet<projecmessage> projecmessages { get; set; }
         public virtual DbSet<participant> participants { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<useractivity> useractivities { get; set; }
+        public virtual DbSet<projecmessage> projecmessages { get; set; }
     
         public virtual ObjectResult<spgetTaskLog_Result> spgetTaskLog(Nullable<int> taskId)
         {
@@ -148,6 +148,15 @@ namespace PMIS.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetuseractivites_Result>("spgetuseractivites", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spgetMessages_Result> spgetMessages(Nullable<int> projId)
+        {
+            var projIdParameter = projId.HasValue ?
+                new ObjectParameter("projId", projId) :
+                new ObjectParameter("projId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spgetMessages_Result>("spgetMessages", projIdParameter);
         }
     }
 }

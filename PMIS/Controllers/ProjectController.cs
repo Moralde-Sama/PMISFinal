@@ -215,7 +215,7 @@ namespace PMIS.Controllers
                 useractivity activity = new useractivity();
                 activity.userId = pj.userId;
                 activity.type = "Project";
-                activity.actcontent = "You created a project named " + pj.title;
+                activity.actcontent = "You created a project titled " + pj.title;
                 activity.date = DateTime.Now;
                 activity.id = projId;
                 db.useractivities.Add(activity);
@@ -607,6 +607,13 @@ namespace PMIS.Controllers
             db.SaveChanges();
 
             return log;
+        }
+
+        [HttpPost]
+        public ActionResult getMessages(int projId)
+        {
+            var messages = db.spgetMessages(projId).ToList();
+            return Json(messages, JsonRequestBehavior.AllowGet);
         }
     }
 }

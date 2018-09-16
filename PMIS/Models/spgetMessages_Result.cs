@@ -10,14 +10,15 @@
 namespace PMIS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class projecmessage
+    public partial class spgetMessages_Result
     {
         public int messId { get; set; }
         public int projId { get; set; }
         public string message { get; set; }
         public System.DateTime date { get; set; }
         public Nullable<int> userId { get; set; }
+        public string fullname { get; set; }
+        public string profpath { get; set; }
     }
 }

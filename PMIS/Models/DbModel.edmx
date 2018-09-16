@@ -27,19 +27,15 @@
           <Property Name="userId" Type="int" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="projecmessage">
           <Key>
             <PropertyRef Name="messId" />
-            <PropertyRef Name="projId" />
-            <PropertyRef Name="message" />
-            <PropertyRef Name="date" />
           </Key>
-          <Property Name="messId" Type="int" Nullable="false" />
+          <Property Name="messId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="projId" Type="int" Nullable="false" />
           <Property Name="message" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="userId" Type="int" />
         </EntityType>
         <EntityType Name="project">
           <Key>
@@ -122,6 +118,9 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
+        <Function Name="spgetMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spGetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spGetParticipantsByProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projId" Type="int" Mode="In" />
@@ -158,20 +157,13 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
         <EntityContainer Name="PMISModelStoreContainer">
           <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="projecmessage" EntityType="Self.projecmessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="projectactivity" EntityType="Self.projectactivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tasklog" EntityType="Self.tasklog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useractivities" EntityType="Self.useractivities" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="projecmessage" EntityType="Self.projecmessage" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [projecmessage].[messId] AS [messId], 
-    [projecmessage].[projId] AS [projId], 
-    [projecmessage].[message] AS [message], 
-    [projecmessage].[date] AS [date]
-    FROM [dbo].[projecmessage] AS [projecmessage]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -208,7 +200,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
           <EntitySet Name="tasks" EntityType="PMISModel.task" />
           <EntitySet Name="tasklogs" EntityType="PMISModel.tasklog" />
-          <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
           <EntitySet Name="participants" EntityType="PMISModel.participant" />
           <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
           <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
@@ -221,7 +212,11 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           </FunctionImport>
           <EntitySet Name="useractivities" EntityType="PMISModel.useractivity" />
           <FunctionImport Name="spgetuseractivites" ReturnType="Collection(PMISModel.spgetuseractivites_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
+          <FunctionImport Name="spgetMessages" ReturnType="Collection(PMISModel.spgetMessages_Result)">
+            <Parameter Name="projId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spgetTaskLog_Result">
@@ -348,18 +343,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="assignto" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="projecmessage">
-          <Key>
-            <PropertyRef Name="messId" />
-            <PropertyRef Name="projId" />
-            <PropertyRef Name="message" />
-            <PropertyRef Name="date" />
-          </Key>
-          <Property Name="messId" Type="Int32" Nullable="false" />
-          <Property Name="projId" Type="Int32" Nullable="false" />
-          <Property Name="message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="participant">
           <Key>
             <PropertyRef Name="partId" />
@@ -451,6 +434,25 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
           <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="taskTitle" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="projecmessage">
+          <Key>
+            <PropertyRef Name="messId" />
+          </Key>
+          <Property Name="messId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projId" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="spgetMessages_Result">
+          <Property Type="Int32" Name="messId" Nullable="false" />
+          <Property Type="Int32" Name="projId" Nullable="false" />
+          <Property Type="String" Name="message" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="profpath" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -619,16 +621,6 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="projecmessages">
-            <EntityTypeMapping TypeName="PMISModel.projecmessage">
-              <MappingFragment StoreEntitySet="projecmessage">
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="message" ColumnName="message" />
-                <ScalarProperty Name="projId" ColumnName="projId" />
-                <ScalarProperty Name="messId" ColumnName="messId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="participants">
             <EntityTypeMapping TypeName="PMISModel.participant">
               <MappingFragment StoreEntitySet="participant">
@@ -741,6 +733,30 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="Fullname" ColumnName="Fullname" />
                 <ScalarProperty Name="projTitle" ColumnName="projTitle" />
                 <ScalarProperty Name="taskTitle" ColumnName="taskTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="projecmessages">
+            <EntityTypeMapping TypeName="PMISModel.projecmessage">
+              <MappingFragment StoreEntitySet="projecmessage">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="messId" ColumnName="messId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spgetMessages" FunctionName="PMISModel.Store.spgetMessages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PMISModel.spgetMessages_Result">
+                <ScalarProperty Name="messId" ColumnName="messId" />
+                <ScalarProperty Name="projId" ColumnName="projId" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="profpath" ColumnName="profpath" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
