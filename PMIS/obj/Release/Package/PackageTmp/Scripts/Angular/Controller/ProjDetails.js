@@ -12,6 +12,8 @@
     var userarray = [];
     var olduserarray = [];
     var removeuser = [];
+    var showbtnEdit;
+    var showbtnTask;
 
     s.data = {};
 
@@ -21,12 +23,6 @@
 
     var chat = $.connection.chatHub;
 
-    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
-        $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
-            chat.server.saveConnectionId();
-        })
-    }
     //else {
     //    getProjDetails(rp.projId);
     //    refreshTask();
@@ -34,6 +30,32 @@
     getProjDetails(rp.projId);
     refreshTask();
 
+    function initializeSR() {
+        if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+            $.connection.hub.start().done(function () {
+                alert($.connection.hub.state);
+                chat.server.saveConnectionId();
+                chat.server.join(s.projDetails.projId);
+            })
+        }
+        else {
+            chat.server.join(s.projDetails.projId);
+        }
+    }
+
+    $(document).ready(function () {
+        $("#message").emojioneArea({
+            events: {
+                keydown: function (editor, event) {
+                    if (event.keyCode == 13) {
+                        console.log(this.getText());
+                        chat.server.sendToGroup(userInfo[0].username, this.getText(), userInfo[0].profpath, $("#getGroup").val());
+                        this.setText("");
+                    }
+                }
+            }
+        });
+    });
 
     //Modal
 
@@ -97,28 +119,29 @@
         }
     }
 
-    s.btnStatus = function (status) {
-        if (status == "Active") {
-            $("#btnActive").html('<i class="fa fa-check"></i> Active');
-            $("#btnSuccess").text("Completed");
-            $("#btnDefault").text("Cancelled");
-            s.data.status = "Active";
-        }
-        else if (status == "Completed") {
-            $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
-            $("#btnActive").text("Active");
-            $("#btnDefault").text("Cancelled");
-            s.data.status = "Completed";
-        }
-        else {
-            $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
-            $("#btnActive").text("Active");
-            $("#btnSuccess").text("Completed");
-            s.data.status = "Cancelled";
-        }
-    }
+    //s.btnStatus = function (status) {
+    //    if (status == "Active") {
+    //        $("#btnActive").html('<i class="fa fa-check"></i> Active');
+    //        $("#btnSuccess").text("Completed");
+    //        $("#btnDefault").text("Cancelled");
+    //        s.data.status = "Active";
+    //    }
+    //    else if (status == "Completed") {
+    //        $("#btnSuccess").html('<i class="fa fa-check"></i> Completed');
+    //        $("#btnActive").text("Active");
+    //        $("#btnDefault").text("Cancelled");
+    //        s.data.status = "Completed";
+    //    }
+    //    else {
+    //        $("#btnDefault").html('<i class="fa fa-check"></i> Cancelled');
+    //        $("#btnActive").text("Active");
+    //        $("#btnSuccess").text("Completed");
+    //        s.data.status = "Cancelled";
+    //    }
+    //}
 
     s.updateProject = function (data) {
+        data.status = "Active";
         for (i = 0; i < olduserarray.length; i++) {
             s.remUsers(olduserarray[i]);
 
@@ -236,8 +259,9 @@
         h.post("../project/getProjDetails?projId=" + projId).then(function (r) {
             s.projDetails = r.data;
             s.data = r.data;
-            s.btnStatus(r.data.status);
             creatorId = s.projDetails.userId;
+
+            initializeSR();
         })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
@@ -255,6 +279,8 @@
                     h.post("../User/getUsers?userid=" + userInfo[0].userId).then(function (r) {
                         s.users = r.data;
                         console.log("users");
+
+                        showBtns();
                     })
                 }
             }
@@ -317,12 +343,12 @@
         }
 
     }
-    s.sendMessageEnter = function ($event) {
-        if ($event.keyCode == 13 && $("#message").val() != "") {
+    s.sendMessageEnter = function (event) {
+        if (event.keyCode == 13 && $("#message").val() != "") {
             spamCount++;
             if (!mute) {
                 if ($("#message").val() != "") {
-                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, $("#getGroup").val());
+                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, s.projDetails.projId);
                     $("#message").val('').focus();
                 }
                 if (interval == null && interval2 == null) {
@@ -380,35 +406,156 @@
     }
 
     
-    s.showBtns = function (btn) {
+    //s.showBtns = function (btn) {
 
-        if (btn == "edit") {
-            if (userInfo[0].userId == creatorId) {
-                return true;
-            }
-            else {
-                return false;
-            }
+    //    if (btn == "edit") {
+    //        if (userInfo[0].userId == creatorId) {
+    //            return true;
+    //        }
+    //        else {
+    //            return false;
+    //        }
+    //    }
+    //    else if (btn == "task") {
+    //        if (userInfo[0].userId == creatorId) {
+    //            return true;
+    //        }
+    //        else {
+    //            if (ppArray.some(function (it) {
+    //                return it.userId == userInfo[0].userId;
+    //            })) {
+    //                return true;
+    //            }
+    //            else {
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //}
+
+    function showBtns() {
+        $("#addProject").hide();
+        if (userInfo[0].userId == creatorId) {
+            $("#editProj").show();
+            $("#projTask").show();
+            $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);
+            $("#projTask").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                btnActions();
+            })
         }
-        else if (btn == "task") {
-            if (userInfo[0].userId == creatorId) {
-                return true;
+        else
+        {
+            $("#editProj").hide();
+            if (ppArray.some(function (it) {
+                    return it.userId == userInfo[0].userId;
+            })) {
+                $("#projTask").show();
+                $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);
+                $("#projTask").click(function () {
+                    $("#editProj").hide();
+                    $("#projTask").hide();
+                    btnActions();
+                })
             }
             else {
-                if (ppArray.some(function (it) {
-                    return it.userId == userInfo[0].userId;
-                })) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                $("#projTask").hide();
             }
         }
     }
 
+    function btnActions() {
+        $("#breadTitle").text("" + s.projDetails.title);
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + s.projDetails.projId + '">' + s.projDetails.title + '</a></li><li class="active"><strong>Task</strong></li>');
+
+        $("#myproject").click(function () {
+            $("#editProj").hide();
+            $("#projTask").hide();
+            $("#addProject").show();
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+        })
+        $("#projectTitle").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + s.projDetails.title + '</strong></li>');
+
+            $("#myproject").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                $("#addProject").show();
+                $(".breadcrumb").empty();
+                $("#breadTitle").text("My Projects");
+                $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+            })
+        })
+    }
+
     s.profile = function (userId) {
         l.path("/user/profile/userId=" + userId);
+    }
+
+    s.timelineType = function (Ttype, type) {
+        if (Ttype == type)
+            return true;
+        else
+            return false
+    }
+    s.timelineTime = function (date) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        return moment(dateR).format('LT');
+    }
+    s.timelineIcon = function (type) {
+        if (type == "Project")
+            return type = "fa fa-folder";
+        else if (type == "Task")
+            return type = "fa fa-tasks";
+    }
+    s.timelineIconBG = function (status) {
+        if (status == "Completed") {
+            return "#04A65E";
+        }
+        else if (status == "Pending") {
+            return "#F39C14";
+        }
+        else {
+            return "#3E8DBC";
+        }
+    }
+    var timelinedate;
+    s.timelabel = function (date, index) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        if (timelinedate == null) {
+            timelinedate = dateR;
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
+        }
+        else {
+
+        }
+
+        console.log(dateR.getDate() + " " + index);
+
+        if (timelinedate.getMonth() == dateR.getMonth() && timelinedate.getDate() == dateR.getDate() && timelinedate.getFullYear() == dateR.getFullYear()) {
+
+            console.log(timelinedate.getDate() + "==" + dateR.getDate());
+        }
+        else {
+            console.log("asd " + ((timelinedate.getDate()) - 1));
+            timelinedate.setDate(((timelinedate.getDate()) - 1));
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
+            timelinedate = dateR;
+        }
+
+        //if (Object.keys(s.activities).length - 1 == index) {
+        //    console.log("KLSJDF");
+        //    $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+        //        moment(dateR).format('LL') + '</span></li>'));
+        //}
     }
 
     function myFunction(x) {

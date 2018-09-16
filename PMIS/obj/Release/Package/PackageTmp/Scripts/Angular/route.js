@@ -19,7 +19,7 @@
     })
     .when("/project/myprojects", {
         templateUrl: "../PartialViews/UserTask",
-        controller: "userTask"
+        controller: "myprojects"
     })
     .when("/user/profile/userId=:userId", {
         templateUrl: "../PartialViews/UserProfile",

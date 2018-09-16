@@ -292,6 +292,7 @@
         var Rtime = moment(dateR).fromNow();
         return Rtime;
     }
+
     s.showCreatedBy = function (userId, fullname, index, content, userId2, fullname2) {
         if (content == "finished the task" || content == "canceled the submission") {
             if (userId2 == userInfo[0].userId){

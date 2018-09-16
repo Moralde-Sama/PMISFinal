@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PMISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="PMISEntities" annotation:LazyLoadingEnabled="true">
-    <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
     <FunctionImport Name="spgetTaskLog" ReturnType="Collection(PMISModel.spgetTaskLog_Result)">
       <Parameter Name="taskId" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
-      <Parameter Name="projId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="spGetUserTask" ReturnType="Collection(PMISModel.spGetUserTask_Result)">
       <Parameter Name="projId" Mode="In" Type="Int32" />
@@ -35,21 +31,22 @@
     <EntitySet Name="projectactivities" EntityType="PMISModel.projectactivity" />
     <EntitySet Name="tasks" EntityType="PMISModel.task" />
     <EntitySet Name="tasklogs" EntityType="PMISModel.tasklog" />
-    <EntitySet Name="users" EntityType="PMISModel.user" />
     <EntitySet Name="projecmessages" EntityType="PMISModel.projecmessage" />
     <EntitySet Name="participants" EntityType="PMISModel.participant" />
     <FunctionImport Name="spGetParticipants" ReturnType="Collection(PMISModel.spGetParticipants_Result)" />
+    <FunctionImport Name="spGetProjList" ReturnType="Collection(PMISModel.spGetProjList_Result)" />
     <FunctionImport Name="spUserProjectList" ReturnType="Collection(PMISModel.spUserProjectList_Result)">
       <Parameter Name="userId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="users" EntityType="PMISModel.user" />
+    <FunctionImport Name="spProjectDetails" ReturnType="Collection(PMISModel.spProjectDetails_Result)">
+      <Parameter Name="projId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="useractivities" EntityType="PMISModel.useractivity" />
+    <FunctionImport Name="spgetuseractivites" ReturnType="Collection(PMISModel.spgetuseractivites_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
-  <ComplexType Name="spGetProjList_Result">
-    <Property Type="Int32" Name="projId" Nullable="false" />
-    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
-    <Property Type="Int32" Name="Completed" Nullable="true" />
-  </ComplexType>
   <ComplexType Name="spgetTaskLog_Result">
     <Property Type="Int32" Name="taskId" Nullable="false" />
     <Property Type="String" Name="logcontent" Nullable="false" MaxLength="100" />
@@ -58,17 +55,6 @@
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
     <Property Type="Int32" Name="userId2" Nullable="false" />
     <Property Type="String" Name="fullname2" Nullable="false" MaxLength="101" />
-  </ComplexType>
-  <ComplexType Name="spProjectDetails_Result">
-    <Property Type="Int32" Name="projId" Nullable="false" />
-    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
-    <Property Type="Int32" Name="userId" Nullable="false" />
-    <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
-    <Property Type="String" Name="version" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="lastupdated" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="createddate" Nullable="false" MaxLength="50" />
-    <Property Type="Int32" Name="Percentage" Nullable="false" />
   </ComplexType>
   <ComplexType Name="spGetUserTask_Result">
     <Property Type="Int32" Name="taskId" Nullable="false" />
@@ -185,21 +171,6 @@
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="assignto" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="user">
-    <Key>
-      <PropertyRef Name="userId" />
-    </Key>
-    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="middlename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="coverpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="connectionid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="projecmessage">
     <Key>
       <PropertyRef Name="messId" />
@@ -228,11 +199,80 @@
     <Property Type="String" Name="profpath" Nullable="false" />
     <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
   </ComplexType>
+  <ComplexType Name="spGetProjList_Result">
+    <Property Type="Int32" Name="projId" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+    <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Pending" Nullable="true" />
+    <Property Type="Int32" Name="Available" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="spUserProjectList_Result">
     <Property Type="Int32" Name="projId" Nullable="false" />
     <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
     <Property Type="Int32" Name="Completed" Nullable="true" />
+    <Property Type="Int32" Name="Pending" Nullable="true" />
+    <Property Type="Int32" Name="Available" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="middlename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="profpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="coverpath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="connectionid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="spProjectDetails_Result">
+    <Property Type="Int32" Name="projId" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="creator" Nullable="false" MaxLength="54" />
+    <Property Type="String" Name="version" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="lastupdated" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="createddate" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Percentage" Nullable="false" />
+    <Property Type="Int32" Name="Percentage2" Nullable="false" />
+    <Property Type="Int32" Name="Percentage3" Nullable="false" />
+    <Property Type="Int32" Name="Completed" Nullable="false" />
+    <Property Type="Int32" Name="Pending" Nullable="false" />
+    <Property Type="Int32" Name="Available" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="useractivity">
+    <Key>
+      <PropertyRef Name="activityId" />
+    </Key>
+    <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="actcontent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="taskId" Type="Int32" />
+    <Property Name="assignto" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="spgetuseractivites_Result">
+    <Property Type="Int32" Name="activityId" Nullable="false" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="type" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="actcontent" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="taskId" Nullable="true" />
+    <Property Type="Int32" Name="assignto" Nullable="true" />
+    <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
+    <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="taskTitle" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

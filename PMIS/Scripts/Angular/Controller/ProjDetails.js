@@ -23,12 +23,6 @@
 
     var chat = $.connection.chatHub;
 
-    if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
-        $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
-            chat.server.saveConnectionId();
-        })
-    }
     //else {
     //    getProjDetails(rp.projId);
     //    refreshTask();
@@ -36,6 +30,32 @@
     getProjDetails(rp.projId);
     refreshTask();
 
+    function initializeSR() {
+        if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
+            $.connection.hub.start().done(function () {
+                alert($.connection.hub.state);
+                chat.server.saveConnectionId();
+                chat.server.join(s.projDetails.projId);
+            })
+        }
+        else {
+            chat.server.join(s.projDetails.projId);
+        }
+    }
+
+    $(document).ready(function () {
+        $("#message").emojioneArea({
+            events: {
+                keydown: function (editor, event) {
+                    if (event.keyCode == 13) {
+                        console.log(this.getText());
+                        chat.server.sendToGroup(userInfo[0].username, this.getText(), userInfo[0].profpath, $("#getGroup").val());
+                        this.setText("");
+                    }
+                }
+            }
+        });
+    });
 
     //Modal
 
@@ -240,6 +260,8 @@
             s.projDetails = r.data;
             s.data = r.data;
             creatorId = s.projDetails.userId;
+
+            initializeSR();
         })
         
         h.post("../Project/getParticipantsByProjId?projId="+projId).then(function (r) {
@@ -321,12 +343,12 @@
         }
 
     }
-    s.sendMessageEnter = function ($event) {
-        if ($event.keyCode == 13 && $("#message").val() != "") {
+    s.sendMessageEnter = function (event) {
+        if (event.keyCode == 13 && $("#message").val() != "") {
             spamCount++;
             if (!mute) {
                 if ($("#message").val() != "") {
-                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, $("#getGroup").val());
+                    chat.server.sendToGroup(userInfo[0].username, $("#message").val(), userInfo[0].profpath, s.projDetails.projId);
                     $("#message").val('').focus();
                 }
                 if (interval == null && interval2 == null) {

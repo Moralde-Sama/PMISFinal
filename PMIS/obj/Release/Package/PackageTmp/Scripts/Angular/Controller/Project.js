@@ -14,9 +14,9 @@
         })
     }
 
-    var x = window.matchMedia("(max-width: 764px)")
-    myFunction(x)
-    x.addListener(myFunction)
+    //var x = window.matchMedia("(max-width: 764px)")
+    //myFunction(x)
+    //x.addListener(myFunction)
 
     s.try = "sdf";
     var userarray = [];
@@ -33,6 +33,7 @@
 
                 h.post("../Project/getProjectList").then(function (r) {
                     s.projlist = r.data;
+                    console.log(s.projlist);
                 })
             })
         })
@@ -160,12 +161,25 @@
 
     //Modal End
 
-    function myFunction(x) {
-        if (x.matches) { // If media query matches
-            document.getElementById("breadcrumbs").style.textAlign = "center";
-        } else {
-            document.getElementById("breadcrumbs").style.textAlign = "end";
-        }
-    }
+    //function myFunction(x) {
+    //    if (x.matches) { // If media query matches
+    //        document.getElementById("breadcrumbs").style.textAlign = "center";
+    //    } else {
+    //        document.getElementById("breadcrumbs").style.textAlign = "end";
+    //    }
+    //}
 
+    s.projectTitle = function (title) {
+
+        $("#addProject").hide();
+        $("#breadTitle").text("Project Details");
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/Project/List">Project List</a></li><li class="active"><strong>' + title + '</strong></li>');
+
+        $("#myproject").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><strong>Project List</strong></li><li id="second" class="active"></li>');
+        })
+    }
 }])

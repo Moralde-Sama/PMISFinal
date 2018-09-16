@@ -1,4 +1,4 @@
-﻿<div class="animated fadeIn">
+﻿@*<div class="animated fadeIn">
     <div class="card" style="border-radius: 10px;">
         <div class="card-content" style="padding:0 20px 0 20px;">
             <div class=" row">
@@ -15,7 +15,9 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
+
+
 
 <div class="card" style="border-radius:10px; padding: 15px;">
 
@@ -24,7 +26,7 @@
 
         </div>
         <div class="col-md-2" style="font-weight:bold; font-size:25px; text-align:center;">
-            My Projects
+            {{myprojects}}
         </div>
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
@@ -72,71 +74,7 @@
         </div>
     </div>
 
-    <div class="animated fadeIn" style="margin-top:10px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="border-radius:10px;">
-                    <div class="card-title" style="padding:20px 20px 0 20px;">
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="overflow-x:auto;">
-                            <table class="table table-hover">
-                                <th style="text-align:center;">Status</th>
-                                <th style="text-align:center;">Project Title</th>
-                                <th style="text-align:center;">Completion</th>
-                                <th style="text-align:center;">Participants</th>
-                                <th style="text-align:center;">Action</th>
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="data in projlist | filter:searchProj">
-                                        <td style=" text-align:center;padding-top:23px; min-width:70px;">
-                                            <span class="{{setStatusColor2(data.status)}}">{{data.status}}</span>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:15px; min-width:250px;">
-                                            <label style="display: inline-block;position: relative; cursor:pointer;"> {{data.title}} <br><label style="display: inline-block;margin-right: .5em; font-size:10px;"> Created by: {{data.creator}}</label></label>
-                                        </td>
-                                        <td style="min-width: 150px; text-align:center; padding-top:15px;">
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: {{data.percentage}}%"></div>
-
-                                            </div>
-                                            <label style="font-size:10px; margin-top:10px;">Completion with: {{data.percentage}}%</label>
-
-                                        </td>
-
-                                        <td style="text-align:end; padding-top:15px; min-width: 280px;">
-                                            <div class="repeat" ng-repeat="pp in participants | filter: { projId: data.projId, status: 'Active' } | limitTo : 4" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
-                                                <div class="animated fadeIn">
-
-                                                    <a href="user/profile/userId={{pp.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{pp.fullname}}"><img src="{{pp.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
-                                                </div>
-                                            </div>
-                                            <div ng-if="(participants | filter: { projId: data.projId, status: 'Active' }).length > 5" style="display:inline-block; margin-left:5px; width:40px; height: 40px;">
-                                                <div class="animated fadeIn">
-
-                                                    <a href="" id="pplength" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{participantsCount((participants | filter: { projId: data.projId }).length)}}"><img src="~/uploads/3dots.png" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td style="text-align:center; padding-top:17px; min-width:180px;">
-                                            <a href="/Project/Details/projectId={{data.projId}}" class="btn btn-info"><i class="fa fa-folder-open"> Project Details</i></a>
-                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="margin: 10px 0 10px 0;">
+    <div id="mytasks" class="row" style="margin: 10px 0 10px 0; display:none;">
         <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
 
         </div>
@@ -148,7 +86,7 @@
         </div>
     </div>
 
-    <div class="animated fadeIn">
+    <div id="mytaskcontent" class="animated fadeIn" style="display:none;">
         <div class="row">
             <div class="col-md-4">
                 <div class="mini-card" style="background-color:#018D4D">
@@ -188,80 +126,45 @@
             </div>
         </div>
     </div>
-    <div class="animated fadeIn" style="margin-top:10px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="border-radius:10px;">
-                    <div class="card-title" style="padding:20px 20px 0 20px;">
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="overflow-x:auto; overflow-y: auto; max-height: 400px;">
-                            <table class="table table-hover">
-                                    <th style="text-align:center;">Status</th>
-                                    <th style="text-align:center;">Project Title</th>
-                                    <th style="text-align:center;">Task Title</th>
-                                    <th style="text-align:center;">Action</th>
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="data in tasks | filter:searchProj">
-                                        <td style=" text-align:center;padding-top:14px;">
-                                            <span class="{{setStatusColor(data.status)}}">{{data.status}}</span>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
-                                            <label>{{data.Project}}</label>
-                                        </td>
-                                        <td style="text-align:center; font-weight:bold; padding-top:13px; min-width:250px; font-size:14px;">
-                                            <label>{{data.Task}}</label>
-                                        </td>
-                                        <td style="text-align:center; padding-top:10px;">
-                                            <a ng-click="showData(data.Project, data.taskId)" class="btn btn-info"><i class="fa fa-tasks"> Details</i></a>
-                                            @*<button class="btn btn-info"><i class="fa fa-edit"> Edit</i></button>*@
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+    <div id="myactivites" class="row" style="margin: 10px 0 10px 0; display:none;" >
+        <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
+
+        </div>
+        <div class="col-md-2" style="font-weight:bold; font-size:25px; text-align:center;">
+            My Activities
+        </div>
+        <div class="col-md-5" style="background-color: #EEEEEE; height:2px; margin-top:18px;">
+
         </div>
     </div>
-</div>
-<div class="modal" id="myModal" style="display:none;">
-    <div id="ModalDialog" class="modal-dialog" style="border-radius:10px;">
-        <div class="modal-content" style="background-color:ActiveBorder;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" ng-click="closeAssignTo()" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" style="font-weight:bold;">Task Details</h4>
-            </div>
-            <div class="modal-body">
-                <div class="card" style="border-radius:10px; padding: 10px 20px 0 20px;">
-                    <div class="card-content">
-                        <div class=" row" style="padding: 0 15px 15px 15px;">
-                            <div class="col-md-12" style="text-align: center; border-bottom: 2px solid #EEEEEE; border-top: 2px solid #EEEEEE; padding-bottom:10px;">
-                                <h3 style="font-weight: bold;" class="animated fadeIn" ng-bind="data.title"></h3>
-                            </div>
-                            <div class="col-md-12" style="margin-top:10px;">
-                                <div class="form-group">
-                                    <label><i style="color: #3C8DBC;" class="fa fa-comment"></i> Comment</label>
-                                    <p style="border: 2px solid #EEEEEE; padding:15px;" ng-bind="data.description"></p>
-                                </div>
-                            </div>
-                            <div id="tasklog" class="col-md-12" style="margin: 10px 0 10px 0; max-height: 100px; text-align:center; border:2px solid #EEEEEE; padding: 5px; overflow-y:auto; display:none;">
-                                <div ng-repeat="(fIndex, log) in tasklogs">
-                                    <p style="font-size: 12px; cursor:default;"><a id="{{fIndex + 'log1'}}">{{showCreatedBy(log.userId, log.fullname, fIndex, log.logcontent, log.userId2, log.fullname2)}}</a> {{log.logcontent}}  <a id="{{fIndex + 'log2'}}"> {{showAssignTo(log.userId2, log.logcontent, fIndex, log.fullname2)}} </a> - {{convertJsonDate(log.date)}}</p>
-                                </div>
-                            </div>
-                            <div id="showBtn" class="col-md-12" style="margin-top:10px; text-align:center; display:none;">
-                                <button id="btnSubmit1" class="btn btn-info" ng-click="submitCancelTask()"><i class="fa fa-send"> Submit</i></button>
-                            </div>
-                        </div>
+
+    <div id="myactivitescont" class="animated fadeIn" style="display:none;">
+        <ul id="ultimeline" class="timeline" style="max-height:600px; overflow-y:auto;">
+            <!-- timeline time label -->
+            <li class="tline" ng-repeat="activity in activities" ng-init="timelabel(activity.date, $index)" ng-click="changeURL(activity.id, activity.type)" style="cursor:pointer;">
+
+                <i ng-if="timelineType(activity.type, 'Project')" class="{{timelineIcon(activity.type)}}" style="color:white;"></i>
+                <div ng-if="timelineType(activity.type, 'Project')" class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> {{timelineTime(activity.date)}}</span>
+                    <h3 class="timeline-header no-border"><a href="#"></a> {{activity.actcontent}}</h3>
+                </div>
+
+                <i ng-if="timelineType(activity.type, 'Task')" class="{{timelineIcon(activity.type)}}" style="color:white;"></i>
+                <div ng-if="timelineType(activity.type, 'Task')" class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> {{timelineTime(activity.date)}}</span>
+                    <h3 class="timeline-header">Project: {{activity.projTitle}}</h3>
+                    <h3 class="timeline-header">Task: {{activity.taskTitle}}</h3>
+                    <div class="timeline-body">
+                        {{activity.actcontent}} <a href="/user/profile/userId={{activity.assignto}}"> {{activity.Fullname}}</a>
                     </div>
                 </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+
+            </li>
+            <!-- END timeline item -->
+            <li>
+                <i class="fa fa-clock-o bg-gray"></i>
+            </li>
+        </ul>
+    </div>
 </div>

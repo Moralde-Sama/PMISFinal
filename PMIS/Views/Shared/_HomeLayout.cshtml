@@ -32,6 +32,8 @@
     <link href="~/Content/Collapsable.css" rel="stylesheet" /> 
     <!--Snarl Plugin-->
     <link href="~/Content/plugins/snarl/snarl.css" rel="stylesheet" />
+    <!--EMoji-->
+    <link href="~/Content/plugins/Emoji/emojionearea.css" rel="stylesheet" />
 
 
     
@@ -229,6 +231,7 @@
             <!-- Content Header (Page header) -->
             <!-- Main content -->
             <section class="content">
+
                 @RenderBody()
                 <div class="animated fadeIn">
                     <div class="card" style="border-radius: 10px;">
@@ -484,9 +487,9 @@
     <!--MomentJS-->
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/breadcrumbs.js"></script>
-
-
-
+    <!--EmojiJS-->
+    <script src="~/Content/plugins/Emoji/emojionearea.js"></script>
+    <script src="~/Content/plugins/Emoji/Initialize.js"></script>
 </body>
 
 </html>

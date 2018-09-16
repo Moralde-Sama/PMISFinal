@@ -32,6 +32,8 @@
     <link href="~/Content/Collapsable.css" rel="stylesheet" /> 
     <!--Snarl Plugin-->
     <link href="~/Content/plugins/snarl/snarl.css" rel="stylesheet" />
+    <!--EMoji-->
+    <link href="~/Content/plugins/Emoji/emojionearea.css" rel="stylesheet" />
 
 
     
@@ -203,19 +205,20 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="treeview active">
+                    <li id="dashboard" class="treeview active">
                         <a href="/user/dashboard">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-folder"></i> <span>Projects</span> <i class="fa fa-angle-left pull-right"></i>
+                    <li id="sadmin" class="treeview" style="display:none;">
+                        <a href="/Project/List">
+                            <i class="fa fa-folder-open"></i> <span>Project List</span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/Project/List"><i class="fa fa-list"></i>Project List</a></li>
-                            <li><a href="/project/myprojects"><i class="fa fa-tasks"></i>My Projects</a></li>
-                        </ul>
+                    </li>
+                    <li id="user" class="treeview" style="display:none;">
+                        <a href="/project/myprojects">
+                            <i class="fa fa-folder-open"></i> <span>My Projects</span>
+                        </a>
                     </li>
                 </ul>
             </section>
@@ -228,7 +231,40 @@
             <!-- Content Header (Page header) -->
             <!-- Main content -->
             <section class="content">
+
                 @RenderBody()
+                <div class="animated fadeIn">
+                    <div class="card" style="border-radius: 10px;">
+                        <div class="card-content" style="padding:0 20px 0 20px;">
+                            <div class=" row">
+                                <div class="col-md-7">
+                                    <h2 id="breadTitle" style="font-weight:bold;">Dashboard</h2>
+                                    <ol id="breadcrumbsbtm" class="breadcrumb">
+                                        <li>
+                                            <strong>Dashboard</strong>
+                                        </li>
+                                        <li class="active">
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="col-sm-5" id="breadcrumbs" style="text-align:end; padding: 30px 20px 20px 30px;">
+                                   
+                                    <a id="addProject" onclick="Modal()" class="btn btn-app" style="background-color:transparent; border-radius:5px; margin-left:-5px;">
+                                        <i class="glyphicon glyphicon glyphicon-plus" style="margin-top:-5px; padding-bottom:4px;"></i> New Project
+                                    </a>
+
+                                    <a id="editProj" onclick="Modal()" class="btn btn-app" style="background-color:transparent; border-radius:5px; margin-right:10px; font-weight: 700;" ng-click="Modal('show')">
+                                        <i class="fa fa-folder" style="margin: -1px 0 0 0;"></i>Edit
+                                    </a>
+                                    <a id="projTask" class="btn btn-app" style="background-color:transparent;  border-radius:5px; margin-left:-5px; font-weight: 700;">
+                                        <i class="fa fa-tasks" style="margin: -1px 0 0 0;"></i>Tasks
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div ng-view>
 
                 </div>
@@ -450,9 +486,10 @@
     <script src="~/Content/plugins/snarl/snarl.js"></script>
     <!--MomentJS-->
     <script src="~/Scripts/moment.js"></script>
-
-
-
+    <script src="~/Scripts/breadcrumbs.js"></script>
+    <!--EmojiJS-->
+    <script src="~/Content/plugins/Emoji/emojionearea.js"></script>
+    <script src="~/Content/plugins/Emoji/Initialize.js"></script>
 </body>
 
 </html>

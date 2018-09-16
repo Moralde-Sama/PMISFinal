@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card" style="border-radius:10px;">
-                <div class="card-content" style="margin: 15px 15px 15px 15px;">
+                <div class="card-content" style="margin: 5px 15px 15px 15px;">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="m-b-md">
@@ -91,8 +91,8 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            @*<li style="cursor:pointer;" ng-click="click('tab1')" class="active"><a data-toggle="tab">Users messages</a></li>*@
-                                            <li style="cursor:pointer;" ng-click="click('tab2')" class="active"><a data-toggle="tab">Last activity</a></li>
+                                            <li style="cursor:pointer;" ng-click="click('tab1')" class="active"><a data-toggle="tab">Users messages</a></li>
+                                            <li style="cursor:pointer;" ng-click="click('tab2')"><a data-toggle="tab">Last activity</a></li>
                                             <li style="cursor:pointer;" ng-click="click('tab3')"><a data-toggle="tab">Participant</a></li>
                                             <li style="cursor:pointer;" ng-click="click('tab4')"><a data-toggle="tab">Task</a></li>
                                         </ul>
@@ -101,62 +101,51 @@
                             </div>
                         </div>
 
-                        <div id="tab-1" style="display:none; padding:0 30px 0 30px;">
+                        <div id="tab-1" style="display:block; padding:0 30px 0 30px;">
                             <div id="messageContainer" style="padding: 0 2px 0 2px; overflow-y: auto;">
                                 <!-- Message. Default to the left -->
                                 <div class="direct-chat-msg">
                                     <div class="direct-chat-info clearfix">
-                                        <span class="direct-chat-name pull-left" style="color:#00BCD4;">Alexander Pierce</span>
+                                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                                     </div><!-- /.direct-chat-info -->
                                     <img class="direct-chat-img" src="~/Content/dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text" style="color:white; background-color:#00BCD4;">
+                                    <div class="direct-chat-text" style="color:white; background-color:#3E8DBC;">
                                         Is this template really for free? That's unbelievable!
                                     </div><!-- /.direct-chat-text -->
-                                </div><!-- /.direct-chat-msg -->
+                                </div>
                                 <!-- Message to the right -->
                                 <div class="direct-chat-msg right">
                                     <div class="direct-chat-info clearfix">
-                                        <div style="color:#00BCD4; text-align:end;">
-                                            <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                        </div>
+                                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                                     </div><!-- /.direct-chat-info -->
                                     <img class="direct-chat-img" src="~/Content/dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text" style="color:white; background-color:#00BCD4;">
+                                    <div class="direct-chat-text" style="background-color:#3E8DBC; color:white; word-break:break-all;">
                                         You better believe it!
                                     </div><!-- /.direct-chat-text -->
-                                </div><!-- /.direct-chat-msg -->
+                                </div>
                                 <!-- Message. Default to the left -->
                                 <div class="direct-chat-msg">
                                     <div class="direct-chat-info clearfix">
-                                        <span class="direct-chat-name pull-left" style="color:#00BCD4;">Alexander Pierce</span>
+                                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
                                     </div><!-- /.direct-chat-info -->
                                     <img class="direct-chat-img" src="~/Content/dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text" style="color:white; background-color:#00BCD4;">
+                                    <div class="direct-chat-text" style="color:white; background-color:#3E8DBC;">
                                         Working with AdminLTE on a great new app! Wanna join?
                                     </div><!-- /.direct-chat-text -->
-                                </div><!-- /.direct-chat-msg -->
-                                <!-- Message to the right -->
-                                <div class="direct-chat-msg right">
-                                    <div class="direct-chat-info clearfix">
-                                        <div style="color:#00BCD4; text-align:end;">
-                                            <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                        </div>
-                                    </div><!-- /.direct-chat-info -->
-                                    <img class="direct-chat-img" src="~/Content/dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text" style="color:white; background-color:#00BCD4;">
-                                        I would love to.
-                                    </div><!-- /.direct-chat-text -->
-                                </div><!-- /.direct-chat-msg -->
+                                </div>
                             </div>
                             <input type="hidden" id="getGroup" value="{{projDetails.projId}}" />
                             <div class="input-group" style="margin-top:30px;">
-                                <input type="text" class="form-control" id="message" ng-keydown="sendMessageEnter($event)">
+                                <input type="text" class="form-control" id="message">
                                 <span class="input-group-btn">
                                     <button ng-click="sendMessage()" class="btn btn-info btn-flat" type="button">Send</button>
                                 </span>
                             </div>
                         </div>
-                        <div id="tab-2" class="animated fadeIn" style="display:block;  padding: 0 1px 0 0; margin:0 20px 0 30px; overflow-y:auto">
+                        <div id="tab-2" class="animated fadeIn" style="display:none;  padding: 0 1px 0 0; margin:0 20px 0 30px; overflow-y:auto">
 
                             <div id="myactivitescont" class="animated fadeIn">
                                 <ul id="ultimeline" class="timeline">

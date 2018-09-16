@@ -304,6 +304,28 @@
     <Content Include="Content\MyCSS.css" />
     <Content Include="Content\MyIcon\icons8_Tasklist.ico" />
     <Content Include="Content\MyIcon\icons8_Tasklist_1.ico" />
+    <Content Include="Content\plugins\Emoji\css\emoji.css" />
+    <Content Include="Content\plugins\Emoji\emojionearea.css" />
+    <Content Include="Content\plugins\Emoji\emojionearea.js" />
+    <Content Include="Content\plugins\Emoji\emojionearea.min.css" />
+    <Content Include="Content\plugins\Emoji\emojionearea.min.js" />
+    <Content Include="Content\plugins\Emoji\images\placeholder.png" />
+    <Content Include="Content\plugins\Emoji\images\sprite.png" />
+    <Content Include="Content\plugins\Emoji\img\blank.gif" />
+    <Content Include="Content\plugins\Emoji\img\emoji_spritesheet_0.png" />
+    <Content Include="Content\plugins\Emoji\img\emoji_spritesheet_1.png" />
+    <Content Include="Content\plugins\Emoji\img\emoji_spritesheet_2.png" />
+    <Content Include="Content\plugins\Emoji\img\emoji_spritesheet_3.png" />
+    <Content Include="Content\plugins\Emoji\img\emoji_spritesheet_4.png" />
+    <Content Include="Content\plugins\Emoji\img\IconsetSmiles.png" />
+    <Content Include="Content\plugins\Emoji\img\IconsetSmiles_1x.png" />
+    <Content Include="Content\plugins\Emoji\img\IconsetW.png" />
+    <Content Include="Content\plugins\Emoji\img\IconsetW_1x.png" />
+    <Content Include="Content\plugins\Emoji\js\config.js" />
+    <Content Include="Content\plugins\Emoji\js\emoji-picker.js" />
+    <Content Include="Content\plugins\Emoji\Initialize.js" />
+    <Content Include="Content\plugins\Emoji\js\jquery.emojiarea.js" />
+    <Content Include="Content\plugins\Emoji\js\util.js" />
     <Content Include="Content\plugins\snarl\snarl.css" />
     <Content Include="Content\plugins\snarl\snarl.js" />
     <Content Include="Content\plugins\snarl\snarl.min.css" />
@@ -382,6 +404,9 @@
     <Content Include="Content\plugins\snarl\snarl.min.js.map">
       <DependentUpon>snarl.min.js</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\Emoji\css\emoji.css.map" />
+    <Content Include="Content\plugins\Emoji\js\emoji-picker.coffee" />
+    <Content Include="Content\plugins\Emoji\js\emoji-picker.js.map" />
     <None Include="Properties\PublishProfiles\pmis.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\Angular\angular-route.min.js" />

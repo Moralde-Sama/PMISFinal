@@ -115,22 +115,23 @@ $(function () {
     }
 
     chat.client.sendToGroup = function (name, message, profPath) {
-        if(name == $("#userName").val()){
-            $('#messageContainer').append('<div class="direct-chat-msg right">'+
-                '<div class="direct-chat-info clearfix">'+
-                '<div style="color:#00BCD4; text-align:end;">' +
-                '<span class="direct-chat-name pull-right">' + name + '</span></div>' +
-                '<img style="margin-right:-35px; margin-top: 17px;" class="direct-chat-img" src="'+profPath+'" alt="message user image">' +
-                '<div class="direct-chat-text" style="color:white; background-color:#00BCD4; margin-top: 23px; word-break:break-all;">' +
+        if(name == userInfo[0].username){
+            $('#messageContainer').append('<div class="direct-chat-msg right">' +
+                '<div class="direct-chat-info clearfix">' +
+                '<span class="direct-chat-name pull-right">' + name + '</span>' +
+                '<span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span></div>' +
+                '<img class="direct-chat-img" src="' + profPath + '" alt="message user image">' +
+                '<div class="direct-chat-text" style="background-color:#3E8DBC; color:white; word-break:break-all;">' +
                 message + '</div></div>');
         }
         else {
             $('#messageContainer').append('<div class="direct-chat-msg">' +
                                '<div class="direct-chat-info clearfix">' +
                                '<span class="direct-chat-name pull-left">' + name + '</span>' +
+                               '<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>' +
                                '</div><!-- /.direct-chat-info -->' +
-                               ' <img class="direct-chat-img" style="margin-right:-33px;" src="' + profPath + '" alt="message user image"><!-- /.direct-chat-img -->' +
-                               '<div class="direct-chat-text" style="word-break:break-all; font-size: 20px;"> '
+                               '<img class="direct-chat-img" style="margin-right:-33px;" src="' + profPath + '" alt="message user image"><!-- /.direct-chat-img -->' +
+                               '<div class="direct-chat-text" style="color:white; background-color:#3E8DBC; word-break:break-all;"> '
                                     + message +
                                '</div><!-- /.direct-chat-text -->  </div><!-- /.direct-chat-msg -->');
         }

@@ -325,7 +325,7 @@ namespace PMIS.Controllers
                 {
                     notif.userId = nf.assignTo;
                     notif.type = "Task";
-                    notif.notifcontent = nf.createdBy + " finished the task in " + nf.projTitle + " Project";
+                    notif.notifcontent = nf.createdBy + " finished a task in " + nf.projTitle + " Project";
                     notif.id = nf.projId;
                     notif.status = "New";
                 }
