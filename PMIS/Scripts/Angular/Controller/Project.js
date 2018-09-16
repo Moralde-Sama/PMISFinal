@@ -4,12 +4,13 @@
 
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    localStorage.Prev = "ListA";
+    localStorage.Current = "ListA";
 
     var chat = $.connection.chatHub;
 
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
             chat.server.saveConnectionId();
         })
     }
@@ -170,6 +171,7 @@
     //}
 
     s.projectTitle = function (title) {
+        localStorage.Title = title;
 
         $("#addProject").hide();
         $("#breadTitle").text("Project Details");

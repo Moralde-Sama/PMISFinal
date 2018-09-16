@@ -26,7 +26,7 @@ namespace PMIS.Controllers
         public ActionResult getUsers(string userid)
         {
             int userId = Convert.ToInt32(userid);
-            var users = db.users.Where(e => e.userId != userId).ToList();
+            var users = db.users.Where(e => e.userId != userId && e.role == "User").ToList();
             return Json(users, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

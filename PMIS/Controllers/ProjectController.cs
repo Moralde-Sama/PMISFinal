@@ -615,5 +615,12 @@ namespace PMIS.Controllers
             var messages = db.spgetMessages(projId).ToList();
             return Json(messages, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult getProjectTitle(int projId)
+        {
+            var title = db.projects.Where(e => e.projId == projId).Select(e => e.title).First();
+            return Json(new { projTitle = title }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

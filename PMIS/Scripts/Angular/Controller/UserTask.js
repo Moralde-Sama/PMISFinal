@@ -1,6 +1,8 @@
 ﻿module.controller("myprojects", ["$scope", "$http", "$routeParams", function (s, h, rp) {
 
     var userInfo = JSON.parse(localStorage.userInfo);
+        localStorage.Prev = "List";
+        localStorage.Current = "List";
 
     s.data = {};
     var userarray = [];
@@ -304,6 +306,7 @@
     //Modal End
 
     s.projectDetails = function (title) {
+        localStorage.Title = title;
 
         $("#addProject").hide();
         $("#breadTitle").text("Project Details");
@@ -320,6 +323,7 @@
         })
     }
     s.projectTask = function (title, id) {
+        localStorage.Title = title;
         $("#addProject").hide();
         $("#editProj").hide();
         $("#projTask").hide();

@@ -22,6 +22,40 @@ $.post("../Account/getNotifications", { userId: userInfo[0].userId }, function (
                 $("#notif" + i).css("display", "none");
             });
         })
+
+        $("#notifli" + i).click(function () {
+            $.post("../Project/getProjectTitle", { projId: result.notification[i].id }, function (r) {
+                
+                user.className = "treeview";
+                dashboard.className = "treeview active";
+                $("#breadTitle").text(r.projTitle + " Tasks");
+                $(".breadcrumb").empty();
+                $(".breadcrumb").append('<li><a id="myproject" href="/user/dashboard">Dashboard</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + result.notification[i].id + '">' + r.projTitle + '</a></li><li class="active"><strong>Task</strong></li>');
+
+                $("#myproject").click(function () {
+                    $("#editProj").hide();
+                    $("#projTask").hide();
+                    $("#addProject").hide();
+                    $(".breadcrumb").empty();
+                    $("#breadTitle").text("Dashboard");
+                    $(".breadcrumb").append('<li><strong>Dashboard</strong></li><li id="second" class="active"></li>');
+                })
+                $("#projectTitle").click(function () {
+                    $(".breadcrumb").empty();
+                    $("#breadTitle").text("My Projects");
+                    $(".breadcrumb").append('<li><a id="myproject" href="/user/dashboard">Dashboard</a></li><li class="active"><strong>' + r.projTitle + '</strong></li>');
+
+                    $("#myproject").click(function () {
+                        $("#editProj").hide();
+                        $("#projTask").hide();
+                        $("#addProject").hide();
+                        $(".breadcrumb").empty();
+                        $("#breadTitle").text("Dashboard");
+                        $(".breadcrumb").append('<li><strong>Dashboard</strong></li><li id="second" class="active"></li>');
+                    })
+                })
+            })
+        })
     })
 })
 

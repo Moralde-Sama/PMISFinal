@@ -4,6 +4,10 @@
 function logout() {
     $.post("../Account/Logout", function (data, status) {
         localStorage.removeItem("userInfo");
+        localStorage.removeItem("Current");
+        localStorage.removeItem("Prev");
+        localStorage.removeItem("Title");
+        localStorage.removeItem("projId");
         location.href = "../Account/Login";
     });
 }

@@ -140,7 +140,7 @@
         </div>
     </div>
 </div>
-<div class="modal" id="myModal" style="display:none; background-color:transparent;">
+<div class="modal" id="myModal" style="display:none;">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:ActiveBorder;">
             <div class="modal-header">
@@ -148,37 +148,32 @@
                 <h4 class="modal-title" style="font-weight:bold;">Assign To</h4>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <div class="card-title" style="padding:20px 20px 0 20px;">
                         <div class="input-group">
                             <input type="text" class="form-control" ng-model="searchProj" style="color:black;">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
                         </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="overflow-y:auto; max-height:300px;">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="participant in participants | filter:searchProj">
-                                        <td style="text-align:end; padding-top:15px; max-width: 250px;">
-                                            <div class="animated fadeIn" style="margin-left:5px; width:40px; height: 40px;">
+                <div style="overflow-y:auto; max-height:300px;">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr class="animated fadeIn" ng-repeat="participant in participants | filter:searchProj">
+                                <td style="text-align:end; padding-top:15px; max-width: 250px;">
+                                    <div class="animated fadeIn" style="margin-left:5px; width:40px; height: 40px;">
 
-                                                <a href=""><img src="{{participant.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                        <a href=""><img src="{{participant.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
 
-                                            </div>
-                                        </td>
-                                        <td style="min-width:140px; padding-top:25px;">
-                                            {{participant.fullname}}
-                                        </td>
+                                    </div>
+                                </td>
+                                <td style="min-width:140px; padding-top:25px;">
+                                    {{participant.fullname}}
+                                </td>
 
-                                        <td style="text-align:center; padding-top:17px; width:100px;">
-                                            <a class="btn btn-info" ng-click="assignTo(participant.profpath, participant.fullname, participant.userId)"> Assign</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                <td style="text-align:center; padding-top:17px; width:100px;">
+                                    <a class="btn btn-info" ng-click="assignTo(participant.profpath, participant.fullname, participant.userId)"> Assign</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 </div>
             </div>
         </div><!-- /.modal-content -->

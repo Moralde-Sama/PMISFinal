@@ -142,7 +142,7 @@
     <div id="myactivitescont" class="animated fadeIn" style="display:none;">
         <ul id="ultimeline" class="timeline" style="max-height:600px; overflow-y:auto;">
             <!-- timeline time label -->
-            <li class="tline" ng-repeat="activity in activities" ng-init="timelabel(activity.date, $index)" ng-click="changeURL(activity.id, activity.type)" style="cursor:pointer;">
+            <li class="tline" ng-repeat="activity in activities" ng-init="timelabel(activity.date, $index)" ng-click="changeURL(activity.id, activity.type); clickActivity(activity.projTitle, activity.id)" style="cursor:pointer;">
 
                 <i ng-if="timelineType(activity.type, 'Project')" class="{{timelineIcon(activity.type)}}" style="color:white;"></i>
                 <div ng-if="timelineType(activity.type, 'Project')" class="timeline-item">

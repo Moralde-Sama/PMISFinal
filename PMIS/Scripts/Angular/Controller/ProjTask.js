@@ -3,6 +3,11 @@
     document.title = "PMIS | Project Tasks"
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    if (localStorage.Current != "Task") {
+        localStorage.Prev = localStorage.Current;
+        localStorage.Current = "Task";
+    }
+    localStorage.projId = rp.projId;
 
     //Chat
 
@@ -10,7 +15,6 @@
 
     if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
         $.connection.hub.start().done(function () {
-            alert($.connection.hub.state);
             chat.server.saveConnectionId();
         })
     }
@@ -426,18 +430,18 @@
         $("#MySelectImg").attr("src", profPath);
         $("#MySelectName").text(fullname);
         s.data.assignto = userId;
-        $('#myModal').animateCss('zoomOut', function () {
+        $('.modal-content').animateCss('zoomOut', function () {
             document.getElementById("myModal").style.display = "none";
         });
     }
 
     s.clickAssignTo = function () {
         document.getElementById("myModal").style.display = "block";
-        $('#myModal').animateCss('zoomIn', function () {
+        $('.modal-content').animateCss('zoomIn', function () {
         });
     }
     s.closeAssignTo = function () {
-        $('#myModal').animateCss('zoomOut', function () {
+        $('.modal-content').animateCss('zoomOut', function () {
             document.getElementById("myModal").style.display = "none";
         });
     }

@@ -3,6 +3,11 @@
     document.title = "PMIS | Project Details"
 
     var userInfo = JSON.parse(localStorage.userInfo);
+    if(localStorage.Current != "Details"){
+        localStorage.Prev = localStorage.Current;
+        localStorage.Current = "Details";
+    }
+    localStorage.projId = rp.projId;
 
     var spamCount = 0;
     var spamLimit = 3;
@@ -35,7 +40,6 @@
     function initializeSR() {
         if ($.connection.hub.state == 4 || $.connection.hub.state == 0) {
             $.connection.hub.start().done(function () {
-                alert($.connection.hub.state);
                 chat.server.saveConnectionId();
                 chat.server.join(s.projDetails.projId);
             })
@@ -529,7 +533,10 @@
     }
 
     function btnActions() {
-        $("#breadTitle").text("" + s.projDetails.title);
+        localStorage.projId = s.projDetails.projId;
+        localStorage.Title = s.projDetails.title;
+
+        $("#breadTitle").text(s.projDetails.title + "Tasks");
         $(".breadcrumb").empty();
         $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + s.projDetails.projId + '">' + s.projDetails.title + '</a></li><li class="active"><strong>Task</strong></li>');
 
@@ -543,7 +550,7 @@
         })
         $("#projectTitle").click(function () {
             $(".breadcrumb").empty();
-            $("#breadTitle").text("My Projects");
+            $("#breadTitle").text("Project Details");
             $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + s.projDetails.title + '</strong></li>');
 
             $("#myproject").click(function () {

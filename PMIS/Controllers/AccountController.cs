@@ -59,6 +59,10 @@ namespace PMIS.Controllers
             }
             else
             {
+
+                p.role = "User";
+                p.coverpath = "/uploads/defaultcover.jpg";
+
                 if (file != null)
                 {
                     string extension = Path.GetExtension(file.FileName);
