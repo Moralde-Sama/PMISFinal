@@ -260,6 +260,7 @@
       <EntityTypeMapping TypeName="PMISModel.useractivity">
         <MappingFragment StoreEntitySet="useractivities">
           <ScalarProperty Name="assignto" ColumnName="assignto" />
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="actcontent" ColumnName="actcontent" />
@@ -278,9 +279,11 @@
           <ScalarProperty Name="actcontent" ColumnName="actcontent" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="taskId" ColumnName="taskId" />
           <ScalarProperty Name="assignto" ColumnName="assignto" />
           <ScalarProperty Name="Fullname" ColumnName="Fullname" />
           <ScalarProperty Name="projTitle" ColumnName="projTitle" />
+          <ScalarProperty Name="taskTitle" ColumnName="taskTitle" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

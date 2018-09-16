@@ -303,7 +303,7 @@
 
     //Modal End
 
-    s.projectTitle = function (title) {
+    s.projectDetails = function (title) {
 
         $("#addProject").hide();
         $("#breadTitle").text("Project Details");
@@ -311,9 +311,44 @@
         $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + title + '</strong></li>');
         
         $("#myproject").click(function () {
+            $("#editProj").hide();
+            $("#projTask").hide();
+            $("#addProject").show();
             $(".breadcrumb").empty();
             $("#breadTitle").text("My Projects");
             $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+        })
+    }
+    s.projectTask = function (title, id) {
+        $("#addProject").hide();
+        $("#editProj").hide();
+        $("#projTask").hide();
+
+        $("#breadTitle").text(title);
+        $(".breadcrumb").empty();
+        $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + id + '">' + title + '</a></li><li class="active"><strong>Task</strong></li>');
+
+        $("#myproject").click(function () {
+            $("#editProj").hide();
+            $("#projTask").hide();
+            $("#addProject").show();
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+        })
+        $("#projectTitle").click(function () {
+            $(".breadcrumb").empty();
+            $("#breadTitle").text("My Projects");
+            $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + title + '</strong></li>');
+
+            $("#myproject").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                $("#addProject").show();
+                $(".breadcrumb").empty();
+                $("#breadTitle").text("My Projects");
+                $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+            })
         })
     }
 }])

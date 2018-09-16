@@ -259,6 +259,7 @@
     <Property Name="actcontent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="taskId" Type="Int32" />
     <Property Name="assignto" Type="Int32" />
   </EntityType>
   <ComplexType Name="spgetuseractivites_Result">
@@ -268,8 +269,10 @@
     <Property Type="String" Name="actcontent" Nullable="false" />
     <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
     <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="taskId" Nullable="true" />
     <Property Type="Int32" Name="assignto" Nullable="true" />
     <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
     <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="taskTitle" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

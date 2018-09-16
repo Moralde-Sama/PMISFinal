@@ -19,8 +19,10 @@ namespace PMIS.Models
         public string actcontent { get; set; }
         public System.DateTime date { get; set; }
         public int id { get; set; }
+        public Nullable<int> taskId { get; set; }
         public Nullable<int> assignto { get; set; }
         public string Fullname { get; set; }
         public string projTitle { get; set; }
+        public string taskTitle { get; set; }
     }
 }

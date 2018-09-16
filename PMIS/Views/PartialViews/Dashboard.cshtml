@@ -153,7 +153,8 @@
                 <i ng-if="timelineType(activity.type, 'Task')" class="{{timelineIcon(activity.type)}}" style="color:white;"></i>
                 <div ng-if="timelineType(activity.type, 'Task')" class="timeline-item">
                     <span class="time"><i class="fa fa-clock-o"></i> {{timelineTime(activity.date)}}</span>
-                    <h3 class="timeline-header">{{activity.projTitle}}</h3>
+                    <h3 class="timeline-header">Project: {{activity.projTitle}}</h3>
+                    <h3 class="timeline-header">Task: {{activity.taskTitle}}</h3>
                     <div class="timeline-body">
                         {{activity.actcontent}} <a href="/user/profile/userId={{activity.assignto}}"> {{activity.Fullname}}</a>
                     </div>

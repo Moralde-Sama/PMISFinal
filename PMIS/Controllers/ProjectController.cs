@@ -331,6 +331,7 @@ namespace PMIS.Controllers
                 activity.date = DateTime.Now;
                 activity.id = task.projId;
                 activity.assignto = task.assignto;
+                activity.taskId = task.taskId;
                 db.useractivities.Add(activity);
                 db.SaveChanges();
 
@@ -393,6 +394,7 @@ namespace PMIS.Controllers
                 activity.userId = task.assignto;
                 activity.type = "Task";
                 activity.date = DateTime.Now;
+                activity.taskId = task.taskId;
                 activity.id = task.projId;
 
                 tasklog log = new tasklog();
@@ -406,7 +408,7 @@ namespace PMIS.Controllers
                 }
                 else {
                     log.logcontent = "finished the task";
-                    activity.actcontent = "You finished the task named " + task.title;
+                    activity.actcontent = "You finished the task ";
                     finished = true;
                 }
 
@@ -560,6 +562,7 @@ namespace PMIS.Controllers
             activity.type = "Task";
             activity.date = DateTime.Now;
             activity.id = task.projId;
+            activity.taskId = task.taskId;
             activity.assignto = task.assignto;
 
             projectactivity pact = new projectactivity();

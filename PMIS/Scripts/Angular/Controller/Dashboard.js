@@ -74,29 +74,32 @@
         var dateR = new Date(parseInt(date.substr(6)));
         if (timelinedate == null) {
             timelinedate = dateR;
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
         }
         else {
 
         }
 
-        console.log(dateR.getDay());
+        console.log(dateR.getDate()+ " " + index);
 
-        if (timelinedate.getMonth() == dateR.getMonth() && timelinedate.getDay() == dateR.getDay() && timelinedate.getFullYear() == dateR.getFullYear()) {
+        if (timelinedate.getMonth() == dateR.getMonth() && timelinedate.getDate() == dateR.getDate() && timelinedate.getFullYear() == dateR.getFullYear()) {
 
-            console.log(timelinedate.getDay() + "==" + dateR.getDay());
+            console.log(timelinedate.getDate() + "==" + dateR.getDate());
         }
         else {
-            console.log("asd");
-            $(".tline").eq(index - (Object.keys(s.activities).length - 1)).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+            console.log("asd " + ((timelinedate.getDate()) - 1));
+            timelinedate.setDate(((timelinedate.getDate()) - 1));
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
                 moment(timelinedate).format('LL') + '</span></li>'));
             timelinedate = dateR;
         }
         
-        if (Object.keys(s.activities).length - 1 == index) {
-            console.log("KLSJDF");
-            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
-                moment(dateR).format('LL') + '</span></li>'));
-        }
+        //if (Object.keys(s.activities).length - 1 == index) {
+        //    console.log("KLSJDF");
+        //    $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+        //        moment(dateR).format('LL') + '</span></li>'));
+        //}
     }
 
     s.timelineType = function (Ttype, type) {

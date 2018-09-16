@@ -111,6 +111,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
     <Property Name="actcontent" Type="varchar(max)" Nullable="false" />
     <Property Name="date" Type="datetime" Nullable="false" />
     <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="taskId" Type="int" />
     <Property Name="assignto" Type="int" />
   </EntityType>
   <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

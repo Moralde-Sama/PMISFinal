@@ -116,6 +116,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="actcontent" Type="varchar(max)" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="taskId" Type="int" />
           <Property Name="assignto" Type="int" />
         </EntityType>
         <Function Name="spgetAllUserTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -435,6 +436,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Name="actcontent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="taskId" Type="Int32" />
           <Property Name="assignto" Type="Int32" />
         </EntityType>
         <ComplexType Name="spgetuseractivites_Result">
@@ -444,9 +446,11 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
           <Property Type="String" Name="actcontent" Nullable="false" />
           <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="taskId" Nullable="true" />
           <Property Type="Int32" Name="assignto" Nullable="true" />
           <Property Type="String" Name="Fullname" Nullable="false" MaxLength="101" />
           <Property Type="String" Name="projTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="taskTitle" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -713,6 +717,7 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
             <EntityTypeMapping TypeName="PMISModel.useractivity">
               <MappingFragment StoreEntitySet="useractivities">
                 <ScalarProperty Name="assignto" ColumnName="assignto" />
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="actcontent" ColumnName="actcontent" />
@@ -731,9 +736,11 @@ warning 6002: The table/view 'PMIS.dbo.projecmessage' does not have a primary ke
                 <ScalarProperty Name="actcontent" ColumnName="actcontent" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="taskId" ColumnName="taskId" />
                 <ScalarProperty Name="assignto" ColumnName="assignto" />
                 <ScalarProperty Name="Fullname" ColumnName="Fullname" />
                 <ScalarProperty Name="projTitle" ColumnName="projTitle" />
+                <ScalarProperty Name="taskTitle" ColumnName="taskTitle" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

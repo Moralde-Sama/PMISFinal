@@ -449,6 +449,9 @@
         $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><a id="projectTitle" href="/Project/Details/projectId=' + s.projDetails.projId + '">' + s.projDetails.title + '</a></li><li class="active"><strong>Task</strong></li>');
 
         $("#myproject").click(function () {
+            $("#editProj").hide();
+            $("#projTask").hide();
+            $("#addProject").show();
             $(".breadcrumb").empty();
             $("#breadTitle").text("My Projects");
             $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
@@ -459,6 +462,9 @@
             $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + s.projDetails.title + '</strong></li>');
 
             $("#myproject").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                $("#addProject").show();
                 $(".breadcrumb").empty();
                 $("#breadTitle").text("My Projects");
                 $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
@@ -468,6 +474,66 @@
 
     s.profile = function (userId) {
         l.path("/user/profile/userId=" + userId);
+    }
+
+    s.timelineType = function (Ttype, type) {
+        if (Ttype == type)
+            return true;
+        else
+            return false
+    }
+    s.timelineTime = function (date) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        return moment(dateR).format('LT');
+    }
+    s.timelineIcon = function (type) {
+        if (type == "Project")
+            return type = "fa fa-folder";
+        else if (type == "Task")
+            return type = "fa fa-tasks";
+    }
+    s.timelineIconBG = function (status) {
+        if (status == "Completed") {
+            return "#04A65E";
+        }
+        else if (status == "Pending") {
+            return "#F39C14";
+        }
+        else {
+            return "#3E8DBC";
+        }
+    }
+    var timelinedate;
+    s.timelabel = function (date, index) {
+        var dateR = new Date(parseInt(date.substr(6)));
+        if (timelinedate == null) {
+            timelinedate = dateR;
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
+        }
+        else {
+
+        }
+
+        console.log(dateR.getDate() + " " + index);
+
+        if (timelinedate.getMonth() == dateR.getMonth() && timelinedate.getDate() == dateR.getDate() && timelinedate.getFullYear() == dateR.getFullYear()) {
+
+            console.log(timelinedate.getDate() + "==" + dateR.getDate());
+        }
+        else {
+            console.log("asd " + ((timelinedate.getDate()) - 1));
+            timelinedate.setDate(((timelinedate.getDate()) - 1));
+            $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+                moment(timelinedate).format('LL') + '</span></li>'));
+            timelinedate = dateR;
+        }
+
+        //if (Object.keys(s.activities).length - 1 == index) {
+        //    console.log("KLSJDF");
+        //    $(".tline").eq(index).before($('<li class="time-label"><span class="bg-red" style="color:white;">' +
+        //        moment(dateR).format('LL') + '</span></li>'));
+        //}
     }
 
     function myFunction(x) {

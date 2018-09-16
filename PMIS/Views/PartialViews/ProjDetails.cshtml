@@ -1,36 +1,36 @@
 ﻿@*<div class="animated fadeIn">
-    <div class="card" style="border-radius:10px;">
-        <div class="card-content" style="padding:0 20px 0 20px;">
-            <div class=" row">
-                <div class="col-md-7">
-                    <h2 style="font-weight:bold;">Project Details</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            Projects
-                        </li>
-                        <li class="active">
-                            <a href="../Project/List">List</a>
-                        </li>
-                        <li class="active">
-                            <strong>{{projDetails.title}}</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-md-5" id="breadcrumbs" style="text-align:end; padding: 30px 20px 20px 30px;">
-                    <a href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent; margin-right:-5px; font-weight: 700; display:none;">
-                        <i class="fa fa-user-plus" style="margin: -1px 0 0 0;"></i> Request
-                    </a>
-                    <a ng-show="showBtns('edit')" class="btn btn-app" style="background-color:transparent; border-radius:5px; margin-right:10px; font-weight: 700;" ng-click="Modal('show')">
-                        <i class="fa fa-folder" style="margin: -1px 0 0 0;"></i>Edit
-                    </a>
-                    <a ng-show="showBtns('task')" href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent;  border-radius:5px; margin-left:-5px; font-weight: 700;">
-                        <i class="fa fa-tasks" style="margin: -1px 0 0 0;"></i>Tasks
-                    </a>
+        <div class="card" style="border-radius:10px;">
+            <div class="card-content" style="padding:0 20px 0 20px;">
+                <div class=" row">
+                    <div class="col-md-7">
+                        <h2 style="font-weight:bold;">Project Details</h2>
+                        <ol class="breadcrumb">
+                            <li>
+                                Projects
+                            </li>
+                            <li class="active">
+                                <a href="../Project/List">List</a>
+                            </li>
+                            <li class="active">
+                                <strong>{{projDetails.title}}</strong>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-5" id="breadcrumbs" style="text-align:end; padding: 30px 20px 20px 30px;">
+                        <a href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent; margin-right:-5px; font-weight: 700; display:none;">
+                            <i class="fa fa-user-plus" style="margin: -1px 0 0 0;"></i> Request
+                        </a>
+                        <a ng-show="showBtns('edit')" class="btn btn-app" style="background-color:transparent; border-radius:5px; margin-right:10px; font-weight: 700;" ng-click="Modal('show')">
+                            <i class="fa fa-folder" style="margin: -1px 0 0 0;"></i>Edit
+                        </a>
+                        <a ng-show="showBtns('task')" href="/Project/Tasks/projectId={{projDetails.projId}}" class="btn btn-app" style="background-color:transparent;  border-radius:5px; margin-left:-5px; font-weight: 700;">
+                            <i class="fa fa-tasks" style="margin: -1px 0 0 0;"></i>Tasks
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div class="animated fadeIn">
     <div class="row">
@@ -157,36 +157,57 @@
                             </div>
                         </div>
                         <div id="tab-2" class="animated fadeIn" style="display:block;  padding: 0 1px 0 0; margin:0 20px 0 30px; overflow-y:auto">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>Title</th>
-                                        <th style="min-width: 115px;">Date and Time</th>
-                                        <th>Activity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="animated fadeIn" ng-repeat="(aIndex, activity) in activities">
-                                        <td style="min-width: 100px;">
-                                            <span class="{{setStatusColor(activity.status)}}">{{activity.status}}</span>
-                                        </td>
-                                        <td style=" min-width: 140px; font-weight:500; font-size:16px;">
-                                            {{activity.title}}
-                                        </td>
-                                        <td style="min-width: 180px; font-weight:500; font-size:16px;">
-                                            {{convertJsonDate(activity.datetime)}}
-                                        </td>
-                                        <td style="min-width: 200px; font-weight:500; font-size:15px;">
-                                            <p>
+
+                            <div id="myactivitescont" class="animated fadeIn">
+                                <ul id="ultimeline" class="timeline">
+                                    <!-- timeline time label -->
+                                    <li class="tline" ng-repeat="(aIndex, activity) in activities" ng-init="timelabel(activity.datetime, aIndex)" style="cursor:default;">
+                                        <i class="fa fa-tasks" style="color:white; background-color:{{timelineIconBG(activity.status)}}"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> {{timelineTime(activity.datetime)}}</span>
+                                            <h3 class="timeline-header">Task: {{activity.title}}</h3>
+                                            <div class="timeline-body">
                                                 <a id="anchor{{aIndex}}"></a> {{logcontent(activity.logContent, activity.userId, activity.fullname, activity.userId2, activity.fullname2, aIndex)}} <a id="anchor2{{aIndex}}"></a>
-                                            </p>
-                                        </td>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                    <li>
+                                        <i class="fa fa-clock-o bg-gray"></i>
+                                    </li>
+                                </ul>
+                            </div>
 
-                                    </tr>
+                            @*<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Title</th>
+                                            <th style="min-width: 115px;">Date and Time</th>
+                                            <th>Activity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="animated fadeIn" ng-repeat="(aIndex, activity) in activities">
+                                            <td style="min-width: 100px;">
+                                                <span class="{{setStatusColor(activity.status)}}">{{activity.status}}</span>
+                                            </td>
+                                            <td style=" min-width: 140px; font-weight:500; font-size:16px;">
+                                                {{activity.title}}
+                                            </td>
+                                            <td style="min-width: 180px; font-weight:500; font-size:16px;">
+                                                {{convertJsonDate(activity.datetime)}}
+                                            </td>
+                                            <td style="min-width: 200px; font-weight:500; font-size:15px;">
+                                                <p>
+                                                    <a id="anchor{{aIndex}}"></a> {{logcontent(activity.logContent, activity.userId, activity.fullname, activity.userId2, activity.fullname2, aIndex)}} <a id="anchor2{{aIndex}}"></a>
+                                                </p>
+                                            </td>
 
-                                </tbody>
-                            </table>
+                                        </tr>
+
+                                    </tbody>
+                                </table>*@
                         </div>
                         <div id="tab-3" style="display:none; padding:20px;">
                             <div class="row">
@@ -244,7 +265,7 @@
                                             {{task.title}}
                                         </td>
                                         <td style="text-align:center; min-width: 90px;">
-                                            <a href="/user/profile/userId={{task.userId}}" class="protip" data-pt-scheme="aqua" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
+                                            <a href="/user/profile/userId={{task.userId}}" class="protip" data-pt-scheme="blue" data-pt-gravity="top 0 -10;" data-pt-title="{{task.fullname}}"><img src="{{task.profpath}}" class="img-circle" alt="User Image" style="width:40px; height: 40px;"></a>
                                         </td>
                                         <td style="text-align:center;">
                                             <p class="small" style="word-break:break-all; font-size:14px; font-weight:bold;">
@@ -331,7 +352,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                         </div><!-- /.box-body -->
+                                        </div><!-- /.box-body -->
                                     </div><!-- /.box -->
                                 </div>
                             </div>
