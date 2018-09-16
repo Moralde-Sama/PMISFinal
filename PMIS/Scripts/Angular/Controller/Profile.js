@@ -169,7 +169,10 @@
         });
     }
     s.updateprofile = function (d) {
-        if (d.username != s.USERNAME) {
+        if (d.firstname == "" || d.username == "" || d.middlename == "" || d.lastname == "") {
+            alert("Invalid Empty Field");
+        }
+        else if (d.username != s.USERNAME) {
             r.post("../Account/check_username_duplicate", d).then(function (response) {
 
                 if (response.data == "username already exist") {

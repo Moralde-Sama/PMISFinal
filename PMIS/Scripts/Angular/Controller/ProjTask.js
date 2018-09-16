@@ -87,81 +87,92 @@
     }
 
     s.createUPTask = function (data) {
-        data.assignto = s.data.assignto;
-        data.createdby = userInfo[0].userId;
-        data.projId = rp.projId;
-        data.status = s.data.status;
-        console.log("update status = " + data.status);
-        if ($("#btnCreate").text() == "Create Task") {
-            //data.title = s.tasktitle;
-            h.post("../Project/addTask", data).then(function (r) {
-                if (r.data == "Success") {
-                    s.nf = {};
-                    
-                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
-                    s.nf.projTitle = s.projtitle;
-                    s.nf.type = "Task";
-                    s.nf.projId = rp.projId;
-                    s.nf.assignTo = s.data.assignto;
-
-                    h.post("../Account/notification", s.nf).then(function (r) {
-                        if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
-                            Snarl.addNotification({
-                                title: 'Saved Successfully!',
-                                icon: '<i class="fa fa-check"></i>',
-                                timeout: 3000
-                            });
-                            s.clear();
-                            refreshTask(s.projuserId);
-                        }
-                        else {
-                            alert(r.data);
-                        }
-                    })
-                }
-                else {
-                    alert("Error");
-                }
-            })
+        if (data.assignto == null) {
+            alert("Please assign a participant");
         }
-        else {
-            h.post("../Project/updateTask", data).then(function (r) {
-                console.log(r.data);
-                if (r.data == "Success") {
+        else if (data.title == null) {
+            alert("Please write a title");
+        }
+        else if (data.description == null) {
+            alert("Please write a description");
+        }
+        else{
+            data.assignto = s.data.assignto;
+            data.createdby = userInfo[0].userId;
+            data.projId = rp.projId;
+            data.status = s.data.status;
+            console.log("update status = " + data.status);
+            if ($("#btnCreate").text() == "Create Task") {
+                //data.title = s.tasktitle;
+                h.post("../Project/addTask", data).then(function (r) {
+                    if (r.data == "Success") {
+                        s.nf = {};
+                    
+                        s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                        s.nf.projTitle = s.projtitle;
+                        s.nf.type = "Task";
+                        s.nf.projId = rp.projId;
+                        s.nf.assignTo = s.data.assignto;
 
-                    s.nf = {};
+                        h.post("../Account/notification", s.nf).then(function (r) {
+                            if (r.data != "Error") {
+                                chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                Snarl.addNotification({
+                                    title: 'Saved Successfully!',
+                                    icon: '<i class="fa fa-check"></i>',
+                                    timeout: 3000
+                                });
+                                s.clear();
+                                refreshTask(s.projuserId);
+                            }
+                            else {
+                                alert(r.data);
+                            }
+                        })
+                    }
+                    else {
+                        alert("Error");
+                    }
+                })
+            }
+            else {
+                h.post("../Project/updateTask", data).then(function (r) {
+                    console.log(r.data);
+                    if (r.data == "Success") {
 
-                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
-                    s.nf.projTitle = s.projtitle;
-                    if(data.status == "Completed")
-                        s.nf.type = "Task Approve";
-                    else
-                        s.nf.type = "Task Return";
+                        s.nf = {};
 
-                    s.nf.projId = rp.projId;
-                    s.nf.assignTo = s.data.assignto;;
+                        s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                        s.nf.projTitle = s.projtitle;
+                        if(data.status == "Completed")
+                            s.nf.type = "Task Approve";
+                        else
+                            s.nf.type = "Task Return";
 
-                    h.post("../Account/notification", s.nf).then(function (r) {
-                        if (r.data != "Error") {
-                            chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
-                            Snarl.addNotification({
-                                title: 'Updated Successfully!',
-                                icon: '<i class="fa fa-check"></i>',
-                                timeout: 3000
-                            });
-                            s.clear();
-                            refreshTask(s.projuserId);
-                        }
-                        else {
-                            alert(r.data);
-                        }
-                    })
-                }
-                else {
-                    alert("Error");
-                }
-            })
+                        s.nf.projId = rp.projId;
+                        s.nf.assignTo = s.data.assignto;;
+
+                        h.post("../Account/notification", s.nf).then(function (r) {
+                            if (r.data != "Error") {
+                                chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                Snarl.addNotification({
+                                    title: 'Updated Successfully!',
+                                    icon: '<i class="fa fa-check"></i>',
+                                    timeout: 3000
+                                });
+                                s.clear();
+                                refreshTask(s.projuserId);
+                            }
+                            else {
+                                alert(r.data);
+                            }
+                        })
+                    }
+                    else {
+                        alert("Error");
+                    }
+                })
+            }
         }
     }
 
