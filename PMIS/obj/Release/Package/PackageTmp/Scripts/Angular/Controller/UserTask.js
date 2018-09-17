@@ -196,11 +196,11 @@
         if (status == "Completed") {
             return "labelPrimary";
         }
-        else if (status == "Pending") {
-            return "label label-warning";
+        else if (status == "Active") {
+            return "label label-info";
         }
         else {
-            return "label label-info";
+            return "label label-default";
         }
     }
 

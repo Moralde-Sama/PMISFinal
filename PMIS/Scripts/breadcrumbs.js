@@ -85,21 +85,21 @@ function refresh() {
         addProject.show();
     }
     else if (localStorage.Prev == "List" && localStorage.Current == "Details" || localStorage.Prev == "Task" && localStorage.Current == "Details") {
-        dashboard.className = "treeview";
-        user.className = "treeview active";
-        $("#addProject").hide();
-        $("#breadTitle").text("Project Details");
-        $(".breadcrumb").empty();
-        $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + localStorage.Title + '</strong></li>');
-
-        $("#myproject").click(function () {
-            $("#editProj").hide();
-            $("#projTask").hide();
-            $("#addProject").show();
+            dashboard.className = "treeview";
+            user.className = "treeview active";
+            $("#addProject").hide();
+            $("#breadTitle").text("Project Details");
             $(".breadcrumb").empty();
-            $("#breadTitle").text("My Projects");
-            $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
-        })
+            $(".breadcrumb").append('<li><a id="myproject" href="/project/myprojects">My Projects</a></li><li class="active"><strong>' + localStorage.Title + '</strong></li>');
+
+            $("#myproject").click(function () {
+                $("#editProj").hide();
+                $("#projTask").hide();
+                $("#addProject").show();
+                $(".breadcrumb").empty();
+                $("#breadTitle").text("My Projects");
+                $(".breadcrumb").append('<li><strong>My Projects</strong></li><li id="second" class="active"></li>');
+            })
     }
     else if (localStorage.Prev == "Details" && localStorage.Current == "Task") {
 

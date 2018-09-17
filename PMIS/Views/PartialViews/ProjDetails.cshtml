@@ -92,7 +92,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li style="cursor:pointer;" ng-click="click('tab1')" class="active"><a data-toggle="tab">Users messages</a></li>
-                                            <li style="cursor:pointer;" ng-click="click('tab2')"><a data-toggle="tab">Last activity</a></li>
+                                            <li style="cursor:pointer;" ng-click="click('tab2')"><a id="lastactivity" data-toggle="tab">Last activity</a></li>
                                             <li style="cursor:pointer;" ng-click="click('tab3')"><a data-toggle="tab">Participant</a></li>
                                             <li style="cursor:pointer;" ng-click="click('tab4')"><a data-toggle="tab">Task</a></li>
                                         </ul>
@@ -115,7 +115,7 @@
                                     </div><!-- /.direct-chat-text -->
                                 </div>
                             </div>
-                            <div class="input-group" style="margin-top:30px;">
+                            <div id="messageBtns" class="input-group" style="margin-top:30px;">
                                 <input type="text" class="form-control" id="message" ng-keydown="saveMessages($event, '')">
                                 <span class="input-group-btn">
                                     <button ng-click="saveMessages($event, 'send')" class="btn btn-info btn-flat" type="button">Send</button>

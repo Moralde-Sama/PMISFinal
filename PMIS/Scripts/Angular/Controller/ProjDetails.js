@@ -9,6 +9,11 @@
     }
     localStorage.projId = rp.projId;
 
+    if (userInfo[0].role == "Super Admin") {
+        $("#messageBtns").hide();
+    }
+
+    s.role = userInfo[0].role;
     var spamCount = 0;
     var spamLimit = 3;
     var mute = 0;

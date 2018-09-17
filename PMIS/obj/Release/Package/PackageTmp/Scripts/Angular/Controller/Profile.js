@@ -15,6 +15,11 @@
     userInfo = JSON.parse(localStorage.userInfo);
     $("#ProfilePictureModal").css("display", "none");
 
+    $("#breadcrumbsM").hide();
+    document.getElementById("dashboard").className = "treeview";
+    document.getElementById("sadmin").className = "treeview";
+    document.getElementById("user").className = "treeview";
+
 
     r.post("../User/getParticipants").then(function (r) {
         s.participants = r.data;
@@ -169,7 +174,10 @@
         });
     }
     s.updateprofile = function (d) {
-        if (d.username != s.USERNAME) {
+        if (d.firstname == "" || d.username == "" || d.middlename == "" || d.lastname == "") {
+            alert("Invalid Empty Field");
+        }
+        else if (d.username != s.USERNAME) {
             r.post("../Account/check_username_duplicate", d).then(function (response) {
 
                 if (response.data == "username already exist") {
@@ -219,6 +227,15 @@
         }
     }
     s.checkpassword = function (oldpassword, password, retype) {
+        console.log(oldpassword + " " + password + " " + retype);
+
+        if(oldpassword== null||password==null|| retype==null)
+        {
+            alert("Invalid Empty Field");
+        }
+        else{
+
+    
         r.post("../Account/checkpassword?oldpassword=" + oldpassword + "&userid=" + userInfo[0].userId).then(function (d) {
             if (d.data == "exist") {
                 if (password != retype) {
@@ -240,6 +257,7 @@
                 $('#password').val("");
             }
         })
+}
     }
     s.SaveFile = function () {
         if ((document.getElementById("modal-title").innerText) == "Edit Profile Picture") {

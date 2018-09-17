@@ -9,6 +9,11 @@
     }
     localStorage.projId = rp.projId;
 
+    if (userInfo[0].role == "Super Admin") {
+        $("#messageBtns").hide();
+    }
+
+    s.role = userInfo[0].role;
     var spamCount = 0;
     var spamLimit = 3;
     var mute = 0;
@@ -29,6 +34,7 @@
     var chat = $.connection.chatHub;
     var message = [];
     var messageCount = 0;
+    s.creatorPass = "";
 
     //else {
     //    getProjDetails(rp.projId);
@@ -191,79 +197,167 @@
 
                 console.log(userarray);
 
-                var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
-                h.post("../Project/updateProject", updateProjParam).then(function (r) {
-                    if (r.data == "Success") {
+                if (s.creatorPass == "") {
+                    var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
+                    h.post("../Project/updateProject", updateProjParam).then(function (r) {
+                        if (r.data == "Success") {
 
-                        console.log("arraycount " + userarray.length);
-                        if(userarray.length > 0){
-                            for (o = 0; o < userarray.length; o++) {
+                            console.log("arraycount " + userarray.length);
+                            if (userarray.length > 0) {
+                                for (o = 0; o < userarray.length; o++) {
 
-                                console.log("count " + o);
-                                s.nf = {};
+                                    console.log("count " + o);
+                                    s.nf = {};
 
-                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
-                                s.nf.projTitle = data.title;
-                                s.nf.type = "Project";
-                                s.nf.projId = rp.projId;
-                                s.nf.assignTo = userarray[o];
+                                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                    s.nf.projTitle = data.title;
+                                    s.nf.type = "Project";
+                                    s.nf.projId = rp.projId;
+                                    s.nf.assignTo = userarray[o];
 
-                                h.post("../Account/notification", s.nf).then(function (r) {
-                                    chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
-                                })
+                                    h.post("../Account/notification", s.nf).then(function (r) {
+                                        chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                    })
 
-                                if (userarray.length - 1 == o) {
-                                    Snarl.addNotification({
-                                        title: 'Updated Successfully!',
-                                        icon: '<i class="fa fa-check"></i>',
-                                        timeout: 3000
-                                    });
-                                    getProjDetails(rp.projId);
-                                    s.Modal("hide");
+                                    if (userarray.length - 1 == o) {
+                                        Snarl.addNotification({
+                                            title: 'Updated Successfully!',
+                                            icon: '<i class="fa fa-check"></i>',
+                                            timeout: 3000
+                                        });
+                                        getProjDetails(rp.projId);
+                                        s.Modal("hide");
+                                    }
                                 }
                             }
-                        }
-                        else if (removeuser.length > 0) {
-                            for (o = 0; o < removeuser.length; o++) {
+                            else if (removeuser.length > 0) {
+                                for (o = 0; o < removeuser.length; o++) {
 
-                                console.log("count " + o);
-                                s.nf = {};
+                                    console.log("count " + o);
+                                    s.nf = {};
 
-                                s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
-                                s.nf.projTitle = data.title;
-                                s.nf.type = "Project Remove";
-                                s.nf.projId = rp.projId;
-                                s.nf.assignTo = removeuser[o];
+                                    s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                    s.nf.projTitle = data.title;
+                                    s.nf.type = "Project Remove";
+                                    s.nf.projId = rp.projId;
+                                    s.nf.assignTo = removeuser[o];
 
-                                h.post("../Account/notification", s.nf).then(function (r) {
-                                    chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
-                                })
+                                    h.post("../Account/notification", s.nf).then(function (r) {
+                                        chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                    })
 
-                                if (removeuser.length - 1 == o) {
-                                    Snarl.addNotification({
-                                        title: 'Updated Successfully!',
-                                        icon: '<i class="fa fa-check"></i>',
-                                        timeout: 3000
-                                    });
-                                    getProjDetails(rp.projId);
-                                    s.Modal("hide");
+                                    if (removeuser.length - 1 == o) {
+                                        Snarl.addNotification({
+                                            title: 'Updated Successfully!',
+                                            icon: '<i class="fa fa-check"></i>',
+                                            timeout: 3000
+                                        });
+                                        getProjDetails(rp.projId);
+                                        s.Modal("hide");
+                                    }
                                 }
+                            }
+                            else {
+                                Snarl.addNotification({
+                                    title: 'Updated Successfully!',
+                                    icon: '<i class="fa fa-check"></i>',
+                                    timeout: 3000
+                                });
+                                getProjDetails(rp.projId);
+                                s.Modal("hide");
                             }
                         }
                         else {
-                            Snarl.addNotification({
-                                title: 'Updated Successfully!',
-                                icon: '<i class="fa fa-check"></i>',
-                                timeout: 3000
-                            });
-                            getProjDetails(rp.projId);
-                            s.Modal("hide");
+                            alert(r.data);
                         }
-                    }
-                    else {
-                        alert(r.data);
-                    }
-                })
+                    })
+                }
+                else{
+                    h.post("../Project/cancelProject", { cId: s.projDetails.userId, password: s.creatorPass }).then(function (r) {
+                        if (r.data) {
+                            data.status = "Cancelled";
+
+                            var updateProjParam = { "project": data, "users": userarray, "Rusers": removeuser };
+                            h.post("../Project/updateProject", updateProjParam).then(function (r) {
+                                if (r.data == "Success") {
+
+                                    console.log("arraycount " + userarray.length);
+                                    if (userarray.length > 0) {
+                                        for (o = 0; o < userarray.length; o++) {
+
+                                            console.log("count " + o);
+                                            s.nf = {};
+
+                                            s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                            s.nf.projTitle = data.title;
+                                            s.nf.type = "Project";
+                                            s.nf.projId = rp.projId;
+                                            s.nf.assignTo = userarray[o];
+
+                                            h.post("../Account/notification", s.nf).then(function (r) {
+                                                chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                            })
+
+                                            if (userarray.length - 1 == o) {
+                                                Snarl.addNotification({
+                                                    title: 'Updated Successfully!',
+                                                    icon: '<i class="fa fa-check"></i>',
+                                                    timeout: 3000
+                                                });
+                                                getProjDetails(rp.projId);
+                                                s.Modal("hide");
+                                            }
+                                        }
+                                    }
+                                    else if (removeuser.length > 0) {
+                                        for (o = 0; o < removeuser.length; o++) {
+
+                                            console.log("count " + o);
+                                            s.nf = {};
+
+                                            s.nf.createdby = userInfo[0].firstname + " " + userInfo[0].lastname;
+                                            s.nf.projTitle = data.title;
+                                            s.nf.type = "Project Remove";
+                                            s.nf.projId = rp.projId;
+                                            s.nf.assignTo = removeuser[o];
+
+                                            h.post("../Account/notification", s.nf).then(function (r) {
+                                                chat.server.notification(r.data.connId, r.data.content, r.data.type, r.data.id);
+                                            })
+
+                                            if (removeuser.length - 1 == o) {
+                                                Snarl.addNotification({
+                                                    title: 'Updated Successfully!',
+                                                    icon: '<i class="fa fa-check"></i>',
+                                                    timeout: 3000
+                                                });
+                                                getProjDetails(rp.projId);
+                                                s.Modal("hide");
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        Snarl.addNotification({
+                                            title: 'Updated Successfully!',
+                                            icon: '<i class="fa fa-check"></i>',
+                                            timeout: 3000
+                                        });
+                                        getProjDetails(rp.projId);
+                                        s.Modal("hide");
+                                    }
+                                }
+                                else {
+                                    alert(r.data);
+                                }
+                            })
+
+                        }
+                        else {
+                            alert("Invalid Password");
+                            s.creatorPass = "";
+                        }
+                    })
+                }
             }
         }
     }
@@ -502,7 +596,11 @@
 
     function showBtns() {
         $("#addProject").hide();
-        if (userInfo[0].userId == creatorId) {
+        if (s.projDetails.status == "Cancelled") {
+            $("#editProj").hide();
+            $("#projTask").hide();
+        }
+        else if (userInfo[0].userId == creatorId) {
             $("#editProj").show();
             $("#projTask").show();
             $("#projTask").attr("href", "/Project/Tasks/projectId=" + s.projDetails.projId);
